@@ -46,6 +46,14 @@ from utils.ConvNotif import ConveryNotification
 from utils.ConvUtility import ConveryUtility
 from utils.ConvMail import ConveryMailUtility
 
+from config import STYLES_PATH
+
+
+#import modal screens
+from modal import ModalConveryScreenUser
+from modal import ModalConveryScreenContact
+from modal import ModalConveryScreenLinkedin
+
 
 
 class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
@@ -591,8 +599,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 		if event.button.id == "button_get_contact_from_studios":
-			self.push_screen(POST_GetContact())
-
+			#self.push_screen(POST_GetContact())
+			self.push_screen(ModalConveryScreenLinkedin())
 
 		if event.button.id == "button_highlight_tag":
 			self.highlight_tag_list.clear()
@@ -699,11 +707,13 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		if event.button.id == "button_addcontact":
 			
 			#self.display_message_function(value)
-			self.push_screen(POST_AddContact("create"))
+			#self.push_screen(POST_AddContact("create"))
+			self.push_screen(ModalConveryScreenContact("create"))
 
 
 		if event.button.id == "button_userinfos":
-			self.push_screen(POST_UserInfos())
+			#self.display_message_function("pushing screen")
+			self.push_screen(ModalConveryScreenUser())
 
 		if event.button.id == "button_deletecontact":
 			
@@ -738,7 +748,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				#studio = list(self.company_dictionnary.keys())[self.listview_studiolist.index]
 				studio = self.list_studiolist_display[self.listview_studiolist.index]
 
-				self.push_screen(POST_AddContact("edit", studio))
+				self.push_screen(ModalConveryScreenContact("edit", studio))
 			except TypeError:
 				self.display_error_function("No studio selected")
 				
