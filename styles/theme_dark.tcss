@@ -1,0 +1,24 @@
+/* DARK THEME TCSS */ 
+
+$primary: #74e79e;
+$secondary: #97cbaa;
+
+$primary-background: #74e79e;
+$secondary-background: #97cbaa;
+
+
+$accent: #9ef5bd;
+$error: #d81b57;
+$success: #b3d81b;
+$warning: #edbd77;
+
+
+/*
+$panel: ;
+
+$warning: ;
+$error: ;
+$success: ;
+
+$accent: ;
+*/

@@ -1,0 +1,209 @@
+
+
+
+
+
+
+
+
+
+
+/* TCSS FOR THE GLOBAL WIDGETS */
+ListView {
+	border:round $primary;
+	color: white;
+}
+Label {
+	color: white;
+}
+TextArea {
+	border:round $primary;
+}
+ListView, TextArea, OptionList, SelectionList {
+	border-title-align:left;
+	border-title-style:bold;
+}
+Collapsible {
+	background: $surface;
+	border: round $secondary;
+}
+Button {
+	/*background: $background;*/
+	background: $surface;
+	color: white;
+	border: heavy white;
+}
+
+
+
+
+
+
+
+/* TCSS FOR THE MAIN PAGE */
+#left_horizontal_option_bar {
+	layout: grid;
+	grid-size: 4 1;
+	height: 5;
+}
+
+#input_tag_lobby {
+	margin-top: 5;
+	margin-right: 2;
+	margin-left: 2;
+}
+#right_mailpreset_container {
+	margin-right: 2;
+}
+#right_mailtext_container {
+	width: 80%;
+}
+
+#right_mailprompt_collapsible {
+	max-height: 40%;
+}
+
+.button_preset {
+	width: 100%;
+}
+
+#button_remove_tag, #button_highlight_tag, #button_erase_tag {
+	width: 33%;
+}
+
+
+
+#collapsible_studiolist_settings {
+	max-height: 50%;
+}
+#collapsible_mail_contact_list {
+	max-height: 70%;
+}
+
+#verticalscroll_main_contact_list {
+	height: 1fr;
+}
+#contact_button_container {
+	layout: grid;
+}
+
+
+#button_filter_add_contact, #button_clear_contact {
+	width: 50%;
+}
+
+#mail_contact_right_column {
+	width: 70%;
+}
+
+#optionlist_contact {
+	height: 90%;
+}
+
+#log_mainpage {
+	height: 1fr;
+	/*background: black;*/
+}
+
+
+
+
+
+
+
+
+/* TCSS DEPENDING OF THE CLASS / STATUS OF THE WIDGET */
+.darken_button {
+	background: $background;
+}
+.error_button {
+	border: heavy $error;
+
+
+	background: $error;
+}
+.primary_button {
+	border: heavy $primary;
+	background: $primary;
+}
+
+.label_warning {
+	color: $warning;
+}
+.label_error {
+	color: $error;
+}
+.label_standard {
+	color: white;
+}
+.label_accent {
+	color: $accent;
+}
+.label_primary {
+	color: $primary;
+}
+
+#label_title {
+	color: $accent;
+}
+
+
+
+
+
+
+
+
+/* TCSS CODE FOR THE MODAL SCREEN TO CREATE CONTACT */
+POST_AddContact, POST_UserInfos, POST_GetContact	 {
+	align: center middle;
+}
+
+#modal_createcontact_container, #modal_getcontact_container, #modal_usersettings_vertical_container {
+	padding: 0 1;
+	width: 50%;
+
+	align: center middle;
+
+}
+
+#modal_newcompany_otheranswer {
+	height:8;
+
+	border-title-align:left;
+	border-title-style:bold;
+
+}
+
+#modal_addcontact_container {
+	height:5;
+	/*background: blue;*/
+}
+#modal_newcontact_container {
+	align: center middle;
+	height:5;
+}
+
+#modal_newcontacttype, #modal_newcontactname, #modal_newcontactmail, #modal_newcontactwebsite {
+	width:25%;
+}
+
+#modal_horizontal_container {
+	align: center middle;
+	height:7;
+}
+
+#modal_create_contact_button, #modal_cancel_contact_button {
+	margin-right:15;
+	margin-left:15;
+}
+
+#modal_date {
+	height: 20;
+}
+
+
+
+
+
+
