@@ -272,16 +272,21 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 			#get tag list in company dictionnary
 			studio_tags = self.company_dictionnary[studio]["CompanyTags"]
+
 			self.selectionlist_tags.clear_options()
 			self.selectionlist_tags_settings.clear_options()
 
 			for tag in studio_tags:
 				if tag not in self.tag_list:
-					self.tag_list.append(tag)
+					if self.letter_verification_function(tag)==True:
+						self.tag_list.append(tag)
+
+
 
 			for i in range(len(self.tag_list)):
 				self.selectionlist_tags.add_option((self.tag_list[i], i))
 				self.selectionlist_tags_settings.add_option((self.tag_list[i], i))
+
 
 
 

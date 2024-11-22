@@ -74,17 +74,33 @@ Button {
 
 
 #collapsible_studiolist_settings {
-	max-height: 50%;
+	max-height: 60%;
 }
-#collapsible_mail_contact_list {
-	max-height: 70%;
+#scrollable_studiolist_settings {
+	border: solid red;
+	margin-bottom: 1;
+}
+#horizontal_tag_container {
+	height: 4;
 }
 
-#verticalscroll_main_contact_list {
-	height: 1fr;
-}
+
 #contact_button_container {
 	layout: grid;
+}
+
+
+#collapsible_mail_contact_list {
+	max-height: 80%;
+}
+#scrollable_mail_contact_list {
+	margin-bottom: 2;
+}
+#mail_contact_left_column {
+	max-height: 100%;
+}
+#selectionlist_tags {
+	height: 1fr;
 }
 
 
@@ -92,9 +108,7 @@ Button {
 	width: 50%;
 }
 
-#mail_contact_right_column {
-	width: 70%;
-}
+
 
 #optionlist_contact {
 	height: 90%;
@@ -155,17 +169,19 @@ Button {
 
 
 /* TCSS CODE FOR THE MODAL SCREEN TO CREATE CONTACT */
-POST_AddContact, POST_UserInfos, POST_GetContact	 {
+ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalScreenLinkedin {
 	align: center middle;
 }
 
-#modal_createcontact_container, #modal_getcontact_container, #modal_usersettings_vertical_container {
+
+#modal_createcontact_container, #modal_linkedin_container, #modal_usersettings_vertical_container {
 	padding: 0 1;
 	width: 50%;
 
 	align: center middle;
 
 }
+
 
 #modal_newcompany_otheranswer {
 	height:8;

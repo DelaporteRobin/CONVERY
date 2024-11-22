@@ -46,7 +46,12 @@ from utils.ConvNotif import ConveryNotification
 from utils.ConvUtility import ConveryUtility
 from utils.ConvMail import ConveryMailUtility
 
-from config import STYLES_PATH
+
+#import theme file
+from styles.theme_file import *
+
+
+from config import STYLES_PATH, ASCII_FONT, THEME
 
 
 #import modal screens
@@ -56,8 +61,10 @@ from modal import ModalConveryScreenLinkedin
 
 
 
+
+
 class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
-	CSS_PATH = ["styles/theme_dark.tcss", "styles/layout.tcss"]
+	CSS_PATH = ["styles/layout.tcss"]
 
 
 	def __init__(self):
@@ -94,9 +101,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		self.list_studiolist_display = []
 
-		self.font_title = "ansi_shadow"
+		self.font_title = ASCII_FONT
 
-		self.color_theme = "Dark_Theme"
+		self.color_theme = THEME
 
 
 
@@ -199,6 +206,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 							with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
 								with ScrollableContainer(id = "scrollable_studiolist_settings"):
+									
 									with RadioSet(id = "radioset_studiolist_settings"):
 										yield RadioButton("By alphabetic order")
 										yield RadioButton("By chronologic order")
@@ -209,10 +217,12 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 									self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")
 									yield self.selectionlist_tags_settings
 
-									with Horizontal(id="horizontal_tag_container"):
-										yield Button("Remove Tags", id = "button_remove_tag")
+									with Horizontal(id = "horizontal_tag_container"):
+										yield Button("Remove tags", id="button_remove_tag")
 										yield Button("Highlight", id="button_highlight_tag")
 										yield Button("Erase", id="button_erase_tag", classes="error_button")
+
+						
 
 
 
@@ -272,20 +282,21 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 								with Collapsible(title="Contact list", id="collapsible_mail_contact_list"):
-									with VerticalScroll(id = "verticalscroll_mail_contact_list"):
+							
+
+
+									with ScrollableContainer(id = "scrollable_mail_contact_list"):
+
 										self.input_mailcontact = Input(placeholder="Mail contact list", id="input_mailcontact", suggester=SuggestFromList(self.studio_suggest_list, case_sensitive=False))
 										yield self.input_mailcontact
-										
+
 										with Horizontal(id = "mail_contact_horizontal_container"):
 											with Vertical(id = "mail_contact_left_column"):
 												self.selectionlist_contacttype = SelectionList(id = "selectionlist_contacttype")
 												self.selectionlist_tags = SelectionList(id = "selectionlist_tags")
 												self.selectionlist_delta = SelectionList(id = "selectionlist_delta")
 
-												"""
-												
-												"""
-
+										
 												yield self.selectionlist_contacttype
 												yield self.selectionlist_delta
 												yield self.selectionlist_tags
@@ -300,6 +311,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 												self.optionlist_contact = OptionList(id = "optionlist_contact")
 												self.optionlist_contact.border_title = "Mail contact list"
 												yield self.optionlist_contact
+				
 
 
 								yield Rule()
@@ -378,8 +390,16 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def on_mount(self) -> None:
+		#register and apply all theme in theme python file
+		for theme in theme_registry:
+			self.register_theme(theme)
+		#apply the theme specified in config file
+		self.theme = THEME
 
 
+
+		self.display_message_function("update")
+		
 		for i in range(len(self.user_settings["alertDictionnary"])):
 			self.selectionlist_delta.add_option(( list(self.user_settings["alertDictionnary"].keys())[i], i))
 
@@ -396,6 +416,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		
 		self.update_informations_function()
+		
 
 
 

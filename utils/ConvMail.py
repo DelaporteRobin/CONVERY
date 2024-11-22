@@ -22,6 +22,16 @@ from functools import partial
 from typing import  Iterable
 from datetime import datetime 
 from pyfiglet import Figlet 
+from termcolor import *
+
+import smtplib
+import requests
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+
 
 
 
@@ -36,6 +46,11 @@ from textual import events
 from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, Container, VerticalScroll
 from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
+
+
+
+#init colorama
+colorama.init()
 
 
 

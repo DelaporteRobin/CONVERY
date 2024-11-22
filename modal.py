@@ -68,7 +68,7 @@ class ExtendedTextArea(TextArea):
 class ModalConveryScreenUser(ModalScreen, ConveryNotification, ConveryUtility, ConveryUserUtility):
 
 
-	CSS_PATH = ["Styles/theme_dark.tcss", "Styles/layout.tcss"]
+	CSS_PATH = ["styles/layout.tcss"]
 
 
 	def __init__(self):
@@ -213,7 +213,7 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 
 
 
-	CSS_PATH = ["Styles/theme_dark.tcss", "Styles/layout.tcss"]
+	CSS_PATH = ["Styles/layout.tcss"]
 
 	def __init__(self, mode, studio=None):
 		super().__init__()
@@ -455,7 +455,7 @@ class SuggestFromList(Suggester):
 
 
 class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNotification):
-	CSS_PATH = ["Styles/theme_dark.tcss", "Styles/layout.tcss"]
+	CSS_PATH = ["Styles/layout.tcss"]
 
 	def __init__(self):
 
@@ -466,7 +466,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 	def compose(self) -> ComposeResult:
 
-		with Vertical(id = "modal_getcontact_container"):
+		with Vertical(id = "modal_linkedin_container"):
 			
 			#if (studio_data["CompanyLinkedin"] != None) and (self.letter_verification_function(studio_data["CompanyLinkedin"] == True)):
 			yield Label("LINKEDIN FOUND")
