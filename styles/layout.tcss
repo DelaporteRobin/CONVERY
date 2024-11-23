@@ -180,6 +180,8 @@ ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalScreenLink
 
 	align: center middle;
 
+	background: $surface;
+
 }
 
 

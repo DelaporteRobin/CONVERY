@@ -114,6 +114,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			"companyDisplayMode":1,
 			"colorDictionnary": {
 				"HighlightColor": "#6d76ba",
+				"ErrorColor": "#ff3a3a",
+				"SuccessColor": "#6fcc5c",
 			},
 			"alertDictionnary": {
 				"RecentContact": {
@@ -254,8 +256,10 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				with TabbedContent(id="main_righttab_container"):
 
 					with TabPane("Log"):
-						self.log_mainpage = Log(id="log_mainpage")
-						yield self.log_mainpage
+						self.listview_log = ListView(id="listview_log")
+						yield self.listview_log
+						#self.log_mainpage = Log(id="log_mainpage")
+						#yield self.log_mainpage
 
 
 					with TabPane("Mail editor"):
@@ -410,7 +414,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		#launch log reading thread
 		self.listen_thread = threading.Thread(target=self.read_log_function, args=(), daemon=True)
 		self.listen_thread.start()
-
+		#self.read_log_function()
 
 		self.program_log.append("hello world")
 
@@ -424,17 +428,42 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def read_log_function(self):
-		self.notify("Observer launched",timeout=3)
 		while True:
 			#self.program_log.append("hello world")
 			if self.program_log != self.old_log:
-				self.log_mainpage.clear()
-				self.log_mainpage.write_lines(self.program_log)
+				try:
+					self.call_from_thread(self.add_logline_function)
+				except Exception as e:
+					pass
+				else:
 
-				#update the old log
-				self.old_log = copy.copy(self.program_log)
-
+					#update the old log dictionnary
+					self.old_log = copy.copy(self.program_log)
 			sleep(2)
+
+
+
+	def add_logline_function(self):
+		#get the last item of the log and get the seveity of it
+		#format the message
+		#depending of the severity of the log item change the color
+		try:
+			log_item = self.program_log[-1]
+
+			log_format = "[ %s ] - %s - %s"%(log_item["severity"], log_item["date"], log_item["content"])
+			label = Label(log_format)
+			self.listview_log.append(ListItem(label))
+			self.notify(log_item["severity"], timeout=2)
+			if log_item["severity"] == "SUCCESS":
+				label.styles.color = self.user_settings["colorDictionnary"]["SuccessColor"]
+			elif log_item["severity"] == "ERROR":
+				label.styles.color = self.user_settings["colorDictionnary"]["ErrorColor"]
+			else:
+				label.styles.color = "white"
+
+
+		except Exception as e:
+			self.notify(str(e), timeout=3)
 
 
 
@@ -464,7 +493,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.check_user_informations_function()
 			self.save_user_settings_function()
 
-			self.display_message_function("Informations saved!")
+			self.display_success_function("Informations saved!")
 
 
 		if event.input.id == "input_tag_lobby":
@@ -685,7 +714,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		if event.button.id == "button_saveprompt":
 			content = self.textarea_prompt.text 
-			self.display_message_function(content)
+			#self.display_message_function(content)
 
 			
 			self.user_preset["CopilotPrompt"] = content
@@ -721,7 +750,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				pyperclip.copy(self.textarea_mail.selected_text)
 			else:
 				pyperclip.copy(self.textarea_mail.text)
-			self.display_message_function("copied")
+			self.display_success_function("Content copied")
 			
 
 
@@ -811,7 +840,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			link = link.replace("mailto:", "")
 
 		pyperclip.copy(link)
-		self.display_message_function("Link copied in clipboard\n%s"%link)
+		self.display_success_function("Link copied in clipboard\n%s"%link)
 
 
 		

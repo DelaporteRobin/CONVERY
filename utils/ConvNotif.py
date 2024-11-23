@@ -45,16 +45,41 @@ from textual_datepicker import DateSelect, DatePicker
 class ConveryNotification:
 	def display_message_function(self, message):
 		self.notify(str(message), timeout=4)
+
+		log_format = self.create_log_format_function(str(message))
+		
 		
 		try:
-			self.program_log.append(str(message))
+			self.program_log.append(log_format)
 		except AttributeError:
-			self.app.program_log.append(str(message))
+			self.app.program_log.append(log_format)
+
+	def display_success_function(self, message):
+		self.notify(str(message), timeout=4)
+
+		log_format = self.create_log_format_function(str(message), "SUCCESS")
+		
+		
+		try:
+			self.program_log.append(log_format)
+		except AttributeError:
+			self.app.program_log.append(log_format)
 
 	def display_error_function(self, message):
 		self.notify(str(message), severity="error", timeout=4)
 		
+		log_format = self.create_log_format_function(str(message), "ERROR")
+
 		try:
-			self.program_log.append("ERROR : %s"%str(message))
+			self.program_log.append(log_format)
 		except AttributeError:
-			self.app.program_log.append("ERROR : %s"%str(message))
+			self.app.program_log.append(log_format)
+
+
+	def create_log_format_function(self, message, severity="MESSAGE"):
+		log_format = {
+			"date":str(datetime.now()),
+			"severity":severity,
+			"content":str(message)
+		}
+		return log_format

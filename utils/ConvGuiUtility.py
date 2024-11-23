@@ -141,7 +141,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 		#NOT BY PRIORITY ORDER
 		if self.user_settings["companyDisplayMode"] != 2:
 			try:
-				self.display_message_function("NOT PRIORITY ORDER")
+				self.display_message_function("Display mode selected : NOT PRIORITY ORDER")
 				if self.user_settings["companyDisplayMode"] != 2:
 
 
@@ -159,7 +159,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 		#BY PRIORITY ORDER
 		else:	
-			self.display_message_function("PRIORITY ORDER")
+			self.display_message_function("Display mode selected : PRIORITY ORDER")
 
 			self.not_contacted_list.clear()
 			self.no_alert_list.clear()

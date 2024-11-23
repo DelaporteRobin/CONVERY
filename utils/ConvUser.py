@@ -56,7 +56,7 @@ class ConveryUserUtility():
 			self.app.display_error_function("Impossible to save user settings\n%s"%e)
 			return
 		else:
-			self.app.display_message_function("User settings saved")
+			self.app.display_success_function("User settings saved")
 
 
 
@@ -68,7 +68,7 @@ class ConveryUserUtility():
 		except Exception as e:
 			self.display_error_function("Impossible to load user settings\n%s"%e)
 		else:
-			#self.display_message_function("User settings loaded")
+			self.display_success_function("User settings loaded")
 			pass
 
 
@@ -100,7 +100,7 @@ class ConveryUserUtility():
 			self.display_error_function("Impossible to save dictionnary\n%s"%e)
 			return False
 		else:
-			self.display_message_function("Dictionnary saved")
+			self.display_success_function("Dictionnary saved")
 			return True
 
 
@@ -115,7 +115,7 @@ class ConveryUserUtility():
 		except Exception as e:
 			self.display_error_function("Impossible to load company dictionnary\n%s"%e)
 		else:
-			self.display_message_function("Company dictionnary loaded")
+			self.display_success_function("Company dictionnary loaded")
 			#self.display_message_function(self.app.company_dictionnary)
 			pass
 		"""
@@ -135,7 +135,7 @@ class ConveryUserUtility():
 
 
 	def add_company_function(self):
-		self.display_message_function(self.date)
+		#self.display_message_function(self.date)
 		#get informations
 		company_informations = {
 			#"CompanyName":self.query_one("#modal_newcompanyname").value,
@@ -157,7 +157,7 @@ class ConveryUserUtility():
 
 		#DATE MODICATION
 		date_value = self.modal_dateselect.date
-		self.display_message_function(date_value)
+		#self.display_message_function(date_value)
 
 		if self.newcompany_contacted_checkbox.value == True:
 			company_informations["CompanyDate"] = str(date_value)
@@ -199,7 +199,7 @@ class ConveryUserUtility():
 			
 
 			for i in range(len(contact_type_list)):
-				self.display_message_function(contact_type_list[i].value)
+				#self.display_message_function(contact_type_list[i].value)
 
 				dictionnary = {
 					"mail": contact_mail_list[i].value,
@@ -249,7 +249,7 @@ class ConveryUserUtility():
 			self.display_error_function("Impossible to remove studio")
 			return
 		else:
-			self.display_message_function("Studio removed")
+			self.display_success_function("Studio removed")
 			self.save_company_dictionnary_function()
 			self.update_informations_function()
 

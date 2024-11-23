@@ -335,7 +335,7 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 			self.display_error_function("This date is in the futur!")
 			return
 		widget = self.query_one("#modal_collapsible_dateselector").title = "Last time company was reached : %s"%pendulum.parse(str(self.date))
-		self.display_message_function("UPDATED")
+		#self.display_message_function("UPDATED")
 
 
 		
@@ -355,7 +355,7 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 
 		elif event.button.id == "modal_newcompany_datebutton":
 			date = self.app.push_screen(POST_DateSelector())
-			self.display_message_function(date)
+			#self.display_message_function(date)
 
 		elif event.button.id == "modal_addcontacttolist_button":
 			new_contact = Modal_Contact()
@@ -490,7 +490,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 		#GET THE LINKEDIN CONTACT
 		if (type(studio_data["CompanyLinkedin"]) == str) and (self.letter_verification_function(studio_data["CompanyLinkedin"]) == True):
-			self.display_message_function("LINKEDIN FOUND!")
+			self.display_success_function("LINKEDIN FOUND!")
 
 		#GET A LIST OF LINKEDIN ACCOUNT MATCHING WITH THE STUDIO NAME?
 		else:
