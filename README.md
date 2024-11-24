@@ -3,7 +3,7 @@
 A Python application to list companies or studios you've applied to, 
 and simplify the process of sending hundreds of emails.
 
-![Convery TUI]("https://github.com/DelaporteRobin/CONVERY/blob/master/images/img_ConveryApp.svg?raw=true")
+![Convery TUI]("/images/img_ConveryApp.svg")
 
 
 ## Features
