@@ -12,8 +12,8 @@ and simplify the process of sending hundreds of emails.
 - [x] reminder function, to assess how long you have not contacted a studio
 - [x] Email sending system (targeted via tags, or sending times) 
 - [x] email generation system (to make a template specific to each studio you contact or improve the formulation of your emails), or just adapt an email to your new personal information
-	> [!NOTE]
-	> Rework soon
+> [!NOTE]
+> Rework soon
 - [ ] Contact search system via linkedin (WIP)
 
 ## Documentation
