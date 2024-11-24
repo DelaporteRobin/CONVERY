@@ -114,8 +114,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			"companyDisplayMode":1,
 			"colorDictionnary": {
 				"HighlightColor": "#6d76ba",
-				"ErrorColor": "#ff3a3a",
-				"SuccessColor": "#6fcc5c",
+				"ERROR": "#ff3a3a",
+				"SUCCESS": "#6fcc5c",
 			},
 			"alertDictionnary": {
 				"RecentContact": {
@@ -412,11 +412,11 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 		#launch log reading thread
-		self.listen_thread = threading.Thread(target=self.read_log_function, args=(), daemon=True)
-		self.listen_thread.start()
+		#self.listen_thread = threading.Thread(target=self.read_log_function, args=(), daemon=True)
+		#self.listen_thread.start()
 		#self.read_log_function()
 
-		self.program_log.append("hello world")
+		#self.program_log.append("hello world")
 
 		
 		self.update_informations_function()
@@ -426,11 +426,12 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 
-
+	"""
 	def read_log_function(self):
 		while True:
 			#self.program_log.append("hello world")
 			if self.program_log != self.old_log:
+				self.notify("detected changes", timeout=2)
 				try:
 					self.call_from_thread(self.add_logline_function)
 				except Exception as e:
@@ -464,6 +465,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		except Exception as e:
 			self.notify(str(e), timeout=3)
+	"""
 
 
 

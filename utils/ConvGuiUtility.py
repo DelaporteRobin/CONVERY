@@ -359,6 +359,28 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 
+	def add_log_line_function(self, log):
+		#self.listview_log.append(ListItem(Label(str(log["content"]))))
+
+		label_format = Label("|%s| %s : %s"%(log["severity"].upper(), log["date"], log["content"]))
+		self.listview_log.append(ListItem(label_format))
+		
+		#adapt the color of the label using the severity
+		if log["severity"] != "MESSAGE":
+			label_format.styles.color = self.user_settings["colorDictionnary"][log["severity"]]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

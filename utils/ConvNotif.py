@@ -82,4 +82,5 @@ class ConveryNotification:
 			"severity":severity,
 			"content":str(message)
 		}
+		self.add_log_line_function(log_format)
 		return log_format
