@@ -23,6 +23,7 @@ from typing import  Iterable
 from datetime import datetime 
 from pyfiglet import Figlet 
 from time import sleep
+from termcolor import *
 
 
 from selenium import webdriver
@@ -57,18 +58,11 @@ from utils.ConvNotif import ConveryNotification
 
 
 
-class ConveryLinkedinUtility(ConveryNotification):
+class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 
 
-	def linkedin_login_function(self):
-
-
-
-		#create linkedin driver (headless)
-		#login with user identifiers
-		
-		
+	def linkedin_login_function(self, link = None):
 
 		driver = webdriver.Chrome()
 
@@ -80,7 +74,7 @@ class ConveryLinkedinUtility(ConveryNotification):
 
 		
 		try:
-			driver.get("https://linkedin.com/login")
+			driver.get(link)
 
 
 
@@ -110,40 +104,44 @@ class ConveryLinkedinUtility(ConveryNotification):
 				#self.display_message_function("Session refreshed ...")
 
 
-			#driver.fullscreen_window()
-
-			
-			
-
-
-
 		except Exception as e:
 			self.display_error_function("Impossible to login to linkedin page\n%s"%e)
 			return False
 		else:
-			self.display_message_function("Logged in!")
+			self.display_success_function("Logged in!")
 			return driver
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	def linkedin_get_studiolist_function(self, studio_name):
-
-
-		
-		#self.selectionlist_linkedin_contact.clear_options()
-
-
-		driver = self.linkedin_login_function()
+		driver = self.linkedin_login_function("https://linkedin.com/login")
 
 		if driver == False:
-			print("Impossible to make connection")
+			self.display_error_function("Impossible to make connection")
 			return 
 
 		else:
 			#self.display_message_function("Connected...")
-			print("connected")
+			self.display_success_function("Driver created")
 			#driver.fullscreen_window()
 
 		
@@ -152,10 +150,16 @@ class ConveryLinkedinUtility(ConveryNotification):
 
 
 			#search
-			input_container.click()
-			input_field.send_keys(str(studio_name))
-			input_field.send_keys(Keys.ENTER)
-			
+			try:
+				input_container.click()
+				input_field.send_keys(str(studio_name))
+				input_field.send_keys(Keys.ENTER)
+			except Exception as e:
+				self.display_error_function("Impossible to search studio")
+				#print(colored("Impossible to search\n%s"%e, "red"))
+			else:
+				self.display_success_function("Studio typed in searchbar")
+				#print(colored("Studio searched", "green"))
 
 
 
@@ -174,40 +178,43 @@ class ConveryLinkedinUtility(ConveryNotification):
 			#print(result_button)
 			for element in result_button:
 				if element.text == "Entreprises":
-					print("clicked")
+					print(colored("Found company page", "cyan"))
 					element.click()
 					#sleep(2)
 					break
-
-
 
 			#print("LIST COMPANY BUTTON")
 
 			#wait for page to load
 			sleep(2)
-
-			list_company_button = driver.find_elements(By.CLASS_NAME,"app-aware-link")
-			"""
-			list_company_button = WebDriverWait(driver, 10).until(
-			    EC.presence_of_all_elements_located((By.CLASS_NAME, "app-aware-link"))
-			)
-			"""
-
 			linkedin_studio_list = {}
-			for element in list_company_button:
-				#get parent of widget
-				parent = element.find_element(By.XPATH, "..")
-				#print("parent name : [%s]"%parent.tag_name)
-				if parent.tag_name == "span":
-					if self.letter_verification_function(element.text) == True:
-						print(colored("Studio added : %s"%element.text, "green"))
-						#print(element.text)
-						#print("		destination : %s"%element.get_attribute("href"))
-						linkedin_studio_list[element.text] = element.get_attribute
+			#list_company_button = driver.find_elements(By.CLASS_NAME,"app-aware-link")
+			#list_company_link = driver.find_elements(By.XPATH, '//a[@data-test-app-aware-link]')
+
+			#AKA l'expression du démon
+			ul_element = WebDriverWait(driver, 5).until(
+			    EC.visibility_of_element_located((By.XPATH, '//ul[parent::div[contains(@class, "pv0") and contains(@class, "ph0") and contains(@class, "mb2") and contains(@class, "artdeco-card")]]'))
+			)
+			#ul_element = driver.find_element(By.XPATH, '//ul[parent::div[contains(@class, "pv0") and contains(@class, "ph0") and contains(@class, "mb2") and contains(@class, "artdeco-card")]]')
+			#get all list items contained in list link
+			li_list = ul_element.find_elements(By.TAG_NAME, "li")
+			for li in li_list:
+				#get all links contained in the list
+				a_elements = li.find_elements(By.TAG_NAME, "a")
+
+				if a_elements:
+					#check if link contain letters, and has a span as parent
+					for a in a_elements:
+						a_parent = a.find_element(By.XPATH, "..")
+
+						if (self.letter_verification_function(a.text)==True) and (a_parent.tag_name == "span"):
+							#print("%s : %s"%(a.text, a.get_attribute("href")))
+							#add the link to the link dictionnary
+							linkedin_studio_list[a.text] = a.get_attribute("href")
 
 
-
-			os.system("pause")
+	
+			#os.system("pause")
 			return linkedin_studio_list
 			
 
@@ -216,3 +223,75 @@ class ConveryLinkedinUtility(ConveryNotification):
 
 
 
+
+
+
+
+
+	def get_linkedin_user_function(self, studio_name, studio_account):
+		driver = self.linkedin_login_function(studio_account)
+		if driver == False:
+			self.display_error_function("Impossible to make connection")
+			return 
+		else:
+			self.display_success_function("Driver created")
+
+
+			driver.maximize_window()
+			sleep(2)
+
+
+
+
+			
+
+			#try to click on the "Personnes" button
+			member_button = driver.find_elements(By.CLASS_NAME, "org-page-navigation__item-anchor")[-1]
+			member_button.click()
+
+			#member_profile_container_list = driver.find_elements(By.CLASS_NAME, "org-people-profile-card__profile_info")
+			sleep(2)
+			
+
+			#scroll to the bottom
+			last_height = driver.execute_script("return document.body.scrollHeight")
+
+			while True:
+			    # Faire défiler jusqu'en bas
+			    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+			    
+			    # Attendre que la page charge le contenu dynamique (si applicable)
+			    time.sleep(0.5)
+			    
+			    # Obtenir la nouvelle hauteur de la page
+			    new_height = driver.execute_script("return document.body.scrollHeight")
+			    
+			    # Si la hauteur n'a pas changé, arrêter
+			    if new_height == last_height:
+			        print("Fin de la page atteinte.")
+			        break
+			    
+			    # Mettre à jour la hauteur pour la prochaine itération
+			    last_height = new_height
+			#driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+			
+			member_name_div_list = driver.find_elements(By.CLASS_NAME,"org-people-profile-card__profile-title")
+			member_position_div_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__subtitle")
+			member_position_image_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__image--type-circle")
+			#member_link_container = driver.find_element(By.CLASS_NAME, "link-without-visited-state")
+		
+			member_list = {}
+			for i in range(len(member_name_div_list)):
+
+				#find the link contained 
+				link = member_position_image_list[i].find_element(By.TAG_NAME, "a").get_attribute("href")
+				#print("%s : %s [%s]"%(member_name_div_list[i].text, member_position_div_list[i].text, link))
+
+				member_list[member_name_div_list[i].text] = {
+					"link":link,
+					"position":member_position_div_list[i].text
+				}
+			return member_list
+
+
+		return None

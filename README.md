@@ -15,7 +15,6 @@ and simplify the process of sending hundreds of emails.
 > [!NOTE]
 > Rework soon
 - [ ] Contact search system via linkedin (WIP)
-- [ ] Mail tracking system
 
 ## Documentation
 > [!NOTE]

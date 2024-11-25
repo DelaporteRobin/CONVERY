@@ -7,15 +7,17 @@ import pyperclip
 import pyfiglet
 import unidecode
 import re
+import os
 import Levenshtein
 
 from functools import partial
 from typing import  Iterable
+from termcolor import *
 
 
 from textual.suggester import SuggestFromList, Suggester
 from textual.app import App, ComposeResult
-from textual.widgets import Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
+from textual.widgets import ContentSwitcher, Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
 from textual.widgets.option_list import Option, Separator
 from textual.widgets.selection_list import Selection
 from textual.validation import Function, Number
@@ -454,26 +456,38 @@ class SuggestFromList(Suggester):
 
 
 
-class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNotification):
+class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNotification, ConveryUserUtility):
 	CSS_PATH = ["Styles/layout.tcss"]
 
 	def __init__(self):
 
 		#self.driver = None 
-
+		self.linkedin_studiolist = {}
 		super().__init__()
 
 
 	def compose(self) -> ComposeResult:
+		with VerticalScroll(id="modal_linkedin_container"):
+			with ContentSwitcher(id = "modal_linkedin_content_switcher", initial="modal_get_linkedin_container"):
 
-		with Vertical(id = "modal_linkedin_container"):
-			
-			#if (studio_data["CompanyLinkedin"] != None) and (self.letter_verification_function(studio_data["CompanyLinkedin"] == True)):
-			yield Label("LINKEDIN FOUND")
-			#else:
-			self.optionlist_linkedin_contact = OptionList(id="selectionlist_linkedin_contact")
+				with Vertical(id = "modal_get_contact_container"):
+					yield Label("Linkedin Member")
+					self.selectionlist_linkedin_member = SelectionList(id="modal_list_linkedin_member")
+					yield self.selectionlist_linkedin_member
 
-			yield self.optionlist_linkedin_contact
+
+				with Vertical(id = "modal_get_linkedin_container"):
+					yield Label("Linkedin Studio")
+					self.listview_linkedin_account = ListView(id="modal_list_linkedin_contact")
+
+					yield self.listview_linkedin_account
+
+					yield Button("Validate Linkedin Account", id="modal_button_linkedin_account")
+					
+
+				
+
+
 			yield Button("Quit", id = "modal_getcontact_quit", classes="error_button")
 
 
@@ -487,35 +501,115 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 		studio_data = self.app.company_dictionnary[studio_name]
 
+		#self.display_message_function("EXECUTE")
 
+		
 		#GET THE LINKEDIN CONTACT
 		if (type(studio_data["CompanyLinkedin"]) == str) and (self.letter_verification_function(studio_data["CompanyLinkedin"]) == True):
-			self.display_success_function("LINKEDIN FOUND!")
+			self.display_success_function("Linkedin account detected")
+			self.query_one("#modal_linkedin_content_switcher").current = "modal_get_contact_container"
+
+
+			self.search_for_user_function(studio_name, studio_data["CompanyLinkedin"])
+				
 
 		#GET A LIST OF LINKEDIN ACCOUNT MATCHING WITH THE STUDIO NAME?
 		else:
+			self.display_warning_function("Impossible to detect linkedin account for this studio")
+			self.display_message_function("Trying to find linkedin studio accounts")
 			#CREATE A DRIVER
 			with self.app.suspend():
-				linkedin_studiolist = self.linkedin_get_studiolist_function(studio_name)
+				self.linkedin_studiolist = self.linkedin_get_studiolist_function(studio_name)
 
-			if type(linkedin_studiolist) != dict:
+			if type(self.linkedin_studiolist) != dict:
 				self.display_error_function("Impossible to find matching studio on linkedin!")
 				return
 			else:
 				#clean selection list
-				self.optionlist_linkedin_contact.clear_options()
+				#self.optionlist_linkedin_contact.clear_options()
 				#add new options
-				self.optionlist_linkedin_contact.add_options(list(linkedin_studiolist.keys()))
+				#self.optionlist_linkedin_contact.add_options(list(linkedin_studiolist.keys()))
+
+				self.listview_linkedin_account.clear()
+				for key, value in self.linkedin_studiolist.items():
+					self.listview_linkedin_account.append(ListItem(Label("%s | %s"%(key, value))))
+
+
+
+
+			
+
+
+		
 				
 
 
 
-		#self.app.pop_screen()
 
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 		if event.button.id == "modal_getcontact_quit":
 			self.app.pop_screen()
+
+		if event.button.id == "modal_button_linkedin_account":
+			#get the name of the studio selected and update the linkedin profile in company data
+			try:
+				studio_name = self.app.list_studiolist_display[self.app.listview_studiolist.index]
+
+				#get the index
+				index = self.listview_linkedin_account.index
+				account_name_selected = list(self.linkedin_studiolist.keys())[index]
+				account_link_selected = (self.linkedin_studiolist[account_name_selected])
+
+				#update the dictionnary
+				studio_data = self.app.company_dictionnary[studio_name]
+				studio_data["CompanyLinkedin"] = account_link_selected
+				self.app.company_dictionnary[studio_name] = studio_data
+
+				#save the dictionnary
+				self.app.save_company_dictionnary_function()
+				self.app.update_informations_function()
+
+
+				#call the get linkedin user function
+				self.search_for_user_function(studio_name, account_link_selected)
+
+				
+			except Exception as e:
+				self.display_error_function(str(e))
+			else:
+				self.display_success_function("Linkedin account updated in Company Data")
+
+
+
+
+
+
+	def search_for_user_function(self, studio_name, studio_account):
+		with self.app.suspend():
+			member_list = self.get_linkedin_user_function(studio_name, studio_account)
+			
+		
+		if type(member_list) == dict:
+			#change display
+			self.query_one("#modal_linkedin_content_switcher").current = "modal_get_contact_container"
+
+			#clean the selectionlist
+			self.selectionlist_linkedin_member.clear_options()
+			
+			selection_item_list = []
+			i=0
+			for member_name, member_data in member_list.items():
+				selection_item_list.append(("%s : %s"%(member_name, member_data["position"]),i))
+				i+=1
+
+			self.selectionlist_linkedin_member.add_options(selection_item_list)
+
+			
+			
+			
+
+
 
 
 

@@ -65,6 +65,9 @@ class ConveryNotification:
 		except AttributeError:
 			self.app.program_log.append(log_format)
 
+	def display_warning_function(self, message):
+		self.notify(str(message), timeout=4)
+
 	def display_error_function(self, message):
 		self.notify(str(message), severity="error", timeout=4)
 		
@@ -82,5 +85,10 @@ class ConveryNotification:
 			"severity":severity,
 			"content":str(message)
 		}
-		self.add_log_line_function(log_format)
+		
+		try:
+			self.add_log_line_function(log_format)
+		except AttributeError:
+			self.app.add_log_line_function(log_format)
+		
 		return log_format

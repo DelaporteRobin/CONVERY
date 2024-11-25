@@ -13,7 +13,6 @@ import pendulum
 import pyperclip 
 import pyfiglet
 import unidecode
-import re
 import Levenshtein
 import threading
 import json

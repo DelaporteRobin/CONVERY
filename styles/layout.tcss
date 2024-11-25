@@ -169,7 +169,7 @@ Button {
 
 
 /* TCSS CODE FOR THE MODAL SCREEN TO CREATE CONTACT */
-ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalScreenLinkedin {
+ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalConveryScreenLinkedin {
 	align: center middle;
 }
 
@@ -182,6 +182,13 @@ ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalScreenLink
 
 	background: $surface;
 
+}
+
+#modal_linkedin_content_switcher {
+	height: 90%;
+}
+#modal_list_linkedin_contact {
+	height: 1fr;
 }
 
 
@@ -202,8 +209,8 @@ ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalScreenLink
 	height:5;
 }
 
-#modal_newcontacttype, #modal_newcontactname, #modal_newcontactmail, #modal_newcontactwebsite {
-	width:25%;
+#modal_newcontacttype, #modal_newcontactname, #modal_newcontactposition, #modal_newcontactmail, #modal_newcontactwebsite {
+	width:20%;
 }
 
 #modal_horizontal_container {
