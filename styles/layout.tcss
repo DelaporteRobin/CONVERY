@@ -47,9 +47,13 @@ Button {
 	height: 5;
 }
 
+#left_vertical_container {
+	height: 90%;
+}
+
 #input_tag_lobby {
 	margin-top: 5;
-	margin-right: 2;
+
 	margin-left: 2;
 }
 #right_mailpreset_container {
@@ -69,6 +73,10 @@ Button {
 
 #button_remove_tag, #button_highlight_tag, #button_erase_tag {
 	width: 33%;
+}
+
+#markdown_lobby {
+	margin-left: 2;
 }
 
 

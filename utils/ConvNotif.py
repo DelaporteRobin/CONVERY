@@ -24,6 +24,7 @@ from typing import  Iterable
 from datetime import datetime 
 from pyfiglet import Figlet 
 from time import sleep
+from termcolor import *
 
 
 from textual.suggester import SuggestFromList, Suggester
@@ -39,14 +40,16 @@ from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
 
 
-
+colorama.init()
 
 
 class ConveryNotification:
-	def display_message_function(self, message):
-		self.notify(str(message), timeout=4)
+	def display_message_function(self, message, mute=False):
+		if mute == False:
+			self.notify(str(message), timeout=4)
 
 		log_format = self.create_log_format_function(str(message))
+		print(log_format)
 		
 		
 		try:
@@ -54,25 +57,29 @@ class ConveryNotification:
 		except AttributeError:
 			self.app.program_log.append(log_format)
 
-	def display_success_function(self, message):
-		self.notify(str(message), timeout=4)
+	def display_success_function(self, message, mute=False):
+		if mute == False:
+			self.notify(str(message), timeout=4)
 
 		log_format = self.create_log_format_function(str(message), "SUCCESS")
 		
-		
+		print(colored(log_format, "green"))
 		try:
 			self.program_log.append(log_format)
 		except AttributeError:
 			self.app.program_log.append(log_format)
 
-	def display_warning_function(self, message):
-		self.notify(str(message), timeout=4)
+	def display_warning_function(self, message, mute=False):
+		#print(colored(log_format, "yellow"))
+		if mute == False:
+			self.notify(str(message), timeout=4)
 
-	def display_error_function(self, message):
-		self.notify(str(message), severity="error", timeout=4)
+	def display_error_function(self, message, mute=False):
+		if mute == False:
+			self.notify(str(message), severity="error", timeout=4)
 		
 		log_format = self.create_log_format_function(str(message), "ERROR")
-
+		print(colored(log_format, "red"))
 		try:
 			self.program_log.append(log_format)
 		except AttributeError:

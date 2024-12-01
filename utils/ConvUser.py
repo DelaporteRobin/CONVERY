@@ -17,6 +17,7 @@ import Levenshtein
 import threading
 import json
 import colorama
+import markdown
 
 from functools import partial
 from typing import  Iterable
@@ -344,5 +345,149 @@ class ConveryUserUtility():
 						new_contact = Modal_Contact(contact_type, contact_name, contact_mail, contact_website)
 						self.newcompany_contactlist_container.mount(new_contact)
 
-					
+
+
+
+
+
+
+
+
+	def save_contact_sheet_function(self):
+		#get data from the company dictionnary
+		#self.display_message_function(list(self.company_dictionnary.keys()))	
+
+
+
+		"""
+		formatting for one studio ex
+
+		location
+			studio_name
+				studio website : 
+				studio linkedin :
+				studio contact:
+					contact_type
+						contact_name:
+							mail:
+							website:
+					contact_type
+						contact_name
+							mail 
+							website
+		"""		
+
+		#location list
+		self.display_message_function("Classing studios by location...")
+		#self.display_message_function("Creating markdown for studios")
+
+		location_dictionnary = {}
+		for studio_name, studio_data in self.company_dictionnary.items():
+
+			studio_markdown = f"""
+	## %s
+		- Studio Website : %s
+		- Studio Linkedin : %s
+		- Studio contact list:
+"""%(studio_name,studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"])
+			
+			for contact_type, contact_list in studio_data["CompanyContact"].items():
+
+				if contact_list != {}:
+					studio_markdown+="\t\t\t%s\n"%(contact_type)
+
+					for c_name, c_data in contact_list.items():
+						studio_markdown+=f"""
+				%s
+"""%c_name
+						if self.letter_verification_function(c_data["mail"])==True:
+							studio_markdown+=f"""
+					MAIL : %s
+"""%c_data["mail"]
+						if self.letter_verification_function(c_data["website"])==True:
+							studio_markdown+=f"""
+					WEBSITE : %s
+"""%c_data["website"]
+
+			
+			#get location of the studio
+			#and create the location dictionnary
+			studio_location_list = studio_data["CompanyLocation"].upper().split("/")
+
+
+			for studio_location in studio_location_list:
+				if self.letter_verification_function(studio_location)==True:
+					if studio_location not in location_dictionnary:
+						location_dictionnary[studio_location] = [
+							(studio_name, studio_markdown)
+						]
+					else:
+						#get the dictionnary from the current location of the studio
+						studio_loc_dictionnary = location_dictionnary[studio_location]
+						studio_loc_dictionnary.append( (studio_name, studio_markdown) )
+						location_dictionnary[studio_location] = studio_loc_dictionnary
+
+		self.display_success_function("Location dictionnary created")
+
+		
+		final_markdown = ""
+		for location, studio_data in location_dictionnary.items():
+			self.display_message_function("Location detected : %s"%location, True)
+			final_markdown += "\n## %s\n"%location
+
+			for studio in studio_data:
+				final_markdown+=studio[1]
+
+
+		with open("test.md", "w", encoding="utf-8") as save_file:
+			save_file.write(final_markdown)
+
+		input_file = "test.md"  # Remplacez par le chemin de votre fichier
+		output_file = "output.html"
+
+		with open(input_file, "r", encoding="utf-8") as md_file:
+		    markdown_content = md_file.read()
+
+		# Convertir le Markdown en HTML
+		html_content = markdown.markdown(markdown_content, extensions=["extra", "tables", "sane_lists"])
+
+		# Envelopper dans une structure HTML de base
+		html_output = f"""
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Markdown to HTML</title>
+		</head>
+		<body>
+		{html_content}
+		</body>
+		</html>
+		"""
+
+		# Sauvegarder dans un fichier HTML
+		with open(output_file, "w", encoding="utf-8") as html_file:
+		    html_file.write(html_output)
+
+		#print(f"Conversion terminée ! Le fichier HTML est sauvegardé sous : {output_file}")
+
+		self.display_success_function("saved")
+
+
+
+		"""
+		final_path = "CompanyDictionnary_SAVE.html"
+		convert_result = self.convert_md_to_html_function(final_markdown, final_path)
+		if convert_result == True:
+			self.display_success_function("Markdown converted into .html and saved")
+		else:
+			self.display_error_function(str(convert_result))
+		"""
+
+
+
+
+
+
 

@@ -185,7 +185,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		with Horizontal(id="main_horizontal_container"):
 			with Vertical(id = "main_title_container"):
 
-				yield Label(pyfiglet.figlet_format("_@convery",font=self.font_title, width=200), id="label_title")
+				yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
 
 
 				with Horizontal(id = "main_left_center_container_horizontal"):
@@ -234,9 +234,11 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 							self.listview_studiolist.border_title = "Studio list"
 							yield self.listview_studiolist
 
+						with Horizontal(id="left_bottom_container"):
 							yield Button("Get contact from studio", id="button_get_contact_from_studios")
-							#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
-							#yield self.datatable_studiolist
+							yield Button("Save contact sheet", id="button_save_contact_sheet")
+						#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
+						#yield self.datatable_studiolist
 
 
 
@@ -247,7 +249,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 						#with Horizontal(id = "right_horizontal_container"):
 						with Vertical(id="right_vertical_container1"):
-							self.markdown_studio = Markdown("Hello World")
+							self.markdown_studio = Markdown("Hello World", id="markdown_lobby")
 							yield self.markdown_studio
 
 
@@ -661,6 +663,10 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				self.highlight_tag_list.append(self.tag_list[index])
 
 			self.update_informations_function()
+
+
+		if event.button.id == "button_save_contact_sheet":
+			self.save_contact_sheet_function()
 
 
 		if event.button.id == "button_erase_tag":

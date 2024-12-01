@@ -1,5 +1,6 @@
 import os
 
+import markdown
 
 
 
@@ -26,6 +27,23 @@ class ConveryUtility():
 				if (list_text[i] in list_letter) or (list_text[i] in list_capital) or (list_text[i] in list_figure):
 					return True 
 			return False
+
+
+
+
+	def convert_md_to_html_function(self, content, filename):
+		try:
+			#html convert
+			html_content = markdown.markdown(content)
+			#html saving
+			with open(filename, "w", encoding="utf-8") as save_html:
+				save_html.write(html_content)
+			
+		except Exception as e:
+			return e 
+		else:
+			return True
+
 
 
 

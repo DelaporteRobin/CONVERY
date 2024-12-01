@@ -241,7 +241,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			sleep(2)
 
 
-
+			self.display_message_function("TRYING TO SEARCH FOR CONTACTS!")
 
 			
 
@@ -275,23 +275,52 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			    last_height = new_height
 			#driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 			
-			member_name_div_list = driver.find_elements(By.CLASS_NAME,"org-people-profile-card__profile-title")
+			#member_name_div_list = driver.find_elements(By.CLASS_NAME,"org-people-profile-card__profile-title")
+			member_name_container_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__title")
+			#build name list from container 
+			member_name_list = []
+			for member_container in member_name_container_list:
+				try:
+					#check parent
+					parent = member_container.find_element(By.XPATH, "..")
+					child = member_container.find_element(By.XPATH, "./*")
+					if (parent.tag_name == "div") and ("artdeco-entity-lockup__content" in parent.get_attribute("class").split()):
+						if child.tag_name == "a":	
+							self.display_message_function("Contact found --> %s"%member_container.text)
+							member_name_list.append(member_container)
+				except Exception as e:
+					self.display_error_function("Error while searching for contact")
+					#self.display_error_function(e)
+					continue
+
+
 			member_position_div_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__subtitle")
 			member_position_image_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__image--type-circle")
 			#member_link_container = driver.find_element(By.CLASS_NAME, "link-without-visited-state")
-		
+			
+
+
+
+			
 			member_list = {}
-			for i in range(len(member_name_div_list)):
+			for i in range(len(member_name_list)):
 
 				#find the link contained 
 				link = member_position_image_list[i].find_element(By.TAG_NAME, "a").get_attribute("href")
 				#print("%s : %s [%s]"%(member_name_div_list[i].text, member_position_div_list[i].text, link))
 
-				member_list[member_name_div_list[i].text] = {
+				member_list[member_name_list[i].text] = {
 					"link":link,
 					"position":member_position_div_list[i].text
 				}
+
+			self.display_success_function("TASK DONE")
+			sleep(2)
 			return member_list
+			
 
 
+
+
+		
 		return None
