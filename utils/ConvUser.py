@@ -385,10 +385,10 @@ class ConveryUserUtility():
 		for studio_name, studio_data in self.company_dictionnary.items():
 
 			studio_markdown = f"""
-	## %s
-		- Studio Website : %s
-		- Studio Linkedin : %s
-		- Studio contact list:
+## %s
+- Studio Website : %s
+- Studio Linkedin : %s
+- Studio contact list:
 """%(studio_name,studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"])
 			
 			for contact_type, contact_list in studio_data["CompanyContact"].items():
@@ -398,15 +398,15 @@ class ConveryUserUtility():
 
 					for c_name, c_data in contact_list.items():
 						studio_markdown+=f"""
-				%s
+%s
 """%c_name
 						if self.letter_verification_function(c_data["mail"])==True:
 							studio_markdown+=f"""
-					MAIL : %s
+	MAIL : %s
 """%c_data["mail"]
 						if self.letter_verification_function(c_data["website"])==True:
 							studio_markdown+=f"""
-					WEBSITE : %s
+	WEBSITE : %s
 """%c_data["website"]
 
 			
