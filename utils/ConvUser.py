@@ -385,11 +385,11 @@ class ConveryUserUtility():
 		for studio_name, studio_data in self.company_dictionnary.items():
 
 			studio_markdown = f"""
-### %s
-- Studio Website : %s
-- Studio Linkedin : %s
-- Studio contact list:
-"""%(studio_name,studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"])
+	## %s
+	- Studio Website : %s
+	- Studio Linkedin : %s
+	- Studio contact list:
+"""%(studio_name.upper(),studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"])
 			
 			for contact_type, contact_list in studio_data["CompanyContact"].items():
 
