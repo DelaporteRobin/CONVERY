@@ -404,11 +404,11 @@ class ConveryUserUtility():
 """%c_name
 						if self.letter_verification_function(c_data["mail"])==True:
 							studio_markdown+=f"""
-		MAIL : %s
+		- %s
 """%c_data["mail"]
 						if self.letter_verification_function(c_data["website"])==True:
 							studio_markdown+=f"""
-		WEBSITE : %s
+		- %s
 """%c_data["website"]
 
 			
