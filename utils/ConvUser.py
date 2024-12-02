@@ -394,7 +394,7 @@ class ConveryUserUtility():
 			for contact_type, contact_list in studio_data["CompanyContact"].items():
 
 				if contact_list != {}:
-					studio_markdown+="\t\t\t%s\n"%(contact_type)
+					studio_markdown+="	%s"%(contact_type)
 
 					for c_name, c_data in contact_list.items():
 						studio_markdown+=f"""

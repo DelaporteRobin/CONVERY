@@ -5,8 +5,7 @@
 - Studio Website : https://generaux.services/
 - Studio Linkedin : https://www.linkedin.com/company/services-g%C3%A9n%C3%A9raux/
 - Studio contact list:
-			MEMBER
-
+	MEMBER
 	Emile Asselineau
 
 		WEBSITE : https://www.linkedin.com/in/emile-asselineau/
@@ -19,8 +18,7 @@
 - Studio Website : https://www.everest.studio/
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@everest.studio
@@ -34,8 +32,7 @@
 - Studio Website : https://buf.com/animation/
 - Studio Linkedin : https://www.linkedin.com/company/buf-compagnie/
 - Studio contact list:
-			JOB
-
+	JOB
 	job paris contact
 
 		MAIL : jobs_paris@buf.com
@@ -44,8 +41,7 @@
 - Studio Website :  https://www.ard.ac/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	hello mail
 
 		MAIL : hello@ard.ac
@@ -54,13 +50,11 @@
 - Studio Website : https://wearefevr.fr/projets/keyprod/
 - Studio Linkedin : https://www.linkedin.com/company/fevr/
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@wearefevr.fr
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@wearefevr.fr
@@ -74,8 +68,7 @@
 - Studio Website : https://www.perimetre.studio/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	Hugo Elkaïm
 
 		MAIL : hugo@perimetre.studio
@@ -88,8 +81,7 @@
 - Studio Website : https://www.found-studio.com/#navbar
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	General job
 
 		MAIL : jobs@found-studio.com
@@ -98,8 +90,7 @@
 - Studio Website : https://www.instagram.com/ha.studio.paris/?locale=%E6%AC%A7%E6%B4%B2%E6%9D%AF%E6%8A%95%E6%B3%A8%E5%9C%A8%E5%93%AA%E5%8F%AF%E4%BB%A5(kaiyun.la)%0A.icra&hl=en
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	General mail
 
 		MAIL : Hastudio@unlockcollectif.com
@@ -113,8 +104,7 @@
 - Studio Website : 
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	company adress
 
 		MAIL : contact@not-alone-studios.com
@@ -128,8 +118,7 @@
 - Studio Website : https://www.alterbureau.com/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	main contact
 
 		MAIL : studio@alterbureau.com
@@ -138,8 +127,7 @@
 - Studio Website : https://uncannyvalley.studio/contact/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	main contact
 
 		MAIL : hello@uncannyvalley.studio
@@ -148,8 +136,7 @@
 - Studio Website : https://studiom.paris/projects/3d-design
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	info mail? general mail
 
 		MAIL : info@studiom.paris
@@ -158,8 +145,7 @@
 - Studio Website : https://www.iiwstudio.fr/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@iiwstudio.fr
@@ -168,8 +154,7 @@
 - Studio Website : https://blackmotion.fr
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general
 
 		MAIL : contact@blackmotion.fr
@@ -183,8 +168,7 @@
 - Studio Website : https://stilla-studio.fr/#contacts
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general
 
 		MAIL : contact@stilla-studio.fr
@@ -193,8 +177,7 @@
 - Studio Website : https://www.unoeilsurtout.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@unoeilsurtout.com
@@ -203,8 +186,7 @@
 - Studio Website : turbodiesel.studio
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@turbodiesel.studio
@@ -213,8 +195,7 @@
 - Studio Website : eddy.tv
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	Julie
 
 		MAIL : julie@eddy.tv
@@ -237,8 +218,7 @@
 - Studio Website : https://www.nki.tv/#!/fr/works/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@nki.tv
@@ -247,8 +227,7 @@
 - Studio Website : https://wizz.fr/about
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job mail
 
 		MAIL : jobs@wizz.fr
@@ -257,8 +236,7 @@
 - Studio Website : https://wizz.fr/about
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	Job contact
 
 		MAIL : jobs@wizz.fr
@@ -267,13 +245,11 @@
 - Studio Website : https://www.h5.fr/fr/projects
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	hello contact
 
 		MAIL : hello@h5.fr
-			JOB
-
+	JOB
 	job contact?
 
 		MAIL : job@h5.fr
@@ -282,8 +258,7 @@
 - Studio Website : https://www.passion-pictures.com/work/passion-paris/
 - Studio Linkedin : https://www.linkedin.com/company/passion-paris/
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : paris@passion-pictures.com
@@ -292,8 +267,7 @@
 - Studio Website : https://www.royalpost.fr/contact/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@royalpost.tv
@@ -302,8 +276,7 @@
 - Studio Website : https://hki.paris/about
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@hki.paris
@@ -312,8 +285,7 @@
 - Studio Website : https://www.uzik.com/
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : careers@uzik.com
@@ -322,8 +294,7 @@
 - Studio Website : https://www.makemepulse.com/case-studies/
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : 	jobs@makemepulse.com
@@ -332,8 +303,7 @@
 - Studio Website : https://www.bonjour-lab.com/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@bonjour-lab.com
@@ -342,8 +312,7 @@
 - Studio Website : https://pleix.net/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	Pleix Contact 1
 
 		MAIL : all@pleix.net
@@ -356,8 +325,7 @@
 - Studio Website : crcr.fr
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	General contact
 
 		MAIL : mail@crcr.fr﻿
@@ -366,8 +334,7 @@
 - Studio Website : http://www.mecanique-g.com/about
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	Main contact
 
 		MAIL : jobs@mecanique-g.com
@@ -376,8 +343,7 @@
 - Studio Website : https://onirim.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	Main contact
 
 		MAIL : contact@onirim.com
@@ -386,8 +352,7 @@
 - Studio Website : https://saint-george.tv/index.php/contact/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general info mail
 
 		MAIL : info@saint-george.tv
@@ -396,8 +361,7 @@
 - Studio Website : onemore-studio.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	MainContact
 
 		MAIL : knock@onemorestud.io
@@ -410,8 +374,7 @@
 - Studio Website : https://www.fixstudio.com/en
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	Main Job Contact
 
 		MAIL : jobs@fixstudio.com
@@ -425,8 +388,7 @@
 - Studio Website : https://digiteyes.fr/a-propos
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@digiteyes.fr
@@ -435,8 +397,7 @@
 - Studio Website : https://pointflottant.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	global mail
 
 		MAIL : studio@pointflottant.com
@@ -445,13 +406,11 @@
 - Studio Website : https://www.kingsizefx.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact mail
 
 		MAIL : contact@kingsizefx.com
-			JOB
-
+	JOB
 	job contact mail
 
 		MAIL : jobs@kingsizefx.com
@@ -470,8 +429,7 @@
 - Studio Website : https://www.bloodybird.com
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@bloodybird.com
@@ -480,13 +438,11 @@
 - Studio Website : https://ac3-studio.com/contact
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@ac3-studio.com
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@ac3-studio.com
@@ -495,8 +451,7 @@
 - Studio Website : lagoonstudios.com
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@lagoonstudios.com
@@ -505,8 +460,7 @@
 - Studio Website : https://www.monarch.tv/about
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@monarch.tv
@@ -515,8 +469,7 @@
 - Studio Website : https://wearecode.tv/about/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	rebecca rice
 
 		MAIL : rebecca@wearecode.tv
@@ -529,8 +482,7 @@
 - Studio Website : http://www.prototypestudio.fr/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	contact
 
 		MAIL : hello@prototypestudio.fr
@@ -539,8 +491,7 @@
 - Studio Website : https://bonhommeparis.com/fr/contact
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@bonhommeparis.com
@@ -549,8 +500,7 @@
 - Studio Website : https://www.punchagency.paris
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@punchagency.paris
@@ -559,13 +509,11 @@
 - Studio Website : https://wwwesh.studio
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@wwweshstudio.fr
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@wwweshstudio.fr
@@ -574,8 +522,7 @@
 - Studio Website : alt-border.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@alt-border.com
@@ -584,13 +531,11 @@
 - Studio Website : studio-monsieurk.fr
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@studio-monsieurk.fr
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@studio-monsieurk.fr
@@ -599,13 +544,11 @@
 - Studio Website : i-reel.fr
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@i-reel.fr
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : recrutement@i-reel.fr
@@ -614,8 +557,7 @@
 - Studio Website : https://spoagency.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@spoagency.com
@@ -639,13 +581,11 @@
 - Studio Website : https://11h16.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@11h16.com
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@11h16.com
@@ -654,8 +594,7 @@
 - Studio Website : https://conoreli.xyz
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@conoreli.com
@@ -669,8 +608,7 @@
 - Studio Website : cokaulab.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	main contact
 
 		MAIL : cokau@cokau-lab.com
@@ -684,8 +622,7 @@
 - Studio Website : mazarine.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : communication@mazarine.com
@@ -694,8 +631,7 @@
 - Studio Website : cveg.fr
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs.cveg.fr
@@ -704,8 +640,7 @@
 - Studio Website : 530degres.agency.about
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact mail
 
 		MAIL : contact@530degres.agency
@@ -716,16 +651,14 @@
 - Studio Website : noid-studio.com
 - Studio Linkedin : None
 - Studio contact list:
-			MEMBER
-
+	MEMBER
 	
 
 ### TRONATIC
 - Studio Website : tronatic-studio.com
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@tronatic-studio.com
@@ -734,13 +667,11 @@
 - Studio Website : nightshift.fr
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@nightshift.fr
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@nightshift.fr
@@ -749,8 +680,7 @@
 - Studio Website : dlpparis.com
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@dlpparis.com
@@ -759,13 +689,11 @@
 - Studio Website : blump.fr
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@blump.fr
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : carrer@blump.fr
@@ -774,8 +702,7 @@
 - Studio Website : troublemakers.tv
 - Studio Linkedin : 
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@troublemakers.tv
@@ -784,32 +711,28 @@
 - Studio Website : dis-lab.com
 - Studio Linkedin : 
 - Studio contact list:
-			MEMBER
-
+	MEMBER
 	
 
 ### JUNGLER
 - Studio Website : jungler.tv
 - Studio Linkedin : 
 - Studio contact list:
-			MEMBER
-
+	MEMBER
 	
 
 ### WISE BIRD STUDIO
 - Studio Website : wisebird-studio.com
 - Studio Linkedin : 
 - Studio contact list:
-			MEMBER
-
+	MEMBER
 	
 
 ### WERLEN MEYER
 - Studio Website : werlenmeyer.com
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@werlenmyeyer.com
@@ -818,8 +741,7 @@
 - Studio Website : riverman.fr
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	hello contact
 
 		MAIL : hello@riverman.fr
@@ -828,8 +750,7 @@
 - Studio Website : moon-studio.io
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@moon-studio.io
@@ -838,8 +759,7 @@
 - Studio Website : lightvfx.com
 - Studio Linkedin : 
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@lightvfx.com
@@ -848,8 +768,7 @@
 - Studio Website : busterwood.com
 - Studio Linkedin : 
 - Studio contact list:
-			JOB
-
+	JOB
 	general job contact
 
 		MAIL : job@busterwood.com
@@ -862,8 +781,7 @@
 - Studio Website : capsule.studio
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : hello@capsule.studio
@@ -872,8 +790,7 @@
 - Studio Website : fr.karlab.fr
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general contact
 
 		MAIL : contact@karlab.fr
@@ -882,8 +799,7 @@
 - Studio Website : 8849.io/about
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	general mail
 
 		MAIL : contact@8849.io
@@ -892,13 +808,11 @@
 - Studio Website : glgth.com
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	Hello contact
 
 		MAIL : hello@glgth.com
-			JOB
-
+	JOB
 	Internship Contact
 
 		MAIL : internship@glgth.com
@@ -919,8 +833,7 @@
 - Studio Website : https://nexusstudios.com/our-story/
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : jobs@nexusstudios.com
@@ -931,8 +844,7 @@
 - Studio Website : https://logan.tv/
 - Studio Linkedin : None
 - Studio contact list:
-			JOB
-
+	JOB
 	job contact
 
 		MAIL : job@logan.tv 
@@ -971,8 +883,7 @@
 - Studio Website : https://polynoid.tv/
 - Studio Linkedin : None
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	Main contact
 
 		MAIL : contact@polynoid.tv 
@@ -981,13 +892,11 @@
 - Studio Website : mimicproductions.com
 - Studio Linkedin : 
 - Studio contact list:
-			GENERAL
-
+	GENERAL
 	info contact
 
 		MAIL : info@mimicproductions.com
-			MEMBER
-
+	MEMBER
 	job contact
 
 		MAIL : careers@mimicproductions.com
@@ -998,6 +907,5 @@
 - Studio Website : https://www.schrodinger.be
 - Studio Linkedin : 
 - Studio contact list:
-			MEMBER
-
+	MEMBER
 	
