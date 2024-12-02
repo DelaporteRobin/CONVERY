@@ -363,6 +363,9 @@ class ConveryUserUtility():
 			["LOCATION", "STUDIO NAME", "WEBSITE", "LINKEDIN", "CONTACT"]
 		]
 
+
+		location_dictionnary = {}
+
 		for studio_name, studio_data in self.company_dictionnary.items():
 
 			contact_str = ""
@@ -376,18 +379,37 @@ class ConveryUserUtility():
 		website : %s
 """%(contact_name, contact_coordinate["mail"], contact_coordinate["website"])
 
-			data.append( [studio_data["CompanyLocation"].upper(), studio_name, studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"], contact_str] )
+			#data.append( [studio_data["CompanyLocation"].upper(), studio_name, studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"], contact_str] )
+			location_list = studio_data["CompanyLocation"].upper().split("/")
+			for location in location_list:
+				if self.letter_verification_function(location)==True:
+					if location not in location_dictionnary:
+						self.display_message_function("New location detected : %s"%location)
+						location_dictionnary[location] = [[location, studio_name, studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"], contact_str] ]
+					else:
+						load = location_dictionnary[studio_data["CompanyLocation"].upper()]
+						load.append([location, studio_name, studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"], contact_str] )
+						location_dictionnary[location] = load 
+		self.display_success_function("location dictionnary created")
+
+
+		for location, location_data in location_dictionnary.items():
+			for row in location_data:
+				data.append(row) 
+
 
 		table_text = tabulate(data, headers="firstrow", tablefmt="grid")
+		self.display_success_function("TABLE CREATED")
 
 
+		filename = os.path.join(os.getcwd(), "CompanyData_Export.TXT")
 
-		with open("test.txt", "w", encoding="utf-8") as file:
+		with open(filename, "w", encoding="utf-8") as file:
 			file.write(table_text)
 
 
 
-		self.display_success_function("saved")
+		self.display_success_function("TABLE SAVED : %s"%filename)
 
 
 
