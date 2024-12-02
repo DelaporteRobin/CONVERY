@@ -394,11 +394,13 @@ class ConveryUserUtility():
 			for contact_type, contact_list in studio_data["CompanyContact"].items():
 
 				if contact_list != {}:
-					studio_markdown+="	%s"%(contact_type)
+					studio_markdown+=f"""
+	%s
+"""%(contact_type)
 
 					for c_name, c_data in contact_list.items():
 						studio_markdown+=f"""
-	%s
+		%s
 """%c_name
 						if self.letter_verification_function(c_data["mail"])==True:
 							studio_markdown+=f"""
