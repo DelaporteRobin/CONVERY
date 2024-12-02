@@ -385,7 +385,7 @@ class ConveryUserUtility():
 		for studio_name, studio_data in self.company_dictionnary.items():
 
 			studio_markdown = f"""
-## %s
+### %s
 - Studio Website : %s
 - Studio Linkedin : %s
 - Studio contact list:
@@ -398,15 +398,15 @@ class ConveryUserUtility():
 
 					for c_name, c_data in contact_list.items():
 						studio_markdown+=f"""
-%s
+	%s
 """%c_name
 						if self.letter_verification_function(c_data["mail"])==True:
 							studio_markdown+=f"""
-	MAIL : %s
+		MAIL : %s
 """%c_data["mail"]
 						if self.letter_verification_function(c_data["website"])==True:
 							studio_markdown+=f"""
-	WEBSITE : %s
+		WEBSITE : %s
 """%c_data["website"]
 
 			
@@ -433,7 +433,7 @@ class ConveryUserUtility():
 		final_markdown = ""
 		for location, studio_data in location_dictionnary.items():
 			self.display_message_function("Location detected : %s"%location, True)
-			final_markdown += "\n## %s\n"%location
+			final_markdown += "\n## [%s]\n"%location
 
 			for studio in studio_data:
 				final_markdown+=studio[1]

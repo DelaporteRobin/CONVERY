@@ -1,1003 +1,1003 @@
 
-## PARIS
+## [PARIS]
 
-## service généraux
+### service généraux
 - Studio Website : https://generaux.services/
 - Studio Linkedin : https://www.linkedin.com/company/services-g%C3%A9n%C3%A9raux/
 - Studio contact list:
 			MEMBER
 
-Emile Asselineau
+	Emile Asselineau
 
-	WEBSITE : https://www.linkedin.com/in/emile-asselineau/
+		WEBSITE : https://www.linkedin.com/in/emile-asselineau/
 
-emma le louarn
+	emma le louarn
 
-	WEBSITE : https://www.linkedin.com/in/emma-le-louarn/
+		WEBSITE : https://www.linkedin.com/in/emma-le-louarn/
 
-## EVEREST
+### EVEREST
 - Studio Website : https://www.everest.studio/
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@everest.studio
+		MAIL : job@everest.studio
 
-## SUPERBIEN
+### SUPERBIEN
 - Studio Website : https://www.superbien.studio/fr/
 - Studio Linkedin : https://www.linkedin.com/company/superbien/
 - Studio contact list:
 
-## BUF
+### BUF
 - Studio Website : https://buf.com/animation/
 - Studio Linkedin : https://www.linkedin.com/company/buf-compagnie/
 - Studio contact list:
 			JOB
 
-job paris contact
+	job paris contact
 
-	MAIL : jobs_paris@buf.com
+		MAIL : jobs_paris@buf.com
 
-## ARD
+### ARD
 - Studio Website :  https://www.ard.ac/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-hello mail
+	hello mail
 
-	MAIL : hello@ard.ac
+		MAIL : hello@ard.ac
 
-## FEVR
+### FEVR
 - Studio Website : https://wearefevr.fr/projets/keyprod/
 - Studio Linkedin : https://www.linkedin.com/company/fevr/
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@wearefevr.fr
+		MAIL : hello@wearefevr.fr
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@wearefevr.fr
+		MAIL : job@wearefevr.fr
 
-## SWIPE BACK
+### SWIPE BACK
 - Studio Website : https://swipeback.studio/
 - Studio Linkedin : None
 - Studio contact list:
 
-## PERIMETRE
+### PERIMETRE
 - Studio Website : https://www.perimetre.studio/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-Hugo Elkaïm
+	Hugo Elkaïm
 
-	MAIL : hugo@perimetre.studio
+		MAIL : hugo@perimetre.studio
 
-Camille Marc
+	Camille Marc
 
-	MAIL : camille@perimetre.studio
+		MAIL : camille@perimetre.studio
 
-## FOUND STUDIO
+### FOUND STUDIO
 - Studio Website : https://www.found-studio.com/#navbar
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-General job
+	General job
 
-	MAIL : jobs@found-studio.com
+		MAIL : jobs@found-studio.com
 
-## HA STUDIO PARIS
+### HA STUDIO PARIS
 - Studio Website : https://www.instagram.com/ha.studio.paris/?locale=%E6%AC%A7%E6%B4%B2%E6%9D%AF%E6%8A%95%E6%B3%A8%E5%9C%A8%E5%93%AA%E5%8F%AF%E4%BB%A5(kaiyun.la)%0A.icra&hl=en
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-General mail
+	General mail
 
-	MAIL : Hastudio@unlockcollectif.com
+		MAIL : Hastudio@unlockcollectif.com
 
-## DIGITAL DISTRICT
+### DIGITAL DISTRICT
 - Studio Website : https://www.digital-district.fr/
 - Studio Linkedin : None
 - Studio contact list:
 
-## (not) alone studio
+### (not) alone studio
 - Studio Website : 
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-company adress
+	company adress
 
-	MAIL : contact@not-alone-studios.com
+		MAIL : contact@not-alone-studios.com
 
-## DIORAMA
+### DIORAMA
 - Studio Website : www.diorama.eu
 - Studio Linkedin : None
 - Studio contact list:
 
-## ALTER BUREAU
+### ALTER BUREAU
 - Studio Website : https://www.alterbureau.com/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-main contact
+	main contact
 
-	MAIL : studio@alterbureau.com
+		MAIL : studio@alterbureau.com
 
-## UNCANNY VALLEY STUDIO
+### UNCANNY VALLEY STUDIO
 - Studio Website : https://uncannyvalley.studio/contact/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-main contact
+	main contact
 
-	MAIL : hello@uncannyvalley.studio
+		MAIL : hello@uncannyvalley.studio
 
-## STUDIO M
+### STUDIO M
 - Studio Website : https://studiom.paris/projects/3d-design
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-info mail? general mail
+	info mail? general mail
 
-	MAIL : info@studiom.paris
+		MAIL : info@studiom.paris
 
-## IIW studio
+### IIW studio
 - Studio Website : https://www.iiwstudio.fr/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@iiwstudio.fr
+		MAIL : contact@iiwstudio.fr
 
-## BLACKMOTION
+### BLACKMOTION
 - Studio Website : https://blackmotion.fr
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general
+	general
 
-	MAIL : contact@blackmotion.fr
+		MAIL : contact@blackmotion.fr
 
-## Chic Agence
+### Chic Agence
 - Studio Website : https://agencechic.com/3d-motion-design/
 - Studio Linkedin : None
 - Studio contact list:
 
-## STILLA
+### STILLA
 - Studio Website : https://stilla-studio.fr/#contacts
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general
+	general
 
-	MAIL : contact@stilla-studio.fr
+		MAIL : contact@stilla-studio.fr
 
-## UN OEIL SUR TOUT
+### UN OEIL SUR TOUT
 - Studio Website : https://www.unoeilsurtout.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@unoeilsurtout.com
+		MAIL : contact@unoeilsurtout.com
 
-## TurboDiesel
+### TurboDiesel
 - Studio Website : turbodiesel.studio
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@turbodiesel.studio
+		MAIL : hello@turbodiesel.studio
 
-## EDDY Studio
+### EDDY Studio
 - Studio Website : eddy.tv
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-Julie
+	Julie
 
-	MAIL : julie@eddy.tv
+		MAIL : julie@eddy.tv
 
-Zuka
+	Zuka
 
-	MAIL : zuka@eddy.tv
+		MAIL : zuka@eddy.tv
 
-## COCO
+### COCO
 - Studio Website : cococreativestudio.com
 - Studio Linkedin : None
 - Studio contact list:
 
-## MATHEMATIC
+### MATHEMATIC
 - Studio Website : mathematic.tv
 - Studio Linkedin : None
 - Studio contact list:
 
-## Nki studio
+### Nki studio
 - Studio Website : https://www.nki.tv/#!/fr/works/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@nki.tv
+		MAIL : contact@nki.tv
 
-## Wizz
+### Wizz
 - Studio Website : https://wizz.fr/about
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job mail
+	job mail
 
-	MAIL : jobs@wizz.fr
+		MAIL : jobs@wizz.fr
 
-## PSYOP
+### PSYOP
 - Studio Website : https://wizz.fr/about
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-Job contact
+	Job contact
 
-	MAIL : jobs@wizz.fr
+		MAIL : jobs@wizz.fr
 
-## H5
+### H5
 - Studio Website : https://www.h5.fr/fr/projects
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-hello contact
+	hello contact
 
-	MAIL : hello@h5.fr
+		MAIL : hello@h5.fr
 			JOB
 
-job contact?
+	job contact?
 
-	MAIL : job@h5.fr
+		MAIL : job@h5.fr
 
-## passion paris
+### passion paris
 - Studio Website : https://www.passion-pictures.com/work/passion-paris/
 - Studio Linkedin : https://www.linkedin.com/company/passion-paris/
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : paris@passion-pictures.com
+		MAIL : paris@passion-pictures.com
 
-## royal post
+### royal post
 - Studio Website : https://www.royalpost.fr/contact/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@royalpost.tv
+		MAIL : contact@royalpost.tv
 
-## HKI - Hellohikimori
+### HKI - Hellohikimori
 - Studio Website : https://hki.paris/about
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@hki.paris
+		MAIL : jobs@hki.paris
 
-## UZIK
+### UZIK
 - Studio Website : https://www.uzik.com/
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : careers@uzik.com
+		MAIL : careers@uzik.com
 
-## MakeMePulse
+### MakeMePulse
 - Studio Website : https://www.makemepulse.com/case-studies/
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : 	jobs@makemepulse.com
+		MAIL : 	jobs@makemepulse.com
 
-## Bonjour Lab
+### Bonjour Lab
 - Studio Website : https://www.bonjour-lab.com/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@bonjour-lab.com
+		MAIL : contact@bonjour-lab.com
 
-## Pleix
+### Pleix
 - Studio Website : https://pleix.net/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-Pleix Contact 1
+	Pleix Contact 1
 
-	MAIL : all@pleix.net
+		MAIL : all@pleix.net
 
-Pleix Contact 2 
+	Pleix Contact 2 
 
-	MAIL : leti@pleix.net
+		MAIL : leti@pleix.net
 
-## CRCR
+### CRCR
 - Studio Website : crcr.fr
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-General contact
+	General contact
 
-	MAIL : mail@crcr.fr﻿
+		MAIL : mail@crcr.fr﻿
 
-## mécanique générale
+### mécanique générale
 - Studio Website : http://www.mecanique-g.com/about
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-Main contact
+	Main contact
 
-	MAIL : jobs@mecanique-g.com
+		MAIL : jobs@mecanique-g.com
 
-## Onirim
+### Onirim
 - Studio Website : https://onirim.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-Main contact
+	Main contact
 
-	MAIL : contact@onirim.com
+		MAIL : contact@onirim.com
 
-## saint-george
+### saint-george
 - Studio Website : https://saint-george.tv/index.php/contact/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general info mail
+	general info mail
 
-	MAIL : info@saint-george.tv
+		MAIL : info@saint-george.tv
 
-## One More studio
+### One More studio
 - Studio Website : onemore-studio.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-MainContact
+	MainContact
 
-	MAIL : knock@onemorestud.io
+		MAIL : knock@onemorestud.io
 
-Gael & Hugo
+	Gael & Hugo
 
-	MAIL : gael.hugo@onemore-studio.com
+		MAIL : gael.hugo@onemore-studio.com
 
-## FIX
+### FIX
 - Studio Website : https://www.fixstudio.com/en
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-Main Job Contact
+	Main Job Contact
 
-	MAIL : jobs@fixstudio.com
+		MAIL : jobs@fixstudio.com
 
-## test
+### test
 - Studio Website : 
 - Studio Linkedin : None
 - Studio contact list:
 
-## DIGITEYES
+### DIGITEYES
 - Studio Website : https://digiteyes.fr/a-propos
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@digiteyes.fr
+		MAIL : jobs@digiteyes.fr
 
-## PointFlottant
+### PointFlottant
 - Studio Website : https://pointflottant.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-global mail
+	global mail
 
-	MAIL : studio@pointflottant.com
+		MAIL : studio@pointflottant.com
 
-## KINGSIZEFX
+### KINGSIZEFX
 - Studio Website : https://www.kingsizefx.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact mail
+	general contact mail
 
-	MAIL : contact@kingsizefx.com
+		MAIL : contact@kingsizefx.com
 			JOB
 
-job contact mail
+	job contact mail
 
-	MAIL : jobs@kingsizefx.com
+		MAIL : jobs@kingsizefx.com
 
-## FYGOSTUDIO
+### FYGOSTUDIO
 - Studio Website : https://fygostudio.com
 - Studio Linkedin : None
 - Studio contact list:
 
-## NEELS STUDIO
+### NEELS STUDIO
 - Studio Website : https://www.neels.fr
 - Studio Linkedin : None
 - Studio contact list:
 
-## BloodyBird studio
+### BloodyBird studio
 - Studio Website : https://www.bloodybird.com
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@bloodybird.com
+		MAIL : job@bloodybird.com
 
-## AC3
+### AC3
 - Studio Website : https://ac3-studio.com/contact
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@ac3-studio.com
+		MAIL : hello@ac3-studio.com
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@ac3-studio.com
+		MAIL : jobs@ac3-studio.com
 
-## Lagoon studio
+### Lagoon studio
 - Studio Website : lagoonstudios.com
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@lagoonstudios.com
+		MAIL : contact@lagoonstudios.com
 
-## MONARCH
+### MONARCH
 - Studio Website : https://www.monarch.tv/about
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@monarch.tv
+		MAIL : job@monarch.tv
 
-## WEARECODE
+### WEARECODE
 - Studio Website : https://wearecode.tv/about/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-rebecca rice
+	rebecca rice
 
-	MAIL : rebecca@wearecode.tv
+		MAIL : rebecca@wearecode.tv
 
-guillaume cottet
+	guillaume cottet
 
-	MAIL : guillaume@wearecode.tv
+		MAIL : guillaume@wearecode.tv
 
-## PROTOTYPESTUDIO
+### PROTOTYPESTUDIO
 - Studio Website : http://www.prototypestudio.fr/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-contact
+	contact
 
-	MAIL : hello@prototypestudio.fr
+		MAIL : hello@prototypestudio.fr
 
-## BONHOMME STUDIO
+### BONHOMME STUDIO
 - Studio Website : https://bonhommeparis.com/fr/contact
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@bonhommeparis.com
+		MAIL : jobs@bonhommeparis.com
 
-## PUNCH AGENCY
+### PUNCH AGENCY
 - Studio Website : https://www.punchagency.paris
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@punchagency.paris
+		MAIL : contact@punchagency.paris
 
-## WWWESH STUDIO
+### WWWESH STUDIO
 - Studio Website : https://wwwesh.studio
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@wwweshstudio.fr
+		MAIL : contact@wwweshstudio.fr
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@wwweshstudio.fr
+		MAIL : job@wwweshstudio.fr
 
-## ALT BORDER
+### ALT BORDER
 - Studio Website : alt-border.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@alt-border.com
+		MAIL : contact@alt-border.com
 
-## Monsieur K studio
+### Monsieur K studio
 - Studio Website : studio-monsieurk.fr
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@studio-monsieurk.fr
+		MAIL : contact@studio-monsieurk.fr
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@studio-monsieurk.fr
+		MAIL : jobs@studio-monsieurk.fr
 
-## I-REEL
+### I-REEL
 - Studio Website : i-reel.fr
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@i-reel.fr
+		MAIL : contact@i-reel.fr
 			JOB
 
-job contact
+	job contact
 
-	MAIL : recrutement@i-reel.fr
+		MAIL : recrutement@i-reel.fr
 
-## SPOA AGENCY
+### SPOA AGENCY
 - Studio Website : https://spoagency.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@spoagency.com
+		MAIL : hello@spoagency.com
 
-## CREASENSO
+### CREASENSO
 - Studio Website : https://creasenso.com
 - Studio Linkedin : None
 - Studio contact list:
 
-## QUATRE DEUX DEUX
+### QUATRE DEUX DEUX
 - Studio Website : https://www.quatredeuxdeux.com/
 - Studio Linkedin : None
 - Studio contact list:
 
-## LeCreative
+### LeCreative
 - Studio Website : https://lecreative.paris
 - Studio Linkedin : None
 - Studio contact list:
 
-## 11H16
+### 11H16
 - Studio Website : https://11h16.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@11h16.com
+		MAIL : hello@11h16.com
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@11h16.com
+		MAIL : job@11h16.com
 
-## CONORELI
+### CONORELI
 - Studio Website : https://conoreli.xyz
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@conoreli.com
+		MAIL : hello@conoreli.com
 
-## CIRCUS
+### CIRCUS
 - Studio Website : https://circus.fr/films/
 - Studio Linkedin : None
 - Studio contact list:
 
-## COKAU
+### COKAU
 - Studio Website : cokaulab.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-main contact
+	main contact
 
-	MAIL : cokau@cokau-lab.com
+		MAIL : cokau@cokau-lab.com
 
-## YOTTA 
+### YOTTA 
 - Studio Website : https://yotta.paris/jobs/
 - Studio Linkedin : None
 - Studio contact list:
 
-## MAZARINE
+### MAZARINE
 - Studio Website : mazarine.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : communication@mazarine.com
+		MAIL : communication@mazarine.com
 
-## CVEG
+### CVEG
 - Studio Website : cveg.fr
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs.cveg.fr
+		MAIL : jobs.cveg.fr
 
-## 530degres
+### 530degres
 - Studio Website : 530degres.agency.about
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact mail
+	general contact mail
 
-	MAIL : contact@530degres.agency
+		MAIL : contact@530degres.agency
 
-	WEBSITE : @530degres
+		WEBSITE : @530degres
 
-## NOID
+### NOID
 - Studio Website : noid-studio.com
 - Studio Linkedin : None
 - Studio contact list:
 			MEMBER
 
+	
 
-
-## TRONATIC
+### TRONATIC
 - Studio Website : tronatic-studio.com
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@tronatic-studio.com
+		MAIL : contact@tronatic-studio.com
 
-## NIGHTSHIFT
+### NIGHTSHIFT
 - Studio Website : nightshift.fr
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@nightshift.fr
+		MAIL : contact@nightshift.fr
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@nightshift.fr
+		MAIL : jobs@nightshift.fr
 
-## DLP Paris
+### DLP Paris
 - Studio Website : dlpparis.com
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@dlpparis.com
+		MAIL : job@dlpparis.com
 
-## BLUMP STUDIO
+### BLUMP STUDIO
 - Studio Website : blump.fr
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@blump.fr
+		MAIL : contact@blump.fr
 			JOB
 
-job contact
+	job contact
 
-	MAIL : carrer@blump.fr
+		MAIL : carrer@blump.fr
 
-## TROUBLEMAKERS
+### TROUBLEMAKERS
 - Studio Website : troublemakers.tv
 - Studio Linkedin : 
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@troublemakers.tv
+		MAIL : jobs@troublemakers.tv
 
-## DISLAB
+### DISLAB
 - Studio Website : dis-lab.com
 - Studio Linkedin : 
 - Studio contact list:
 			MEMBER
 
+	
 
-
-## JUNGLER
+### JUNGLER
 - Studio Website : jungler.tv
 - Studio Linkedin : 
 - Studio contact list:
 			MEMBER
 
+	
 
-
-## WISE BIRD STUDIO
+### WISE BIRD STUDIO
 - Studio Website : wisebird-studio.com
 - Studio Linkedin : 
 - Studio contact list:
 			MEMBER
 
+	
 
-
-## WERLEN MEYER
+### WERLEN MEYER
 - Studio Website : werlenmeyer.com
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@werlenmyeyer.com
+		MAIL : contact@werlenmyeyer.com
 
-## Riverman studio
+### Riverman studio
 - Studio Website : riverman.fr
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-hello contact
+	hello contact
 
-	MAIL : hello@riverman.fr
+		MAIL : hello@riverman.fr
 
-## MOON STUDIO
+### MOON STUDIO
 - Studio Website : moon-studio.io
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@moon-studio.io
+		MAIL : contact@moon-studio.io
 
-## LIGHT VFX
+### LIGHT VFX
 - Studio Website : lightvfx.com
 - Studio Linkedin : 
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@lightvfx.com
+		MAIL : jobs@lightvfx.com
 
-## BUSTERWOOD
+### BUSTERWOOD
 - Studio Website : busterwood.com
 - Studio Linkedin : 
 - Studio contact list:
 			JOB
 
-general job contact
+	general job contact
 
-	MAIL : job@busterwood.com
+		MAIL : job@busterwood.com
 
-3D Artist job contact
+	3D Artist job contact
 
-	MAIL : contactvfx@busterwood.com
+		MAIL : contactvfx@busterwood.com
 
-## CAPSULE STUDIO
+### CAPSULE STUDIO
 - Studio Website : capsule.studio
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : hello@capsule.studio
+		MAIL : hello@capsule.studio
 
-## KARLAB
+### KARLAB
 - Studio Website : fr.karlab.fr
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general contact
+	general contact
 
-	MAIL : contact@karlab.fr
+		MAIL : contact@karlab.fr
 
-## 8849 
+### 8849 
 - Studio Website : 8849.io/about
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-general mail
+	general mail
 
-	MAIL : contact@8849.io
+		MAIL : contact@8849.io
 
-## GOLGOTHA AGENCY
+### GOLGOTHA AGENCY
 - Studio Website : glgth.com
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-Hello contact
+	Hello contact
 
-	MAIL : hello@glgth.com
+		MAIL : hello@glgth.com
 			JOB
 
-Internship Contact
+	Internship Contact
 
-	MAIL : internship@glgth.com
+		MAIL : internship@glgth.com
 
-## ILLUMINATION
+### ILLUMINATION
 - Studio Website : https://www.illuminationstudiosparis.com/?lang=fr
 - Studio Linkedin : https://www.linkedin.com/company/illumination-entertainment/
 - Studio contact list:
 
-## LONDRES
+## [LONDRES]
 
-## DNEG
+### DNEG
 - Studio Website : 
 - Studio Linkedin : None
 - Studio contact list:
 
-## nexus studio
+### nexus studio
 - Studio Website : https://nexusstudios.com/our-story/
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : jobs@nexusstudios.com
+		MAIL : jobs@nexusstudios.com
 
-## AMSTERDAM
+## [AMSTERDAM]
 
-## LOGAN
+### LOGAN
 - Studio Website : https://logan.tv/
 - Studio Linkedin : None
 - Studio contact list:
 			JOB
 
-job contact
+	job contact
 
-	MAIL : job@logan.tv 
+		MAIL : job@logan.tv 
 
-## SEOUL
+## [SEOUL]
 
-## The Mill Paris
+### The Mill Paris
 - Studio Website : https://themill.com/
 - Studio Linkedin : None
 - Studio contact list:
 
-## LONDON
+## [LONDON]
 
-## The Mill Paris
+### The Mill Paris
 - Studio Website : https://themill.com/
 - Studio Linkedin : None
 - Studio contact list:
 
-## WARSAW
+## [WARSAW]
 
-## The Mill Paris
+### The Mill Paris
 - Studio Website : https://themill.com/
 - Studio Linkedin : None
 - Studio contact list:
 
-## LOS ANGELES
+## [LOS ANGELES]
 
-## The Mill Paris
+### The Mill Paris
 - Studio Website : https://themill.com/
 - Studio Linkedin : None
 - Studio contact list:
 
-## BERLIN
+## [BERLIN]
 
-## Polynoid
+### Polynoid
 - Studio Website : https://polynoid.tv/
 - Studio Linkedin : None
 - Studio contact list:
 			GENERAL
 
-Main contact
+	Main contact
 
-	MAIL : contact@polynoid.tv 
+		MAIL : contact@polynoid.tv 
 
-## MIMIC
+### MIMIC
 - Studio Website : mimicproductions.com
 - Studio Linkedin : 
 - Studio contact list:
 			GENERAL
 
-info contact
+	info contact
 
-	MAIL : info@mimicproductions.com
+		MAIL : info@mimicproductions.com
 			MEMBER
 
-job contact
+	job contact
 
-	MAIL : careers@mimicproductions.com
+		MAIL : careers@mimicproductions.com
 
-## BELGIQUE
+## [BELGIQUE]
 
-## SCHRODINGER
+### SCHRODINGER
 - Studio Website : https://www.schrodinger.be
 - Studio Linkedin : 
 - Studio contact list:
 			MEMBER
 
-
+	
