@@ -385,7 +385,7 @@ class ConveryUserUtility():
 		for studio_name, studio_data in self.company_dictionnary.items():
 
 			studio_markdown = f"""
-## %s
+### %s
 - Studio Website : %s
 - Studio Linkedin : %s
 - Studio contact list:
@@ -395,7 +395,7 @@ class ConveryUserUtility():
 
 				if contact_list != {}:
 					studio_markdown+=f"""
-	#### %s
+	##### %s
 """%(contact_type)
 
 					for c_name, c_data in contact_list.items():
