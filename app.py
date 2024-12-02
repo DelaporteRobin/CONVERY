@@ -666,8 +666,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 		if event.button.id == "button_save_contact_sheet":
-			self.save_contact_sheet_function()
-
+			#self.save_contact_sheet_function()
+			
+			self.save_contact_table_function()
 
 		if event.button.id == "button_erase_tag":
 			self.highlight_tag_list.clear()

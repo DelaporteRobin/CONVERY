@@ -23,6 +23,7 @@ from functools import partial
 from typing import  Iterable
 from datetime import datetime 
 from pyfiglet import Figlet 
+from tabulate import tabulate
 
 
 
@@ -344,6 +345,64 @@ class ConveryUserUtility():
 
 						new_contact = Modal_Contact(contact_type, contact_name, contact_mail, contact_website)
 						self.newcompany_contactlist_container.mount(new_contact)
+
+
+
+
+
+
+
+
+
+
+
+	def save_contact_table_function(self):
+
+		#create table
+		data = [
+			["LOCATION", "STUDIO NAME", "WEBSITE", "LINKEDIN", "CONTACT"]
+		]
+
+		for studio_name, studio_data in self.company_dictionnary.items():
+
+			contact_str = ""
+
+			for contact_genre, contact_data in studio_data["CompanyContact"].items():
+				contact_str += "%s\n"%contact_genre.upper()
+				for contact_name, contact_coordinate in contact_data.items():
+					contact_str+= """
+	- %s:
+		mail : %s
+		website : %s
+"""%(contact_name, contact_coordinate["mail"], contact_coordinate["website"])
+
+			data.append( [studio_data["CompanyLocation"].upper(), studio_name, studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"], contact_str] )
+
+		table_text = tabulate(data, headers="firstrow", tablefmt="grid")
+
+
+
+		with open("test.txt", "w", encoding="utf-8") as file:
+			file.write(table_text)
+
+
+
+		self.display_success_function("saved")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
