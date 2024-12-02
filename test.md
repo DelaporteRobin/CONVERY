@@ -8,13 +8,13 @@
 
 	#### MEMBER
 
-		* Emile Asselineau
+		- Emile Asselineau
 
-			* https://www.linkedin.com/in/emile-asselineau/
+			https://www.linkedin.com/in/emile-asselineau/
 
-		* emma le louarn
+		- emma le louarn
 
-			* https://www.linkedin.com/in/emma-le-louarn/
+			https://www.linkedin.com/in/emma-le-louarn/
 
 ### EVEREST
 - Studio Website : https://www.everest.studio/
@@ -23,9 +23,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@everest.studio
+			job@everest.studio
 
 ### SUPERBIEN
 - Studio Website : https://www.superbien.studio/fr/
@@ -39,9 +39,9 @@
 
 	#### JOB
 
-		* job paris contact
+		- job paris contact
 
-			* jobs_paris@buf.com
+			jobs_paris@buf.com
 
 ### ARD
 - Studio Website :  https://www.ard.ac/
@@ -50,9 +50,9 @@
 
 	#### GENERAL
 
-		* hello mail
+		- hello mail
 
-			* hello@ard.ac
+			hello@ard.ac
 
 ### FEVR
 - Studio Website : https://wearefevr.fr/projets/keyprod/
@@ -61,15 +61,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@wearefevr.fr
+			hello@wearefevr.fr
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@wearefevr.fr
+			job@wearefevr.fr
 
 ### SWIPE BACK
 - Studio Website : https://swipeback.studio/
@@ -83,13 +83,13 @@
 
 	#### GENERAL
 
-		* Hugo Elkaïm
+		- Hugo Elkaïm
 
-			* hugo@perimetre.studio
+			hugo@perimetre.studio
 
-		* Camille Marc
+		- Camille Marc
 
-			* camille@perimetre.studio
+			camille@perimetre.studio
 
 ### FOUND STUDIO
 - Studio Website : https://www.found-studio.com/#navbar
@@ -98,9 +98,9 @@
 
 	#### JOB
 
-		* General job
+		- General job
 
-			* jobs@found-studio.com
+			jobs@found-studio.com
 
 ### HA STUDIO PARIS
 - Studio Website : https://www.instagram.com/ha.studio.paris/?locale=%E6%AC%A7%E6%B4%B2%E6%9D%AF%E6%8A%95%E6%B3%A8%E5%9C%A8%E5%93%AA%E5%8F%AF%E4%BB%A5(kaiyun.la)%0A.icra&hl=en
@@ -109,9 +109,9 @@
 
 	#### GENERAL
 
-		* General mail
+		- General mail
 
-			* Hastudio@unlockcollectif.com
+			Hastudio@unlockcollectif.com
 
 ### DIGITAL DISTRICT
 - Studio Website : https://www.digital-district.fr/
@@ -125,9 +125,9 @@
 
 	#### GENERAL
 
-		* company adress
+		- company adress
 
-			* contact@not-alone-studios.com
+			contact@not-alone-studios.com
 
 ### DIORAMA
 - Studio Website : www.diorama.eu
@@ -141,9 +141,9 @@
 
 	#### GENERAL
 
-		* main contact
+		- main contact
 
-			* studio@alterbureau.com
+			studio@alterbureau.com
 
 ### UNCANNY VALLEY STUDIO
 - Studio Website : https://uncannyvalley.studio/contact/
@@ -152,9 +152,9 @@
 
 	#### GENERAL
 
-		* main contact
+		- main contact
 
-			* hello@uncannyvalley.studio
+			hello@uncannyvalley.studio
 
 ### STUDIO M
 - Studio Website : https://studiom.paris/projects/3d-design
@@ -163,9 +163,9 @@
 
 	#### GENERAL
 
-		* info mail? general mail
+		- info mail? general mail
 
-			* info@studiom.paris
+			info@studiom.paris
 
 ### IIW studio
 - Studio Website : https://www.iiwstudio.fr/
@@ -174,9 +174,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@iiwstudio.fr
+			contact@iiwstudio.fr
 
 ### BLACKMOTION
 - Studio Website : https://blackmotion.fr
@@ -185,9 +185,9 @@
 
 	#### GENERAL
 
-		* general
+		- general
 
-			* contact@blackmotion.fr
+			contact@blackmotion.fr
 
 ### Chic Agence
 - Studio Website : https://agencechic.com/3d-motion-design/
@@ -201,9 +201,9 @@
 
 	#### GENERAL
 
-		* general
+		- general
 
-			* contact@stilla-studio.fr
+			contact@stilla-studio.fr
 
 ### UN OEIL SUR TOUT
 - Studio Website : https://www.unoeilsurtout.com
@@ -212,9 +212,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@unoeilsurtout.com
+			contact@unoeilsurtout.com
 
 ### TurboDiesel
 - Studio Website : turbodiesel.studio
@@ -223,9 +223,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@turbodiesel.studio
+			hello@turbodiesel.studio
 
 ### EDDY Studio
 - Studio Website : eddy.tv
@@ -234,13 +234,13 @@
 
 	#### GENERAL
 
-		* Julie
+		- Julie
 
-			* julie@eddy.tv
+			julie@eddy.tv
 
-		* Zuka
+		- Zuka
 
-			* zuka@eddy.tv
+			zuka@eddy.tv
 
 ### COCO
 - Studio Website : cococreativestudio.com
@@ -259,9 +259,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@nki.tv
+			contact@nki.tv
 
 ### Wizz
 - Studio Website : https://wizz.fr/about
@@ -270,9 +270,9 @@
 
 	#### JOB
 
-		* job mail
+		- job mail
 
-			* jobs@wizz.fr
+			jobs@wizz.fr
 
 ### PSYOP
 - Studio Website : https://wizz.fr/about
@@ -281,9 +281,9 @@
 
 	#### JOB
 
-		* Job contact
+		- Job contact
 
-			* jobs@wizz.fr
+			jobs@wizz.fr
 
 ### H5
 - Studio Website : https://www.h5.fr/fr/projects
@@ -292,15 +292,15 @@
 
 	#### GENERAL
 
-		* hello contact
+		- hello contact
 
-			* hello@h5.fr
+			hello@h5.fr
 
 	#### JOB
 
-		* job contact?
+		- job contact?
 
-			* job@h5.fr
+			job@h5.fr
 
 ### passion paris
 - Studio Website : https://www.passion-pictures.com/work/passion-paris/
@@ -309,9 +309,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* paris@passion-pictures.com
+			paris@passion-pictures.com
 
 ### royal post
 - Studio Website : https://www.royalpost.fr/contact/
@@ -320,9 +320,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@royalpost.tv
+			contact@royalpost.tv
 
 ### HKI - Hellohikimori
 - Studio Website : https://hki.paris/about
@@ -331,9 +331,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@hki.paris
+			jobs@hki.paris
 
 ### UZIK
 - Studio Website : https://www.uzik.com/
@@ -342,9 +342,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* careers@uzik.com
+			careers@uzik.com
 
 ### MakeMePulse
 - Studio Website : https://www.makemepulse.com/case-studies/
@@ -353,9 +353,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* 	jobs@makemepulse.com
+				jobs@makemepulse.com
 
 ### Bonjour Lab
 - Studio Website : https://www.bonjour-lab.com/
@@ -364,9 +364,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@bonjour-lab.com
+			contact@bonjour-lab.com
 
 ### Pleix
 - Studio Website : https://pleix.net/
@@ -375,13 +375,13 @@
 
 	#### GENERAL
 
-		* Pleix Contact 1
+		- Pleix Contact 1
 
-			* all@pleix.net
+			all@pleix.net
 
-		* Pleix Contact 2 
+		- Pleix Contact 2 
 
-			* leti@pleix.net
+			leti@pleix.net
 
 ### CRCR
 - Studio Website : crcr.fr
@@ -390,9 +390,9 @@
 
 	#### GENERAL
 
-		* General contact
+		- General contact
 
-			* mail@crcr.fr﻿
+			mail@crcr.fr﻿
 
 ### mécanique générale
 - Studio Website : http://www.mecanique-g.com/about
@@ -401,9 +401,9 @@
 
 	#### JOB
 
-		* Main contact
+		- Main contact
 
-			* jobs@mecanique-g.com
+			jobs@mecanique-g.com
 
 ### Onirim
 - Studio Website : https://onirim.com
@@ -412,9 +412,9 @@
 
 	#### GENERAL
 
-		* Main contact
+		- Main contact
 
-			* contact@onirim.com
+			contact@onirim.com
 
 ### saint-george
 - Studio Website : https://saint-george.tv/index.php/contact/
@@ -423,9 +423,9 @@
 
 	#### GENERAL
 
-		* general info mail
+		- general info mail
 
-			* info@saint-george.tv
+			info@saint-george.tv
 
 ### One More studio
 - Studio Website : onemore-studio.com
@@ -434,13 +434,13 @@
 
 	#### GENERAL
 
-		* MainContact
+		- MainContact
 
-			* knock@onemorestud.io
+			knock@onemorestud.io
 
-		* Gael & Hugo
+		- Gael & Hugo
 
-			* gael.hugo@onemore-studio.com
+			gael.hugo@onemore-studio.com
 
 ### FIX
 - Studio Website : https://www.fixstudio.com/en
@@ -449,9 +449,9 @@
 
 	#### JOB
 
-		* Main Job Contact
+		- Main Job Contact
 
-			* jobs@fixstudio.com
+			jobs@fixstudio.com
 
 ### test
 - Studio Website : 
@@ -465,9 +465,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@digiteyes.fr
+			jobs@digiteyes.fr
 
 ### PointFlottant
 - Studio Website : https://pointflottant.com
@@ -476,9 +476,9 @@
 
 	#### GENERAL
 
-		* global mail
+		- global mail
 
-			* studio@pointflottant.com
+			studio@pointflottant.com
 
 ### KINGSIZEFX
 - Studio Website : https://www.kingsizefx.com
@@ -487,15 +487,15 @@
 
 	#### GENERAL
 
-		* general contact mail
+		- general contact mail
 
-			* contact@kingsizefx.com
+			contact@kingsizefx.com
 
 	#### JOB
 
-		* job contact mail
+		- job contact mail
 
-			* jobs@kingsizefx.com
+			jobs@kingsizefx.com
 
 ### FYGOSTUDIO
 - Studio Website : https://fygostudio.com
@@ -514,9 +514,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@bloodybird.com
+			job@bloodybird.com
 
 ### AC3
 - Studio Website : https://ac3-studio.com/contact
@@ -525,15 +525,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@ac3-studio.com
+			hello@ac3-studio.com
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@ac3-studio.com
+			jobs@ac3-studio.com
 
 ### Lagoon studio
 - Studio Website : lagoonstudios.com
@@ -542,9 +542,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@lagoonstudios.com
+			contact@lagoonstudios.com
 
 ### MONARCH
 - Studio Website : https://www.monarch.tv/about
@@ -553,9 +553,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@monarch.tv
+			job@monarch.tv
 
 ### WEARECODE
 - Studio Website : https://wearecode.tv/about/
@@ -564,13 +564,13 @@
 
 	#### GENERAL
 
-		* rebecca rice
+		- rebecca rice
 
-			* rebecca@wearecode.tv
+			rebecca@wearecode.tv
 
-		* guillaume cottet
+		- guillaume cottet
 
-			* guillaume@wearecode.tv
+			guillaume@wearecode.tv
 
 ### PROTOTYPESTUDIO
 - Studio Website : http://www.prototypestudio.fr/
@@ -579,9 +579,9 @@
 
 	#### GENERAL
 
-		* contact
+		- contact
 
-			* hello@prototypestudio.fr
+			hello@prototypestudio.fr
 
 ### BONHOMME STUDIO
 - Studio Website : https://bonhommeparis.com/fr/contact
@@ -590,9 +590,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@bonhommeparis.com
+			jobs@bonhommeparis.com
 
 ### PUNCH AGENCY
 - Studio Website : https://www.punchagency.paris
@@ -601,9 +601,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@punchagency.paris
+			contact@punchagency.paris
 
 ### WWWESH STUDIO
 - Studio Website : https://wwwesh.studio
@@ -612,15 +612,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@wwweshstudio.fr
+			contact@wwweshstudio.fr
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@wwweshstudio.fr
+			job@wwweshstudio.fr
 
 ### ALT BORDER
 - Studio Website : alt-border.com
@@ -629,9 +629,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@alt-border.com
+			contact@alt-border.com
 
 ### Monsieur K studio
 - Studio Website : studio-monsieurk.fr
@@ -640,15 +640,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@studio-monsieurk.fr
+			contact@studio-monsieurk.fr
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@studio-monsieurk.fr
+			jobs@studio-monsieurk.fr
 
 ### I-REEL
 - Studio Website : i-reel.fr
@@ -657,15 +657,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@i-reel.fr
+			contact@i-reel.fr
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* recrutement@i-reel.fr
+			recrutement@i-reel.fr
 
 ### SPOA AGENCY
 - Studio Website : https://spoagency.com
@@ -674,9 +674,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@spoagency.com
+			hello@spoagency.com
 
 ### CREASENSO
 - Studio Website : https://creasenso.com
@@ -700,15 +700,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@11h16.com
+			hello@11h16.com
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@11h16.com
+			job@11h16.com
 
 ### CONORELI
 - Studio Website : https://conoreli.xyz
@@ -717,9 +717,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@conoreli.com
+			hello@conoreli.com
 
 ### CIRCUS
 - Studio Website : https://circus.fr/films/
@@ -733,9 +733,9 @@
 
 	#### GENERAL
 
-		* main contact
+		- main contact
 
-			* cokau@cokau-lab.com
+			cokau@cokau-lab.com
 
 ### YOTTA 
 - Studio Website : https://yotta.paris/jobs/
@@ -749,9 +749,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* communication@mazarine.com
+			communication@mazarine.com
 
 ### CVEG
 - Studio Website : cveg.fr
@@ -760,9 +760,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs.cveg.fr
+			jobs.cveg.fr
 
 ### 530degres
 - Studio Website : 530degres.agency.about
@@ -771,11 +771,11 @@
 
 	#### GENERAL
 
-		* general contact mail
+		- general contact mail
 
-			* contact@530degres.agency
+			contact@530degres.agency
 
-			* @530degres
+			@530degres
 
 ### NOID
 - Studio Website : noid-studio.com
@@ -784,7 +784,7 @@
 
 	#### MEMBER
 
-		* 
+		- 
 
 ### TRONATIC
 - Studio Website : tronatic-studio.com
@@ -793,9 +793,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@tronatic-studio.com
+			contact@tronatic-studio.com
 
 ### NIGHTSHIFT
 - Studio Website : nightshift.fr
@@ -804,15 +804,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@nightshift.fr
+			contact@nightshift.fr
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@nightshift.fr
+			jobs@nightshift.fr
 
 ### DLP Paris
 - Studio Website : dlpparis.com
@@ -821,9 +821,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@dlpparis.com
+			job@dlpparis.com
 
 ### BLUMP STUDIO
 - Studio Website : blump.fr
@@ -832,15 +832,15 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@blump.fr
+			contact@blump.fr
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* carrer@blump.fr
+			carrer@blump.fr
 
 ### TROUBLEMAKERS
 - Studio Website : troublemakers.tv
@@ -849,9 +849,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@troublemakers.tv
+			jobs@troublemakers.tv
 
 ### DISLAB
 - Studio Website : dis-lab.com
@@ -860,7 +860,7 @@
 
 	#### MEMBER
 
-		* 
+		- 
 
 ### JUNGLER
 - Studio Website : jungler.tv
@@ -869,7 +869,7 @@
 
 	#### MEMBER
 
-		* 
+		- 
 
 ### WISE BIRD STUDIO
 - Studio Website : wisebird-studio.com
@@ -878,7 +878,7 @@
 
 	#### MEMBER
 
-		* 
+		- 
 
 ### WERLEN MEYER
 - Studio Website : werlenmeyer.com
@@ -887,9 +887,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@werlenmyeyer.com
+			contact@werlenmyeyer.com
 
 ### Riverman studio
 - Studio Website : riverman.fr
@@ -898,9 +898,9 @@
 
 	#### GENERAL
 
-		* hello contact
+		- hello contact
 
-			* hello@riverman.fr
+			hello@riverman.fr
 
 ### MOON STUDIO
 - Studio Website : moon-studio.io
@@ -909,9 +909,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@moon-studio.io
+			contact@moon-studio.io
 
 ### LIGHT VFX
 - Studio Website : lightvfx.com
@@ -920,9 +920,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@lightvfx.com
+			jobs@lightvfx.com
 
 ### BUSTERWOOD
 - Studio Website : busterwood.com
@@ -931,13 +931,13 @@
 
 	#### JOB
 
-		* general job contact
+		- general job contact
 
-			* job@busterwood.com
+			job@busterwood.com
 
-		* 3D Artist job contact
+		- 3D Artist job contact
 
-			* contactvfx@busterwood.com
+			contactvfx@busterwood.com
 
 ### CAPSULE STUDIO
 - Studio Website : capsule.studio
@@ -946,9 +946,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* hello@capsule.studio
+			hello@capsule.studio
 
 ### KARLAB
 - Studio Website : fr.karlab.fr
@@ -957,9 +957,9 @@
 
 	#### GENERAL
 
-		* general contact
+		- general contact
 
-			* contact@karlab.fr
+			contact@karlab.fr
 
 ### 8849 
 - Studio Website : 8849.io/about
@@ -968,9 +968,9 @@
 
 	#### GENERAL
 
-		* general mail
+		- general mail
 
-			* contact@8849.io
+			contact@8849.io
 
 ### GOLGOTHA AGENCY
 - Studio Website : glgth.com
@@ -979,15 +979,15 @@
 
 	#### GENERAL
 
-		* Hello contact
+		- Hello contact
 
-			* hello@glgth.com
+			hello@glgth.com
 
 	#### JOB
 
-		* Internship Contact
+		- Internship Contact
 
-			* internship@glgth.com
+			internship@glgth.com
 
 ### ILLUMINATION
 - Studio Website : https://www.illuminationstudiosparis.com/?lang=fr
@@ -1008,9 +1008,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* jobs@nexusstudios.com
+			jobs@nexusstudios.com
 
 ## [AMSTERDAM]
 
@@ -1021,9 +1021,9 @@
 
 	#### JOB
 
-		* job contact
+		- job contact
 
-			* job@logan.tv 
+			job@logan.tv 
 
 ## [SEOUL]
 
@@ -1062,9 +1062,9 @@
 
 	#### GENERAL
 
-		* Main contact
+		- Main contact
 
-			* contact@polynoid.tv 
+			contact@polynoid.tv 
 
 ### MIMIC
 - Studio Website : mimicproductions.com
@@ -1073,15 +1073,15 @@
 
 	#### GENERAL
 
-		* info contact
+		- info contact
 
-			* info@mimicproductions.com
+			info@mimicproductions.com
 
 	#### MEMBER
 
-		* job contact
+		- job contact
 
-			* careers@mimicproductions.com
+			careers@mimicproductions.com
 
 ## [BELGIQUE]
 
@@ -1092,4 +1092,4 @@
 
 	#### MEMBER
 
-		* 
+		- 
