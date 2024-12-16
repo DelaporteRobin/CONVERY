@@ -14,7 +14,12 @@ and simplify the process of sending hundreds of emails.
 - [x] email generation system (to make a template specific to each studio you contact or improve the formulation of your emails), or just adapt an email to your new personal information
 > [!NOTE]
 > Rework soon
-- [ ] Contact search system via linkedin (WIP)
+
+## Tasklist for dev
+- [ ] adapting the log system with threads so you don't have to leave the main TUI
+- [ ] full loging support on the "find linkedin contact system"
+- [ ] adding found contacts to the company contact
+- [ ] adapt the Copilot system with a custom copilot system
 
 ## Documentation
 > [!NOTE]
