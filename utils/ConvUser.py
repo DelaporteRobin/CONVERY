@@ -18,6 +18,7 @@ import threading
 import json
 import colorama
 import markdown
+import validators
 
 from functools import partial
 from typing import  Iterable
@@ -371,9 +372,10 @@ class ConveryUserUtility():
 			contact_str = ""
 
 			for contact_genre, contact_data in studio_data["CompanyContact"].items():
-				contact_str += "%s\n"%contact_genre.upper()
-				for contact_name, contact_coordinate in contact_data.items():
-					contact_str+= """
+				if contact_data != {}:
+					contact_str += "%s\n"%contact_genre.upper()
+					for contact_name, contact_coordinate in contact_data.items():
+						contact_str+= """
 	- %s:
 		mail : %s
 		website : %s
@@ -393,23 +395,154 @@ class ConveryUserUtility():
 		self.display_success_function("location dictionnary created")
 
 
+		
+
+
 		for location, location_data in location_dictionnary.items():
+			self.display_message_function("All studios added for that location : %s"%location)
 			for row in location_data:
 				data.append(row) 
 
 
+
+		#create html content
+		html_content = """
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau des Studios</title>
+    <style>
+        /* Général */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        /* Tableau */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 1.1em;
+        }
+
+        td {
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Liens */
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #3498db;
+        }
+
+        /* Texte et préformatage */
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+    </style>
+</head>
+<table border='1'>
+"""
+		
+		for i in range(len(data)):
+			if i == 0:
+				html_content += self.save_html_row_function(data[i], "th")
+			else:
+				html_content += self.save_html_row_function(data[i], "td")
+
+		html_content += "</table>\n"
+		self.display_success_function("Table .html created")
+
 		table_text = tabulate(data, headers="firstrow", tablefmt="grid")
-		self.display_success_function("TABLE CREATED")
+		self.display_success_function("Table .txt created")
 
 
-		filename = os.path.join(os.getcwd(), "CompanyData_Export.TXT")
+		filename = os.path.join(os.getcwd(), "CompanyData_Export.txt")
+		filename_html = os.path.join(os.getcwd(), "CompanyData_Export.html")
 
 		with open(filename, "w", encoding="utf-8") as file:
 			file.write(table_text)
 
+		with open(filename_html, "w", encoding="utf-8") as file_html:
+			file_html.write(html_content)
 
 
-		self.display_success_function("TABLE SAVED : %s"%filename)
+
+		self.display_success_function("All files saved : [ %s ] [ %s ]"%(filename, filename_html))
+
+
+
+
+
+
+	def save_html_row_function(self, row_list, tag):
+		html_output = "\t<tr>\n"
+
+		for row_item in row_list:
+
+			row_item = str(row_item)
+			if "\n" in row_item:
+				row_item = row_item.replace("\n", "<br>")
+
+			#replace link in html
+			splited_content = row_item.split(" ")
+			for i in range(len(splited_content)):
+				if self.check_for_url_function(splited_content[i]) == True:
+					#self.display_success_function("URL DETECTED")
+					splited_content[i] = "<a href='%s'>%s</a>"%(splited_content[i],splited_content[i])
+			#final assemble
+			row_item = " ".join(splited_content)
+
+			html_output += "<%s><pre>%s</pre></%s>\n"%(tag,row_item,tag)
+
+
+		html_output+="\t</tr>\n"
+		return html_output
+
+
+
+	def check_for_url_function(self, content):
+		return validators.url(content)
 
 
 

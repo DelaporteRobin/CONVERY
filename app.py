@@ -593,7 +593,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 
-				#self.display_message_function("field")
+	
 
 				
 				self.mail_contact_list.update(contact_list)

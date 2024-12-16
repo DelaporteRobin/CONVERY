@@ -461,3 +461,18 @@ To : %s
 
 
 
+
+
+
+
+
+	def generate_with_copilot_function(self): 
+		"""
+		
+		"""
+
+
+
+
+
+
