@@ -321,6 +321,12 @@ class ConveryMailUtility():
 				mail_header = header_proxy
 				mail_body = body_proxy
 
+				studio_name = contact_data["studioName"]
+				studio_data = self.company_dictionnary[contact_data["studioName"]]
+
+				#to block email sending
+				continue
+
 
 				#REPLACE VARIABLES IN EMAIL BODY
 				if ("[STUDIONAME]" in mail_header) or ("[STUDIONAME]" in mail_body):
@@ -398,6 +404,12 @@ To : %s
 
 
 					print(colored("MAIL SENT : %s\n\n"%contact_data["contactMail"], "green"))
+
+
+					#update the value of the date in the studio settings dictionnary
+					#studio_data["CompanyDate"] = (datetime.now(timezone.utc)).isoformat()
+					#self.company_dictionnary[studio_name] = studio_data
+
 				i+=1
 
 

@@ -17,6 +17,7 @@ import Levenshtein
 import threading
 import json
 import colorama
+import traceback
 
 from functools import partial
 from typing import  Iterable
@@ -36,7 +37,8 @@ from textual import events
 from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, Container, VerticalScroll
 from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
-
+from textual.reactive import reactive
+from textual.await_complete import AwaitComplete
 
 
 
@@ -57,6 +59,19 @@ from config import STYLES_PATH, ASCII_FONT, THEME
 from modal import ModalConveryScreenUser
 from modal import ModalConveryScreenContact
 from modal import ModalConveryScreenLinkedin
+
+from utils.ConvWidget import MultiListView, MultiListItem
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -83,6 +98,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		self.kind_list = ["MEMBER", "JOB", "GENERAL"]
 		self.tag_list = []
+
 		self.highlight_tag_list = []
 		self.highlight_studio_list = []
 
@@ -144,6 +160,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			"UserDemoReelPassword":None,
 			"UserLinkedinAddress":None,
 			"UserLinkedinPassword":None,
+			"UserTagList":[],
 		}
 
 
@@ -183,81 +200,92 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 		with Horizontal(id="main_horizontal_container"):
-			with Vertical(id = "main_title_container"):
+			#with Vertical(id = "main_title_container"):
 
-				yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
-
-
-				with Horizontal(id = "main_left_center_container_horizontal"):
-					with Vertical(id = "main_left_container"):
-						
-						
-
-						with Vertical(id="left_vertical_container"):
-
-							
-							with Grid(id = "left_horizontal_option_bar"):
 				
-								
-								yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
-								yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
-								yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
-								yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
-								
 
-							with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
-								with ScrollableContainer(id = "scrollable_studiolist_settings"):
-									
-									with RadioSet(id = "radioset_studiolist_settings"):
-										yield RadioButton("By alphabetic order")
-										yield RadioButton("By chronologic order")
-										yield RadioButton("By priority order")
 
-									yield Rule(line_style="double")
+				#with Horizontal(id = "main_left_center_container_horizontal"):
+			with Vertical(id = "main_left_container"):
+				yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
+				
+				
 
-									self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")
-									yield self.selectionlist_tags_settings
+				with Vertical(id="left_vertical_container"):
 
-									with Horizontal(id = "horizontal_tag_container"):
-										yield Button("Remove tags", id="button_remove_tag")
-										yield Button("Highlight", id="button_highlight_tag")
-										yield Button("Erase", id="button_erase_tag", classes="error_button")
-
+					
+					with Grid(id = "left_horizontal_option_bar"):
+		
+						
+						yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
+						yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
+						yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
+						yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
 						
 
+					
 
-
-							self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
-							yield self.input_studiolist_searchbar
-
-							self.listview_studiolist = ListView(id="listview_studiolist")
-							self.listview_studiolist.border_title = "Studio list"
-							yield self.listview_studiolist
-
-						with Horizontal(id="left_bottom_container"):
-							yield Button("Get contact from studio", id="button_get_contact_from_studios")
-							yield Button("Save contact sheet", id="button_save_contact_sheet")
-						#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
-						#yield self.datatable_studiolist
+				
 
 
 
-					with Vertical(id = "main_center_container"):
+					self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
+					yield self.input_studiolist_searchbar
 
-						self.input_tag_lobby = Input(placeholder="TAG LIST", id="input_tag_lobby", suggester=SuggestFromList(self.tag_list, case_sensitive=False))
-						yield self.input_tag_lobby 
+					self.listview_studiolist = MultiListView(id="listview_studiolist")
+					self.listview_studiolist.border_title = "Studio list"
+					yield self.listview_studiolist
 
-						#with Horizontal(id = "right_horizontal_container"):
-						with Vertical(id="right_vertical_container1"):
-							self.markdown_studio = Markdown("Hello World", id="markdown_lobby")
-							yield self.markdown_studio
+				with Horizontal(id="left_bottom_container"):
+					yield Button("Get contact from studio", id="button_get_contact_from_studios")
+					yield Button("Save contact sheet", id="button_save_contact_sheet")
+				#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
+				#yield self.datatable_studiolist
+
+
+
+			with Vertical(id = "main_center_container"):
+
+				with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
+					with ScrollableContainer(id = "scrollable_studiolist_settings"):
+						
+						with RadioSet(id = r"adioset_studiolist_settings"):
+							yield RadioButton("By alphabetic order")
+							yield RadioButton("By chronologic order")
+							yield RadioButton("By priority order")
+
+						yield Rule(line_style="double")
+
+						with Horizontal(id = "horizontal_create_tag_container"):
+							self.input_create_tag = Input(placeholder = "Tag name", id="input_create_tag")
+							yield self.input_create_tag 
+
+							yield Button("Create tag", id="button_create_tag", classes="error_button")
+
+						self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")
+						yield self.selectionlist_tags_settings
+
+						with Horizontal(id = "horizontal_tag_container"):
+							#yield Button("Remove tags", id="button_remove_tag")
+							yield Button("Highlight", id="button_highlight_tag")
+							yield Button("Add to selection", id = "button_add_tag_to_selection")
+							yield Button("REMOVE", id="button_remove_tag", classes="error_button")
+
+				self.input_tag_lobby = Input(placeholder="TAG LIST", id="input_tag_lobby", suggester=SuggestFromList(self.tag_list, case_sensitive=False))
+				yield self.input_tag_lobby 
+
+				#with Horizontal(id = "right_horizontal_container"):
+				with Vertical(id="right_vertical_container1"):
+					self.markdown_studio = Markdown("Hello World", id="markdown_lobby")
+					yield self.markdown_studio
 
 
 			with Vertical(id = "main_right_container"):
 				with TabbedContent(id="main_righttab_container"):
 
 					with TabPane("Log"):
-						self.listview_log = ListView(id="listview_log")
+						#self.listview_log = ListView(id="listview_log")
+						self.listview_log = MultiListView(id = "listview_log")
 						yield self.listview_log
 						#self.log_mainpage = Log(id="log_mainpage")
 						#yield self.log_mainpage
@@ -631,12 +659,12 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 			
+	def on_key(self, event:events.Key) -> None:
+		if (event.key == "enter") and (self.focused.id == "listview_studiolist"):
+			children_item = self.listview_studiolist.children[self.listview_studiolist.index]
+			children_item.highlight_item(children_item)
 
-	"""
-	async def on_key(self, event: events.Key):
-		if (self.focused.id == "input_mailcontact") and (event.key == "right"):
-			self.input_mailcontact.value = "%s;"%self.input_mailcontact.value
-	"""
+			#self.display_message_function(self.listview_studiolist.index_list)
 
 
 	def on_radio_set_changed(self, event:RadioSet.Changed) -> None:
@@ -650,6 +678,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 
+		if event.button.id == "button_create_tag":
+			#create a tag from the lobby
+			#and add it to the list of tag create
+			#needs to store this list somewhere???
+			value = self.create_tag_function()
+			if value == True:
+				self.update_informations_function()
+
+		if event.button.id == "button_add_tag_to_selection":
+			self.add_tag_to_selection_function()
+
 
 		if event.button.id == "button_get_contact_from_studios":
 			#self.push_screen(POST_GetContact())
@@ -660,7 +699,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			index_list = self.selectionlist_tags_settings.selected
 			tag_list = []
 			for index in index_list:
-				self.highlight_tag_list.append(self.tag_list[index])
+				self.highlight_tag_list.append(self.user_settings["UserTagList"][index])
 
 			self.update_informations_function()
 
@@ -672,6 +711,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		if event.button.id == "button_erase_tag":
 			self.highlight_tag_list.clear()
+
+			self.delete_tag_function()
 			self.update_informations_function()
 
 
@@ -681,8 +722,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			#get the selection in selection list
 			index_list = self.selectionlist_tags_settings.selected
 			tag_list = []
+
+			self.display_message_function(index_list)
+			self.display_message_function(self.tag_list)
 			for index in index_list:
-				tag_list.append(self.tag_list[index])
+				try:
+					#self.display_message_function(self.tag_list[index])
+					#tag_list.append(self.tag_list[index])
+					tag_list.append(self.user_settings["UserTagList"][index])
+				except Exception as e:
+					self.display_error_function(traceback.format_exc())
+					pass
 
 			for studio_name, studio_data in self.company_dictionnary.items():
 				studio_tag = studio_data["CompanyTags"]
@@ -695,10 +745,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				studio_data["CompanyTags"] = studio_tag 
 
 				self.company_dictionnary[studio_name] = studio_data
+
+			#update user settings
+			user_tag_list = self.user_settings["UserTagList"]
+			for tag in tag_list:
+				user_tag_list.remove(tag)
+			self.user_settings["UserTagList"] = user_tag_list
+
+			self.save_user_settings_function()
 			self.save_company_dictionnary_function()
 			self.update_informations_function()
-
-
+			
 
 		if event.button.id == "button_send_mail":
 

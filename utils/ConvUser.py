@@ -40,12 +40,90 @@ from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, 
 from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
 
+from utils.ConvWidget import MultiListItem, MultiListView
+
 
 
 
 
 
 class ConveryUserUtility():
+
+###############################################################################################
+#MANAGE TAGS
+###############################################################################################
+	def create_tag_function(self):
+		#get the content of the input field
+		tag_name = self.input_create_tag.value
+		if self.letter_verification_function(tag_name)==True:
+			#check if the tag name already exists
+			if tag_name not in self.user_settings["UserTagList"]:
+				#add the tag to the tag list
+				tag_list = self.user_settings["UserTagList"]
+				tag_list.append(tag_name)
+				self.user_settings["UserTagList"] = tag_list
+				self.save_user_settings_function()
+				self.display_success_function("TAG CREATED")
+				return True
+			else:
+				self.display_error_function("This tag is already existing")
+				return False
+		else:
+			self.display_error_function("You have to enter a valid tag name")
+			return False
+
+
+
+	def add_tag_to_selection_function(self):
+		#get the tag selection
+		selected_tag_list = self.selectionlist_tags_settings.selected
+		if type(selected_tag_list) == int:
+			selected_tag_list = [selected_tag_list]
+		#get the studio selection
+		selected_studio_list = self.listview_studiolist.index_list
+
+		#self.display_message_function(self.listview_studiolist.index_list)
+		#return
+
+		#studio_name_list = list(self.company_dictionnary.keys())
+
+		#create the tag list
+		tag_list = []
+		for index in selected_tag_list:
+			tag_list.append(self.user_settings["UserTagList"][index])
+
+		for studio_index in selected_studio_list:
+			studio_name = self.list_studiolist_display[studio_index]
+			studio_data = self.company_dictionnary[studio_name]
+
+			for tag in tag_list:
+				if tag not in studio_data["CompanyTags"]:
+					self.display_message_function("Tag added to studio tag list")
+					studio_data["CompanyTags"].append(tag)
+
+			self.company_dictionnary[studio_name] = studio_data
+			self.save_company_dictionnary_function()
+
+			self.display_success_function("Tag saved for studio : %s"%studio_name)
+		"""
+		for selected_studio_index in selected_studio_list:
+			studio_data = self.company_dictionnary[studio_name_list[selected_studio_index]]
+			studio_tag_list = studio_data["CompanyTags"]
+
+			for tag in tag_list:
+				studio_tag_list.append(tag)
+
+			studio_data["CompanyTags"] = studio_tag_list
+			self.company_dictionnary[studio_name_list[selected_studio_index]] = studio_data
+
+		self.save_company_dictionnary_function()
+		"""
+		
+
+
+
+	#def delete_tag_function(self):
+	#	tag_index_list = 
 
 ###############################################################################################
 #MANAGER USER SETTINGS
@@ -157,6 +235,13 @@ class ConveryUserUtility():
 		tags_value = self.newcompany_tags.value.replace(" ", "").split(";")
 		company_informations["CompanyTags"] = tags_value
 
+		user_tag_list = self.app.user_settings["UserTagList"]
+		for tag in tags_value:
+			if tag not in user_tag_list:
+				user_tag_list.append(tag)
+		self.app.user_settings["UserTagList"]
+
+
 
 		#DATE MODICATION
 		date_value = self.modal_dateselect.date
@@ -237,6 +322,7 @@ class ConveryUserUtility():
 			else:
 				self.app.company_dictionnary[self.query_one("#modal_newcompanyname").value] = company_informations
 				value = self.save_company_dictionnary_function()
+				self.save_user_settings_function()
 				#update the value in interface
 				self.app.update_informations_function()
 

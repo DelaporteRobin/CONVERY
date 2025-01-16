@@ -6,21 +6,16 @@ and simplify the process of sending hundreds of emails.
 ![Convery TUI](images/img_ConveryApp.svg)
 
 
-## Features
-- [x] creation of a contact list
-- [x] attribution of specific information to each of its contacts (tags, contact, links..)
-- [x] reminder function, to assess how long you have not contacted a studio
-- [x] Email sending system (targeted via tags, or sending times) 
-- [x] email generation system (to make a template specific to each studio you contact or improve the formulation of your emails), or just adapt an email to your new personal information
-> [!NOTE]
-> Rework soon
+## dev tasklist
+- update the studio list view with the multilistview
+	- so you can change the status of the studio at the same time
+		- create a button to say "Contacted now"
+- check if when sending a mail I change the "last contacted date" in studio date
+- update the copilot setting
+	- list of copilot prompt presets
+- create the mail watcher tool? (using thread)
+- create a studio banlist (to dodge from selection) --> maybe using a tag
+- invert the contact selection (everything if not tagged)
+- change studiolist update with the extend method?
 
-## Tasklist for dev
-- [ ] adapting the log system with threads so you don't have to leave the main TUI
-- [ ] full loging support on the "find linkedin contact system"
-- [ ] adding found contacts to the company contact
-- [ ] adapt the Copilot system with a custom copilot system
 
-## Documentation
-> [!NOTE]
-> Coming soon

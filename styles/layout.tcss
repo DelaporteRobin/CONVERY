@@ -45,14 +45,20 @@ Button {
 	layout: grid;
 	grid-size: 4 1;
 	height: 5;
+
+	margin-bottom: 1;
+	padding-top: 1;
+	padding-bottom:1;
+
+	background: $surface;
 }
 
 #left_vertical_container {
-	height: 90%;
+	height: 80%;
 }
 
 #input_tag_lobby {
-	margin-top: 5;
+	margin-top: 1;
 
 	margin-left: 2;
 }
@@ -71,7 +77,7 @@ Button {
 	width: 100%;
 }
 
-#button_remove_tag, #button_highlight_tag, #button_erase_tag {
+#button_remove_tag, #button_highlight_tag, #button_erase_tag, #button_add_tag_to_selection {
 	width: 33%;
 }
 
@@ -79,17 +85,33 @@ Button {
 	margin-left: 2;
 }
 
+#horizontal_create_tag_container {
+	height: 5;
+}
 
+#input_create_tag {
+	width: 70%;
+}
+#button_create_tag {
+	width: 1fr;
+}
 
 #collapsible_studiolist_settings {
-	max-height: 60%;
+	margin-top: 8;
+	max-height: 50%;
+	padding-bottom:2;
+
+	margin-right: 1;
+	margin-left: 1;
 }
 #scrollable_studiolist_settings {
-	border: solid red;
+	/*border: solid red;*/
 	margin-bottom: 1;
+	/*min-height:40%;*/
 }
 #horizontal_tag_container {
-	height: 4;
+	height: 6;
+	/*border:solid red;*/
 }
 
 

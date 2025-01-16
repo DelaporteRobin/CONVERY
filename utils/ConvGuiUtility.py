@@ -43,6 +43,7 @@ from utils.ConvUser import ConveryUserUtility
 from utils.ConvMail import ConveryMailUtility
 from utils.ConvUtility import ConveryUtility
 from utils.ConvNotif import ConveryNotification
+from utils.ConvWidget import MultiListView, MultiListItem
 
 
 
@@ -87,7 +88,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 		self.listview_contactlist.clear()
 		for suggest in self.studio_suggest_list:
-			self.listview_contactlist.append(ListItem(Label(suggest)))
+			self.listview_contactlist.append(MultiListItem(Label(suggest)))
 
 
 
@@ -121,7 +122,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 			preset_list = list(self.user_preset["mailPreset"].keys())
 
 			for preset in preset_list:
-				self.listview_mailpreset.append(ListItem(Label(preset)))
+				self.listview_mailpreset.append(MultiListItem(Label(preset)))
 
 
 
@@ -254,6 +255,15 @@ class ConveryGUIUtils(ConveryUserUtility):
 		#update the tag list
 		self.tag_list.clear()
 
+		#update all the tag list in the view with the usertaglist
+		#which is supposed to be correctly updated!!
+		user_tag_list = self.user_settings["UserTagList"]
+		self.selectionlist_tags.clear_options()
+		self.selectionlist_tags_settings.clear_options()
+
+		for i in range(len(user_tag_list)):
+			self.selectionlist_tags.add_option((user_tag_list[i], i))
+			self.selectionlist_tags_settings.add_option((user_tag_list[i], i))
 
 
 		#FOR EACH STUDIO IN THE STUDIO LIST ADD IT TO THE LIST WITH THE RIGHT COLOR
@@ -273,19 +283,21 @@ class ConveryGUIUtils(ConveryUserUtility):
 			#get tag list in company dictionnary
 			studio_tags = self.company_dictionnary[studio]["CompanyTags"]
 
-			self.selectionlist_tags.clear_options()
-			self.selectionlist_tags_settings.clear_options()
+			#self.selectionlist_tags.clear_options()
+			#self.selectionlist_tags_settings.clear_options()
 
+			
 			for tag in studio_tags:
 				if tag not in self.tag_list:
 					if self.letter_verification_function(tag)==True:
 						self.tag_list.append(tag)
 
 
-
+			"""
 			for i in range(len(self.tag_list)):
 				self.selectionlist_tags.add_option((self.tag_list[i], i))
 				self.selectionlist_tags_settings.add_option((self.tag_list[i], i))
+			"""
 
 
 
@@ -296,7 +308,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 			label = Label(studio)
 
-			self.listview_studiolist.append(ListItem(label))
+			self.listview_studiolist.append(MultiListItem(label))
 
 
 
@@ -363,7 +375,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 		#self.listview_log.append(ListItem(Label(str(log["content"]))))
 
 		label_format = Label("|%s| %s : %s"%(log["severity"].upper(), log["date"], log["content"]))
-		self.listview_log.append(ListItem(label_format))
+		self.listview_log.append(MultiListItem(label_format))
 		
 		#adapt the color of the label using the severity
 		if log["severity"] != "MESSAGE":
