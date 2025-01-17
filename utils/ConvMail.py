@@ -68,22 +68,31 @@ class ConveryMailUtility():
 		#get the content in the field
 		preset_name = self.input_presetname.value
 		preset_content = self.textarea_mail.text
+		#get the content for the header
+		preset_header = self.input_mail_header.value
 
-		if (self.letter_verification_function(preset_name) == False) or (self.letter_verification_function(preset_content)==False):
-			self.display_error_function("You have to enter a name and a content for the mail preset")
+		if "UserMailPreset" not in self.user_settings:
+			self.user_settings["UserMailPreset"] = {}
+			self.save_user_settings_function()
 			return
 
-		#self.display_message_function(preset_content)
+		if (self.letter_verification_function(preset_name) == False) or (self.letter_verification_function(preset_content)==False) or (self.letter_verification_function(preset_header)==False):
+			self.display_error_function("You have to enter a name, a header, and a valid content for the mail preset")
+			return
+
 
 
 		#check if the preset is not already registered in the dictionnary
-		if "mailPreset" not in self.user_preset:
-			self.user_preset["mailPreset"] = {}
-		if preset_name not in list(self.user_preset["mailPreset"].keys()):
+		
+		
+		if preset_name not in list(self.user_settings["UserMailPreset"].keys()):
 			#self.user_preset[preset_name] = preset_content
-			preset_list = self.user_preset["mailPreset"]
-			preset_list[preset_name] = preset_content
-			self.user_preset["mailPreset"] = preset_list
+			preset_list = self.user_settings["UserMailPreset"]
+			preset_list[preset_name] = {
+				"HEADER":preset_header,
+				"CONTENT":preset_content
+				}
+			self.user_settings["UserMailPreset"] = preset_list
 			self.save_mail_preset_function()
 			self.update_informations_function()
 		else:
@@ -93,8 +102,8 @@ class ConveryMailUtility():
 
 	def load_mail_preset_function(self):
 		try:
-			with open("C:/Program Files/@RCHIVE/Data/User/UserPreset.json", "r") as read_file:
-				self.user_preset = json.load(read_file)
+			with open("C:/Program Files/@RCHIVE/Data/User/UserSettings.json", "r") as read_file:
+				self.user_settings = json.load(read_file)
 		except Exception as e:
 			self.display_error_function("Impossible to load mail presets\n%s"%e)
 		else:
@@ -106,8 +115,8 @@ class ConveryMailUtility():
 	def save_mail_preset_function(self):
 		os.makedirs("C:/Program Files/@RCHIVE/Data/User/", exist_ok=True)
 		try:
-			with open("C:/Program Files/@RCHIVE/Data/User/UserPreset.json", "w") as save_file:
-				json.dump(self.user_preset, save_file, indent=4)
+			with open("C:/Program Files/@RCHIVE/Data/User/UserSettings.json", "w") as save_file:
+				json.dump(self.user_settings, save_file, indent=4)
 		except Exception as e:
 			self.display_error_function("Impossible to save preset\n%s"%e)
 		else:
@@ -151,7 +160,7 @@ class ConveryMailUtility():
 
 
 
-	def get_contact_from_filter_function(self):
+	def get_contact_from_filter_function(self, from_studio=False):
 		#get value from select fields
 		contacttype_index_list = (self.selectionlist_contacttype.selected)
 		contacttag_index_list = (self.selectionlist_tags.selected)
@@ -163,7 +172,7 @@ class ConveryMailUtility():
 
 		contacttag_list = []
 		for index in contacttag_index_list:
-			contacttag_list.append(self.tag_list[index])
+			contacttag_list.append(self.user_settings["UserTagList"][index])
 
 		contactdelta_list = []
 		for index in contactdelta_index_list:
@@ -183,14 +192,39 @@ class ConveryMailUtility():
 			delta_studio_list.extend(self.not_contacted_list)
 
 
-		self.display_message_function(delta_studio_list)
+		#self.display_message_function(delta_studio_list)
 
 		#self.display_message_function(contacttype_list)
 		#self.display_message_function(contacttag_list)
 
+		#create the list even if the button is not pressed
+		selected_studio_name_list = []
+		if from_studio == True:
+
+			try:
+				#get the list of the studio selected
+				
+				selected_studio_index = self.listview_studiolist.index_list
+				#self.display_message_function(selected_studio_index)
+				for index in selected_studio_index:
+					selected_studio_name_list.append(self.list_studiolist_display[index])
+					#self.display_message_function(self.list_studiolist_display[index])
+			except Exception as e:
+				self.display_error_function("Impossible to get studio selection")
+				self.display_error_function(traceback.format_exc())
+				return
+			else:
+				pass
+			#return
+
 
 		contact_list = {}
+		#self.display_message_function(selected_studio_name_list)
 		for studio_name, studio_data in self.company_dictionnary.items():
+
+			#self.display_message_function("%s : %s"%(from_studio, studio_name not in selected_studio_name_list))
+			if (from_studio==True) and (studio_name not in selected_studio_name_list):
+				continue
 
 			if len(delta_studio_list) != 0:
 				if studio_name not in delta_studio_list:
@@ -227,6 +261,44 @@ class ConveryMailUtility():
 		self.mail_contact_list = contact_list
 		self.optionlist_contact.clear_options()
 		self.optionlist_contact.add_options(list(contact_list.keys()))
+
+
+
+
+	def remove_studio_with_tag_function(self):
+		#get the tag selection in the selectionlist
+		contacttag_index_list = (self.selectionlist_tags.selected)
+		contacttag_list = []
+		for index in contacttag_index_list:
+			contacttag_list.append(self.user_settings["UserTagList"][index])
+		
+		#get the list of studios with this tag in the actual mail contact list
+		cleaned_contact_list = {}
+		for contact_studio, contact_studio_data in self.mail_contact_list.items():
+			contact_studio_name = contact_studio_data["studioName"]
+			#get the tag data about this studio
+			contact_studio_tag = self.company_dictionnary[contact_studio_name]["CompanyTags"]
+			
+			for tag in contacttag_list:
+				if tag not in contact_studio_tag:
+					if contact_studio not in cleaned_contact_list:
+						cleaned_contact_list[contact_studio] = contact_studio_data
+
+
+		self.mail_contact_list = cleaned_contact_list
+		#replace values in optionlist
+		self.optionlist_contact.clear_options()
+		#replace the self.list
+		self.optionlist_contact.add_options(list(self.mail_contact_list.keys()))
+
+
+
+
+
+
+
+
+
 
 
 
@@ -281,6 +353,12 @@ class ConveryMailUtility():
 		print(colored("Mail header : ", "cyan"), mail_header)
 		print(colored("Mail body :\n", "cyan"), mail_body)
 
+
+		print(colored("All contact list:\n", "cyan"))
+		for contact_name in self.mail_contact_list:
+			print(contact_name)
+		print("\n\n")
+
 		while True:
 			print(colored("Are you sure you want to launch mail sender function?", "cyan"))
 			user = input(colored("Y / N ", "magenta"))
@@ -325,7 +403,7 @@ class ConveryMailUtility():
 				studio_data = self.company_dictionnary[contact_data["studioName"]]
 
 				#to block email sending
-				continue
+				#continue
 
 
 				#REPLACE VARIABLES IN EMAIL BODY

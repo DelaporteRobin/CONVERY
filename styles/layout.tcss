@@ -25,13 +25,34 @@ ListView, TextArea, OptionList, SelectionList {
 }
 Collapsible {
 	background: $surface;
-	border: round $secondary;
+	border-right: heavy $secondary;
+	border-left: heavy $secondary;
+	/*border: heavy $secondary;*/
 }
 Button {
 	/*background: $background;*/
 	background: $surface;
 	color: white;
 	border: heavy white;
+}
+
+
+
+
+
+
+/* MAIN CONTAINER OF THE MAIN PAGE */
+#main_left_container {
+	width:20%;
+}
+#main_right_container {
+	width:50%;
+}
+#main_center_container {
+	height:1fr;
+	width: 1fr;
+
+	/*border: solid red;*/
 }
 
 
@@ -57,6 +78,7 @@ Button {
 	height: 80%;
 }
 
+
 #input_tag_lobby {
 	margin-top: 1;
 
@@ -80,6 +102,9 @@ Button {
 #button_remove_tag, #button_highlight_tag, #button_erase_tag, #button_add_tag_to_selection {
 	width: 33%;
 }
+#button_filter_add_contact, #button_add_contact_from_studio, #button_remove_studio_with_tag, #button_clear_button {
+	width: 50%;
+}
 
 #markdown_lobby {
 	margin-left: 2;
@@ -97,6 +122,7 @@ Button {
 }
 
 #collapsible_studiolist_settings {
+
 	margin-top: 8;
 	max-height: 50%;
 	padding-bottom:2;

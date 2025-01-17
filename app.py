@@ -68,6 +68,12 @@ from utils.ConvWidget import MultiListView, MultiListItem
 
 
 
+#prerequired element to launch the program (variables)
+#mail api key is modified in the settings by the user
+#copilot need a variable defined with the key
+#linkedin cookies needs to be stored in a file
+
+
 
 
 
@@ -112,7 +118,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 
-		self.user_preset = {}
+		#self.user_preset = {}
 
 		self.list_studiolist_display = []
 
@@ -161,6 +167,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			"UserLinkedinAddress":None,
 			"UserLinkedinPassword":None,
 			"UserTagList":[],
+			"UsermailPreset": {}
 		}
 
 
@@ -244,8 +251,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 
-			with Vertical(id = "main_center_container"):
-
+			
+			with VerticalScroll(id="main_center_container"):
 				with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
 					with ScrollableContainer(id = "scrollable_studiolist_settings"):
 						
@@ -337,6 +344,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 										
 
 												yield Button("LOAD CONTACT", id = "button_filter_add_contact")
+												yield Button("Add selected studio", id="button_add_contact_from_studio")
+												yield Button("Remove studio with selected tag", id = "button_remove_studio_with_tag")
 												yield Button("CLEAR CONTACT", id = "button_clear_contact", classes="error_button")
 
 
@@ -359,7 +368,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 								self.textarea_mail.border_title = "Mail"
 
 								with Horizontal(id="mail_action_horizontal_container"):
-									yield Button("SEND MAIL", id="button_send_mail")
+									yield Button("SEND MAIL", id="button_send_mail", classes="error_button")
 
 
 
@@ -609,7 +618,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 										"contactMail":c_data["mail"]
 									}
 				#check if it is an email addres
-				elif self.check_addres_function(self.input_mailcontact.value)==True:
+				elif self.check_address_function(self.input_mailcontact.value)==True:
 					contact_list[self.input_mailcontact.value] = {
 						"studioName":None,
 						"contactMail":self.input_mailcontact.value
@@ -677,6 +686,11 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
+		if event.button.id == "button_remove_studio_with_tag":
+			self.remove_studio_with_tag_function()
+
+		if event.button.id == "button_add_contact_from_studio":
+			self.get_contact_from_filter_function(True)
 
 		if event.button.id == "button_create_tag":
 			#create a tag from the lobby
@@ -795,17 +809,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			index = self.listview_mailpreset.index
 			
 			try:
-				preset_dictionnary = self.user_preset["mailPreset"]
+				preset_dictionnary = self.user_settings["UserMailPreset"]
 				preset_list = list(preset_dictionnary.keys())
 				preset_dictionnary.pop(preset_list[index])
-				self.user_preset["mailPreset"] = preset_dictionnary
+				self.user_settings["UserMailPreset"] = preset_dictionnary
 			except Exception as e:
 				self.display_error_function("Impossible to remove from dictionnary!\n%s"%e)
 				return
 			else:
 				pass
 
-			self.save_mail_preset_function()
+			self.save_user_settings_function()
 
 			self.listview_mailpreset.remove_items([index])
 
@@ -842,13 +856,19 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			#get the content of the text
 			#replace in the dictionnary and save the new dictionnary
 			index = self.listview_mailpreset.index
-			preset_list = self.user_preset["mailPreset"]
+			preset_list = self.user_settings["UserMailPreset"]
 			preset_name = list(preset_list.keys())[index]
 
 			new_preset_content = self.textarea_mail.text 
-			preset_list[preset_name] = new_preset_content
-			self.user_preset["mailPreset"]
-			self.save_mail_preset_function()
+			new_preset_header = self.input_mail_header.value
+
+			preset_list[preset_name] = {
+				"HEADER": new_preset_header,
+				"CONTENT": new_preset_content,
+				}
+			self.user_settings["UserMailPreset"]
+			#self.save_mail_preset_function()
+			self.save_user_settings_function()
 			self.update_informations_function()
 
 
@@ -962,14 +982,21 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			#clear the content of the text area
 			#and fill it with the content of that mail preset if possible
 			index = self.listview_mailpreset.index
-			preset_name = list(self.user_preset["mailPreset"].keys())[index]
-			self.textarea_mail.clear()
+			preset_name = list(self.user_settings["UserMailPreset"].keys())[index]
+			preset_header = self.user_settings["UserMailPreset"][preset_name]["HEADER"]
+			preset_content = self.user_settings["UserMailPreset"][preset_name]["CONTENT"]
+
+			
 
 			#self.display_message_function(preset_name)
 			#self.display_message_function(self.user_preset["mailPreset"])
 			try:
-				self.textarea_mail.insert(self.user_preset["mailPreset"][preset_name],(0,0))
-			except:
+				self.input_mail_header.value = str(preset_header)
+				self.textarea_mail.clear()
+				self.textarea_mail.insert(self.user_settings["UserMailPreset"][preset_name]["CONTENT"],(0,0))
+			except Exception as e:
+				self.display_error_function("Impossible to display mail preset content : %s"%e)
+				self.display_error_function(traceback.format_exc())
 				pass
 
 

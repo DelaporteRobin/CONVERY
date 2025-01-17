@@ -112,17 +112,24 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 
+		try:
+
+			if "UserCopilotPrompt" in self.user_settings:
+				self.textarea_prompt.insert(self.user_settings["UserCopilotPrompt"])
 
 
-		if "CopilotPrompt" in self.user_preset:
-			self.textarea_prompt.insert(self.user_preset["CopilotPrompt"])
+			if "UserMailPreset" in self.user_settings:
+				preset_list = list(self.user_settings["UserMailPreset"].keys())
 
+				for preset in preset_list:
+					self.listview_mailpreset.append(MultiListItem(Label(preset)))
+		except KeyError:
+			self.display_error_function("Impossible to get user mail preset")
+			self.display_message_function("Try to create mail preset in user dictionnary")
+			self.create_mail_preset_function()
+		else:
+			self.display_success_function("Mail preset laoded")
 
-		if "mailPreset" in self.user_preset:
-			preset_list = list(self.user_preset["mailPreset"].keys())
-
-			for preset in preset_list:
-				self.listview_mailpreset.append(MultiListItem(Label(preset)))
 
 
 
