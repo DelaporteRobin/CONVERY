@@ -41,7 +41,7 @@ import colorama
 
 
 
-
+from utils.ConvWidget import MultiListView, MultiListItem
 from utils.ConvUser import ConveryUserUtility
 from utils.ConvMail import ConveryMailUtility
 from utils.ConvUtility import ConveryUtility
@@ -463,6 +463,8 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 		#self.driver = None 
 		self.linkedin_studiolist = {}
+		self.member_list = {}
+		self.studio_name = self.app.list_studiolist_display[self.app.listview_studiolist.index]
 		super().__init__()
 
 
@@ -472,13 +474,17 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 				with Vertical(id = "modal_get_contact_container"):
 					yield Label("Linkedin Member")
-					self.selectionlist_linkedin_member = SelectionList(id="modal_list_linkedin_member")
-					yield self.selectionlist_linkedin_member
+					self.listview_linkedin_member = MultiListView(id = "modal_list_linkedin_contact")
+					yield self.listview_linkedin_member
+					#self.selectionlist_linkedin_member = SelectionList(id="modal_list_linkedin_member")
+					#yield self.selectionlist_linkedin_member
+
+					yield Button("ADD LINKEDIN CONTACT", id = "modal_button_add_linkedin_contact")
 
 
 				with Vertical(id = "modal_get_linkedin_container"):
 					yield Label("Linkedin Studio")
-					self.listview_linkedin_account = ListView(id="modal_list_linkedin_contact")
+					self.listview_linkedin_account = ListView(id="modal_list_linkedin_studio")
 
 					yield self.listview_linkedin_account
 
@@ -494,12 +500,12 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 	def on_mount(self) -> None:
 		#get studio selection
-		studio_name = self.app.list_studiolist_display[self.app.listview_studiolist.index]
+		
 		#self.display_message_function(studio_name)
 
 	
 
-		studio_data = self.app.company_dictionnary[studio_name]
+		studio_data = self.app.company_dictionnary[self.studio_name]
 
 		#self.display_message_function("EXECUTE")
 
@@ -510,7 +516,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 			self.query_one("#modal_linkedin_content_switcher").current = "modal_get_contact_container"
 
 
-			self.search_for_user_function(studio_name, studio_data["CompanyLinkedin"])
+			self.search_for_user_function(studio_data["CompanyLinkedin"])
 				
 
 		#GET A LIST OF LINKEDIN ACCOUNT MATCHING WITH THE STUDIO NAME?
@@ -518,8 +524,9 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 			self.display_warning_function("Impossible to detect linkedin account for this studio")
 			self.display_message_function("Trying to find linkedin studio accounts")
 			#CREATE A DRIVER
+			self.display_message_function(self.studio_name)
 			with self.app.suspend():
-				self.linkedin_studiolist = self.linkedin_get_studiolist_function(studio_name)
+				self.linkedin_studiolist = self.linkedin_get_studiolist_function(self.studio_name)
 
 			if type(self.linkedin_studiolist) != dict:
 				self.display_error_function("Impossible to find matching studio on linkedin!")
@@ -533,6 +540,15 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 				self.listview_linkedin_account.clear()
 				for key, value in self.linkedin_studiolist.items():
 					self.listview_linkedin_account.append(ListItem(Label("%s | %s"%(key, value))))
+
+
+
+
+
+	def on_key(self, event:events.Key) -> None:
+		if (event.key == "enter") and (self.focused.id == "modal_list_linkedin_contact"):
+			children_item = self.listview_linkedin_member.children[self.listview_linkedin_member.index]
+			children_item.highlight_item(children_item)
 
 
 
@@ -554,7 +570,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 		if event.button.id == "modal_button_linkedin_account":
 			#get the name of the studio selected and update the linkedin profile in company data
 			try:
-				studio_name = self.app.list_studiolist_display[self.app.listview_studiolist.index]
+				#studio_name = self.app.list_studiolist_display[self.app.listview_studiolist.index]
 
 				#get the index
 				index = self.listview_linkedin_account.index
@@ -562,9 +578,9 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 				account_link_selected = (self.linkedin_studiolist[account_name_selected])
 
 				#update the dictionnary
-				studio_data = self.app.company_dictionnary[studio_name]
+				studio_data = self.app.company_dictionnary[self.studio_name]
 				studio_data["CompanyLinkedin"] = account_link_selected
-				self.app.company_dictionnary[studio_name] = studio_data
+				self.app.company_dictionnary[self.studio_name] = studio_data
 
 				#save the dictionnary
 				self.app.save_company_dictionnary_function()
@@ -572,7 +588,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 
 				#call the get linkedin user function
-				self.search_for_user_function(studio_name, account_link_selected)
+				self.search_for_user_function(account_link_selected)
 
 				
 			except Exception as e:
@@ -581,29 +597,72 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 				self.display_success_function("Linkedin account updated in Company Data")
 
 
+		if event.button.id == "modal_button_add_linkedin_contact":
+			#create the new member dictionnary
+			new_member_dictionnary = {}
+			#get the current studio selected
+			#studio_name = self.app.list_studiolist_display[self.app.listview_studiolist.index]
+
+			for index in self.listview_linkedin_member.index_list:
+				#get contact data for this index
+				member_name = list(self.member_list.keys())[index]
+				member_data = self.member_list[list(self.member_list.keys())[index]]
+
+				if member_data["mail"] == None:
+					member_data["mail"] = ""
+
+				new_member_dictionnary[member_name] = {
+					"mail":member_data["mail"],
+					"website":member_data["link"]
+				}
+
+			#get data about this studio
+			studio_data = self.app.company_dictionnary[self.studio_name]
+			#get contact data
+			studio_contact_data = studio_data["CompanyContact"]
+			studio_member_data = studio_contact_data["MEMBER"]
+			studio_member_data.update(new_member_dictionnary)
+
+			#rebuild the dictionnary
+			studio_contact_data["MEMBER"] = studio_member_data
+			studio_data["CompanyContact"] = studio_contact_data
+			self.app.company_dictionnary[self.studio_name] = studio_data
+
+			#save the new company dictionnary
+			self.app.save_company_dictionnary_function()
+			self.app.update_informations_function()
+
+			self.display_success_function("New contact informations updated")
 
 
 
 
-	def search_for_user_function(self, studio_name, studio_account):
+
+
+	def search_for_user_function(self, studio_account):
+		self.member_list.clear()
 		with self.app.suspend():
-			member_list = self.get_linkedin_user_function(studio_name, studio_account)
+			self.member_list = self.get_linkedin_user_function(self.studio_name, studio_account)
 			
 		
-		if type(member_list) == dict:
+		if type(self.member_list) == dict:
 			#change display
 			self.query_one("#modal_linkedin_content_switcher").current = "modal_get_contact_container"
 
 			#clean the selectionlist
-			self.selectionlist_linkedin_member.clear_options()
+			#self.selectionlist_linkedin_member.clear_options()
+			self.listview_linkedin_member.clear()
 			
 			selection_item_list = []
 			i=0
-			for member_name, member_data in member_list.items():
-				selection_item_list.append(("%s : %s"%(member_name, member_data["position"]),i))
+			for member_name, member_data in self.member_list.items():
+				#selection_item_list.append(("%s : %s\n%s"%(member_name, member_data["position"], member_data["link"]),i))
+				label = Label("\n%s : %s\n%s\n%s"%(member_name, member_data["position"], member_data["link"], str(member_data["mail"])))
+				self.listview_linkedin_member.append(MultiListItem(label))
 				i+=1
 
-			self.selectionlist_linkedin_member.add_options(selection_item_list)
+			#self.listview_linkedin_member.extend(selection_item_list)
+			#self.selectionlist_linkedin_member.add_options(selection_item_list)
 
 			
 			

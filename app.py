@@ -282,7 +282,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				yield self.input_tag_lobby 
 
 				#with Horizontal(id = "right_horizontal_container"):
-				with Vertical(id="right_vertical_container1"):
+				with VerticalScroll(id="right_vertical_container1"):
 					self.markdown_studio = Markdown("Hello World", id="markdown_lobby")
 					yield self.markdown_studio
 
