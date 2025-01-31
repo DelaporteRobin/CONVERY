@@ -224,7 +224,7 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 		self.date = str(datetime.now())
 		self.app.display_message_function("%s ; %s"%(mode, studio))
 
-
+	
 
 	def compose(self) -> ComposeResult:
 		self.app.company_dictionnary
@@ -262,7 +262,7 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 			yield self.newcompany_contacted_checkbox
 			with Collapsible(title = "Last time company was reached : ", id="modal_collapsible_dateselector"):
 				
-				self.modal_dateselect = DateSelect(placeholder="please select",format="YYYY-MM-DD",picker_mount="#modal_collapsible_dateselector",date=pendulum.parse(str(datetime.now())), id="modal_date")
+				self.modal_dateselect = DateSelect(placeholder="please select",format=str(pendulum.parse(str(datetime.now()))),picker_mount="#modal_collapsible_dateselector",date=pendulum.parse(str(datetime.now())), id="modal_date")
 				yield self.modal_dateselect
 
 

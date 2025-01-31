@@ -69,7 +69,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 		
 		#define chrome options before creating the driver
 		chrome_options = Options()
-		chrome_options.add_argument("--headless")  # Activer le mode sans tête
+		#chrome_options.add_argument("--headless")  # Activer le mode sans tête
 		chrome_options.add_argument("--disable-gpu")  # Désactiver le GPU (utile pour Windows)
 		chrome_options.add_argument("--no-sandbox")  # Option pour environnements Linux
 		chrome_options.add_argument("--disable-dev-shm-usage")  # Résoudre les problèmes mémoire sous Docker/Linux
@@ -268,8 +268,13 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			
 
 			#try to click on the "Personnes" button
-			member_button = driver.find_elements(By.CLASS_NAME, "org-page-navigation__item-anchor")[-1]
-			member_button.click()
+			try:
+				member_button = driver.find_elements(By.CLASS_NAME, "org-page-navigation__item-anchor")[-1]
+				member_button.click()
+			except IndexError:
+				self.display_error_function("Impossible to access informations on Linkedin")
+				return
+		
 
 			#member_profile_container_list = driver.find_elements(By.CLASS_NAME, "org-people-profile-card__profile_info")
 			sleep(2)
