@@ -46,7 +46,8 @@ colorama.init()
 class ConveryNotification:
 	def display_message_function(self, message, mute=False):
 		if mute == False:
-			self.notify(str(message), timeout=4)
+			#self.notify(str(message), timeout=4)
+			pass
 
 		log_format = self.create_log_format_function(str(message))
 		print(log_format)
@@ -59,7 +60,8 @@ class ConveryNotification:
 
 	def display_success_function(self, message, mute=False):
 		if mute == False:
-			self.notify(str(message), timeout=4)
+			#self.notify(str(message), timeout=4)
+			pass
 
 		log_format = self.create_log_format_function(str(message), "SUCCESS")
 		

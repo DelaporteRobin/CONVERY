@@ -1,0 +1,67 @@
+{
+    "colorTheme": "DarkTheme",
+    "companyDisplayMode": 0,
+    "colorDictionnary": {
+        "HighlightColor": "#6d76ba",
+        "ERROR": "#ff3a3a",
+        "SUCCESS": "#6fcc5c"
+    },
+    "alertDictionnary": {
+        "RecentContact": {
+            "Color": "#fff03a",
+            "Delta": 3
+        },
+        "LatelyContact": {
+            "Color": "#ff7c3a",
+            "Delta": 5
+        },
+        "PastContact": {
+            "Color": "#ff3a3a",
+            "Delta": 7
+        },
+        "NotContacted": {
+            "Color": "#ffffff"
+        }
+    },
+    "UserMailKey": "dwbn omhn ozam pfku",
+    "UserDemoReelLink": "https://www.youtube.com/watch?v=IHffL9lwxBU",
+    "UserDemoReelPassword": null,
+    "UserMailAddress": "robindelaporte1207@gmail.com",
+    "UserMailAttached": "d:/WORK/PERSONNAL/RESUME/output/Resume_DelaporteRobin_25-01_compressed.pdf",
+    "UserAddress": "robindelaporte1207@gmail.com",
+    "UserPromptDetails": [
+        "",
+        "My name is Robin\n",
+        "I'm a former 3d artist actually based in Lyon\n",
+        "I studied at ESMA Lyon\n",
+        "I won the first prize of the jury with my team, by creating the short movie TRASH\n",
+        "I passionate about Art and Visual creation"
+    ],
+    "UserSkillSearched": [
+        "Surfacing;Lookdev;Modeling;Sculpt;Programming"
+    ],
+    "UserJobSearched": "3D Artist",
+    "UserLinkedinAddress": "robindelaporte1207@gmail.com",
+    "UserLinkedinPassword": "1e9fr3P0m3Wasabaka1207@!?",
+    "UserTagList": [
+        "BLOCKED",
+        "PERSONNAL",
+        "INCREDIBLE",
+        "LUXURY",
+        ""
+    ],
+    "UserMailPreset": {
+        "EnglishMail_SecondWave": {
+            "HEADER": "3D LOOKDEV ARTIST - Delaporte Robin Application",
+            "CONTENT": "Hello Madam, Sir,\n\nI hope this message finds you well. I'm reaching out once more as, since our last contact,\nI've had the opportunity to work on new projects, closer to my ambitions in terms of design and visuals.\nI  believe my recent creations might resonate with the vision and aspirations of your studio, and I truly hope they catch your attention.\n\nI am highly motivated by the opportunity to contribute my skills and creative vision to your team.\nIf it sparks your interest - as I hope it does - I'd be delighted to present my work in more detail and discuss the possibility of an interview with you.\n\nFor a quick overview you can watch my DemoReel on youtube : [DEMO_LINK]\n\nFeel free to reach out if you would like further information.\n\nThank you very much for your time and consideration,\nI look forward to hearing from you.\n\nBest regards,\n\nDelaporte Robin"
+        },
+        "EnglishMail_FirstWave": {
+            "HEADER": "3D LOOKDEV ARTIST - Delaporte Robin Application",
+            "CONTENT": "Hello Madam, Sir,\n\nI'm reaching out to express my genuine interest in your work and my enthusiasm for the possibility of joining your team.\n\nAs a recent graduate of ESMA Lyon, I had the pleasure of co-directing the short film TRASH in my final year,\nwhich received the Jury's First Prize in Montpellier, last september.\n\nI am deeply inspired by your studio\u2019s creations. As a 3D artist, I am particularly attracted by the world of advertising and luxury, whose aesthetics I like very much. Highly motivated, I am convinced that my skills and artistic vision could contribute significantly to enrich your team.\n\nFor a quick overview you can view my DemoReel on Youtube : [DEMO_LINK]\nIf my profile interests you, as I sincerely hope it will, I would be delighted to present my work\nin more detail and discuss the possibility of an interview.\n\nPlease don't hesitate to reach out if you need any additional information. \nThank you very much for your time and consideration, and I hope to have the chance to meet\nwith you very soon.\n\nBest regards,\n\nRobin Delaporte"
+        },
+        "EnglishMail_SecondWave_v002": {
+            "HEADER": "3D LOOKDEV ARTIST - Delaporte Robin",
+            "CONTENT": "Hello Madam, Sir,\n\nI hope this message finds you well. Since our last exchange, I\u2019ve continued to expand my skills, learn new softwares, and  develop new projects\nwhich I believe align even closer with the creative ambitions of your studio. My Demo Reel has been updated to reflect this recent work, \nand you can view it here: [DEMO_LINK].\n\nI remain deeply motivated by the idea of contributing to your team, bringing my expertise in 3D modeling, texturing, and shading.\nWorking with your studio would be an incredible opportunity to grow both professionally and artistically.\nI can assure you that your projects represent exactly the kind of work I am most eager to contribute to.\n\nIf you\u2019re interested, I would be thrilled to discuss my work in more detail or explore how my skills might support your upcoming projects.\n\nThank you very much for your time and consideration. I look forward to the possibility of collaborating with you.\nFeel free to reach out if you need any additional information, or to arrange an interview.\n\nBest regards,\nDelaporte Robin"
+        }
+    }
+}

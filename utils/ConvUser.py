@@ -129,9 +129,10 @@ class ConveryUserUtility():
 #MANAGER USER SETTINGS
 ###############################################################################################
 	def save_user_settings_function(self):
-		os.makedirs("C:/Program Files/@RCHIVE/Data/User/", exist_ok=True)
+		#os.makedirs("C:/Program Files/@RCHIVE/Data/User/", exist_ok=True)
+		os.makedirs(os.path.join(os.getcwd(), "data/user"), exist_ok=True)
 		try:
-			with open("C:/Program Files/@RCHIVE/Data/user/UserSettings.json", "w") as save_file:
+			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "w") as save_file:
 				json.dump(self.app.user_settings, save_file, indent=4)
 		except Exception as e:
 			self.app.display_error_function("Impossible to save user settings\n%s"%e)
@@ -144,7 +145,7 @@ class ConveryUserUtility():
 
 	def load_user_settings_function(self):
 		try:
-			with open("C:/Program Files/@RCHIVE/Data/user/UserSettings.json", "r") as read_file:
+			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "r") as read_file:
 				self.app.user_settings = json.load(read_file)
 		except Exception as e:
 			self.display_error_function("Impossible to load user settings\n%s"%e)
@@ -170,10 +171,10 @@ class ConveryUserUtility():
 
 
 	def save_company_dictionnary_function(self):
-		os.makedirs("C:/Program Files/@RCHIVE/Data/User/", exist_ok=True)
+		os.makedirs(os.path.join(os.getcwd(), "data/user"), exist_ok=True)
 		try:
 
-			with open(os.path.join(os.getcwd(), "C:/Program Files/@RCHIVE/Data/User/UserCompanyData.json"), "w") as save_file:
+			with open(os.path.join(os.getcwd(), "data/user/UserCompanyData.json"), "w") as save_file:
 				json.dump(self.app.company_dictionnary, save_file, indent=4)
 
 		
@@ -191,7 +192,7 @@ class ConveryUserUtility():
 	def load_company_dictionnary_function(self):
 		#COMMON FOLDER LOCATION FOR USER SETTINGS IS C:/Program Files
 		try:
-			with open(os.path.join("C:/Program Files/@RCHIVE/Data/User/UserCompanyData.json"), "r") as read_file:
+			with open(os.path.join(os.getcwd(), "data/user/UserCompanyData.json"), "r") as read_file:
 				self.app.company_dictionnary = json.load(read_file)
 		except Exception as e:
 			self.display_error_function("Impossible to load company dictionnary\n%s"%e)

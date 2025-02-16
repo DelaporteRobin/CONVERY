@@ -82,7 +82,6 @@ from utils.ConvWidget import MultiListView, MultiListItem
 
 
 
-
 class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
 	CSS_PATH = ["styles/layout.tcss"]
 
@@ -217,74 +216,74 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
 				
 				
+				with Horizontal(id="left_horizontal_container"):
+					with Vertical(id="left_vertical_container"):
 
-				with Vertical(id="left_vertical_container"):
+						
+						with Grid(id = "left_horizontal_option_bar"):
+			
+							
+							yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
+							yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
+							yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
+							yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
+							
+
+						
 
 					
-					with Grid(id = "left_horizontal_option_bar"):
-		
-						
-						yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
-						yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
-						yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
-						yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
-						
 
-					
+
+
+						self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
+						yield self.input_studiolist_searchbar
+
+						self.listview_studiolist = MultiListView(id="listview_studiolist")
+						self.listview_studiolist.border_title = "Studio list"
+						yield self.listview_studiolist
+
+						with Horizontal(id="left_bottom_container"):
+							yield Button("Get contact from studio", id="button_get_contact_from_studios", classes="button_left_bottom_container")
+							yield Button("Save contact sheet", id="button_save_contact_sheet", classes="button_left_bottom_container")
+					#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
+					#yield self.datatable_studiolist
+
+
 
 				
+					with VerticalScroll(id="main_center_container"):
+						with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
+							with ScrollableContainer(id = "scrollable_studiolist_settings"):
+								
+								with RadioSet(id = "radioset_studiolist_settings"):
+									yield RadioButton("By alphabetic order")
+									yield RadioButton("By chronologic order")
+									yield RadioButton("By priority order")
 
+								yield Rule(line_style="double")
 
+								with Horizontal(id = "horizontal_create_tag_container"):
+									self.input_create_tag = Input(placeholder = "Tag name", id="input_create_tag")
+									yield self.input_create_tag 
 
-					self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
-					yield self.input_studiolist_searchbar
+									yield Button("Create tag", id="button_create_tag", classes="error_button")
 
-					self.listview_studiolist = MultiListView(id="listview_studiolist")
-					self.listview_studiolist.border_title = "Studio list"
-					yield self.listview_studiolist
+								self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")
+								yield self.selectionlist_tags_settings
 
-				with Horizontal(id="left_bottom_container"):
-					yield Button("Get contact from studio", id="button_get_contact_from_studios")
-					yield Button("Save contact sheet", id="button_save_contact_sheet")
-				#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
-				#yield self.datatable_studiolist
+								with Horizontal(id = "horizontal_tag_container"):
+									#yield Button("Remove tags", id="button_remove_tag")
+									yield Button("Highlight", id="button_highlight_tag")
+									yield Button("Add to selection", id = "button_add_tag_to_selection")
+									yield Button("REMOVE", id="button_remove_tag", classes="error_button")
 
+						self.input_tag_lobby = Input(placeholder="TAG LIST", id="input_tag_lobby", suggester=SuggestFromList(self.tag_list, case_sensitive=False))
+						yield self.input_tag_lobby 
 
-
-			
-			with VerticalScroll(id="main_center_container"):
-				with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
-					with ScrollableContainer(id = "scrollable_studiolist_settings"):
-						
-						with RadioSet(id = r"adioset_studiolist_settings"):
-							yield RadioButton("By alphabetic order")
-							yield RadioButton("By chronologic order")
-							yield RadioButton("By priority order")
-
-						yield Rule(line_style="double")
-
-						with Horizontal(id = "horizontal_create_tag_container"):
-							self.input_create_tag = Input(placeholder = "Tag name", id="input_create_tag")
-							yield self.input_create_tag 
-
-							yield Button("Create tag", id="button_create_tag", classes="error_button")
-
-						self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")
-						yield self.selectionlist_tags_settings
-
-						with Horizontal(id = "horizontal_tag_container"):
-							#yield Button("Remove tags", id="button_remove_tag")
-							yield Button("Highlight", id="button_highlight_tag")
-							yield Button("Add to selection", id = "button_add_tag_to_selection")
-							yield Button("REMOVE", id="button_remove_tag", classes="error_button")
-
-				self.input_tag_lobby = Input(placeholder="TAG LIST", id="input_tag_lobby", suggester=SuggestFromList(self.tag_list, case_sensitive=False))
-				yield self.input_tag_lobby 
-
-				#with Horizontal(id = "right_horizontal_container"):
-				with VerticalScroll(id="right_vertical_container1"):
-					self.markdown_studio = Markdown("Hello World", id="markdown_lobby")
-					yield self.markdown_studio
+						#with Horizontal(id = "right_horizontal_container"):
+						with VerticalScroll(id="right_vertical_container1"):
+							self.markdown_studio = Markdown("Hello World", id="markdown_lobby")
+							yield self.markdown_studio
 
 
 			with Vertical(id = "main_right_container"):
@@ -1088,6 +1087,9 @@ def is_admin():
 
 if __name__ == "__main__":
 	#check if the program is launched as admin
+	app = ConveryApp()
+	app.run()
+	"""
 	if is_admin():
 		print("Admin rights checked")
 		app = ConveryApp()
@@ -1098,3 +1100,4 @@ if __name__ == "__main__":
 		ctypes.windll.shell32.ShellExecuteW(
 			None, "runas", sys.executable, " ".join(sys.argv), None, 1
 		)
+	"""

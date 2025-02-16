@@ -102,7 +102,7 @@ class ConveryMailUtility():
 
 	def load_mail_preset_function(self):
 		try:
-			with open("C:/Program Files/@RCHIVE/Data/User/UserSettings.json", "r") as read_file:
+			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "r") as read_file:
 				self.user_settings = json.load(read_file)
 		except Exception as e:
 			self.display_error_function("Impossible to load mail presets\n%s"%e)
@@ -113,9 +113,9 @@ class ConveryMailUtility():
 
 
 	def save_mail_preset_function(self):
-		os.makedirs("C:/Program Files/@RCHIVE/Data/User/", exist_ok=True)
+		os.makedirs(os.path.join(os.getcwd(), "data/user"), exist_ok=True)
 		try:
-			with open("C:/Program Files/@RCHIVE/Data/User/UserSettings.json", "w") as save_file:
+			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "w") as save_file:
 				json.dump(self.user_settings, save_file, indent=4)
 		except Exception as e:
 			self.display_error_function("Impossible to save preset\n%s"%e)

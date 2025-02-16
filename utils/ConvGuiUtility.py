@@ -17,6 +17,7 @@ import Levenshtein
 import threading
 import json
 import colorama
+import traceback
 
 from functools import partial
 from typing import  Iterable
@@ -273,6 +274,8 @@ class ConveryGUIUtils(ConveryUserUtility):
 			self.selectionlist_tags_settings.add_option((user_tag_list[i], i))
 
 
+
+	
 		#FOR EACH STUDIO IN THE STUDIO LIST ADD IT TO THE LIST WITH THE RIGHT COLOR
 		for studio in self.list_studiolist_display:
 
@@ -288,7 +291,12 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 			#get tag list in company dictionnary
-			studio_tags = self.company_dictionnary[studio]["CompanyTags"]
+			try:
+				studio_tags = self.company_dictionnary[studio]["CompanyTags"]
+			except Exception as e:
+				self.display_message_function(studio)
+				self.display_error_function(traceback.format_exc())
+				studio_tags = []
 
 			#self.selectionlist_tags.clear_options()
 			#self.selectionlist_tags_settings.clear_options()

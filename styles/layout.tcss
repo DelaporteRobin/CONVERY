@@ -9,7 +9,7 @@
 
 
 /* TCSS FOR THE GLOBAL WIDGETS */
-ListView {
+ListView, MultiListView {
 	border:round $primary;
 	color: white;
 }
@@ -19,7 +19,7 @@ Label {
 TextArea {
 	border:round $primary;
 }
-ListView, TextArea, OptionList, SelectionList {
+ListView, MultiListView, TextArea, OptionList, SelectionList {
 	border-title-align:left;
 	border-title-style:bold;
 }
@@ -43,20 +43,16 @@ Button {
 
 /* MAIN CONTAINER OF THE MAIN PAGE */
 #main_left_container {
-	width:20%;
+	width:40%;
 }
-#main_right_container {
-	width:50%;
+#left_vertical_container {
+	min-height:1fr;
+	width:45%;
 }
-#main_center_container {
-	height:1fr;
-	width: 1fr;
-
-	/*border: solid red;*/
+#left_bottom_container {
+	max-height:8;
+	border: solid red;
 }
-
-
-
 
 
 
@@ -105,6 +101,10 @@ Button {
 #button_filter_add_contact, #button_add_contact_from_studio, #button_remove_studio_with_tag, #button_clear_button {
 	width: 50%;
 }
+.button_left_bottom_container {
+	width:50%;
+}
+
 
 #markdown_lobby {
 	margin-left: 2;
@@ -122,8 +122,6 @@ Button {
 }
 
 #collapsible_studiolist_settings {
-
-	margin-top: 8;
 	max-height: 50%;
 	padding-bottom:2;
 

@@ -91,7 +91,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 			#TRY TO LOAD COOKIES FOR LINKEDIN??
 			try:
-				with open("C:/Program Files/@RCHIVE/DATA/USER/linkedin_cookies.json", "r") as read_file:
+				with open(os.path.join(os.getcwd(), "data/user/linkedin_cookies.json"), "r") as read_file:
 					cookies = json.load(read_file)
 
 					for cookie in cookies:
