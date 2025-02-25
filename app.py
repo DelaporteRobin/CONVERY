@@ -138,6 +138,10 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				"SUCCESS": "#6fcc5c",
 			},
 			"alertDictionnary": {
+				"JustContacted": {
+					"Color": "white",
+					"Delta":0,
+				},
 				"RecentContact": {
 					"Color": "#fff03a",
 					"Delta": 3,

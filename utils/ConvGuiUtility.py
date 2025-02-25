@@ -223,6 +223,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 					#CREATION OF ALERT LIST
+					#self.display_message_function("udpating alert list")
 					alert_data = self.user_settings["alertDictionnary"]
 
 					if delta_week < alert_data["RecentContact"]["Delta"]:
@@ -243,6 +244,8 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 			#concatenate all list
 			self.list_studiolist_display = self.long_alert_list + self.medium_alert_list + self.short_alert_list + self.no_alert_list + self.not_contacted_list
+
+
 
 
 		self.update_studiolist_view()
@@ -338,8 +341,11 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 			#CHECK FOR COLORS
 			if ("CompanyDate" not in studio_data) or (studio_data["CompanyDate"] == None):
+				self.display_error_function("%s : %s"%(studio,date))
 				#label.styles.color = self.color_dictionnary[self.color_theme]["notContacted"]
 				label.classes = "label_primary"
+				if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.not_contacted_list):
+					self.not_contacted_list.append(studio)
 			else:
 				date = self.company_dictionnary[studio]["CompanyDate"]
 
@@ -355,28 +361,85 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 
+
+				#check if alert list are empty
+				#if the display mode is different from 2 then create the alert list
+
 				alert_data = self.user_settings["alertDictionnary"]
-					
-				if delta_week < alert_data["RecentContact"]["Delta"]:
+				
+				"""
+				if delta_week < alert_data["JustContacted"]["Delta"]:
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.no_alert_list):
+						self.no_alert_list.append(studio)
+
+				elif delta_week < alert_data["RecentContact"]["Delta"]:
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.short_alert_list):
+						self.short_alert_list.append(studio)
 					pass
 
 				elif (delta_week >= alert_data["RecentContact"]["Delta"]) and (delta_week < alert_data["LatelyContact"]["Delta"]):
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.medium_alert_list):
+						self.medium_alert_list.append(studio)
 					label.styles.color = self.user_settings["alertDictionnary"]["RecentContact"]["Color"]
 
 				elif (delta_week >= alert_data["LatelyContact"]["Delta"]) and (delta_week < alert_data["PastContact"]["Delta"]):
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.long_alert_list):
+						self.long_alert_list.append(studio)
 					label.styles.color = self.user_settings["alertDictionnary"]["LatelyContact"]["Color"]
 
 				else:
+					self.display_error_function("%s : %s"%(studio,date))
+					if (self.user_settings["companyDisplayMode"] != 2) and (date == None):
+						self.not_contacted_list.append(studio)
 					label.styles.color = self.user_settings["alertDictionnary"]["PastContact"]["Color"]
+				"""
 
+				if delta_week < alert_data["RecentContact"]["Delta"]:
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.no_alert_list):
+						self.no_alert_list.append(studio)
+
+				elif (delta_week >= alert_data["RecentContact"]["Delta"]) and (delta_week < alert_data["LatelyContact"]["Delta"]):
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.short_alert_list):
+						self.short_alert_list.append(studio)
+					label.styles.color = self.user_settings["alertDictionnary"]["RecentContact"]["Color"]
+
+				elif (delta_week >= alert_data["LatelyContact"]["Delta"]) and (delta_week < alert_data["PastContact"]["Delta"]):
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.medium_alert_list):
+						self.medium_alert_list.append(studio)	
+					label.styles.color = self.user_settings["alertDictionnary"]["LatelyContact"]["Color"]
+
+				elif (delta_week >= alert_data["PastContact"]["Delta"]):
+					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.long_alert_list):
+						self.long_alert_list.append(studio)
+					label.styles.color = self.user_settings["alertDictionnary"]["PastContact"]["Color"]
 					
 				
 
 				
 
-			#app.refresh_css()
+		#app.refresh_css()
 		#update the tag list in searchbar
+
 		self.input_tag_lobby.suggester=SuggestFromList(self.tag_list, case_sensitive=False)
+
+		#DISPLAY ALL LIST CONTENT
+		"""
+		self.display_success_function("NO ALERT")
+		for studio in self.no_alert_list:
+			self.display_message_function(studio)
+
+		self.display_success_function("SHORT ALERT")
+		for studio in self.short_alert_list:
+			self.display_message_function(studio)
+
+		self.display_success_function("MEDIUM ALERT")
+		for studio in self.medium_alert_list:
+			self.display_message_function(studio)
+
+		self.display_success_function("LONG ALERT")
+		for studio in self.long_alert_list:
+			self.display_message_function(studio)
+		"""
 
 
 

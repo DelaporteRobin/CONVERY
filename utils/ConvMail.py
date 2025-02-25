@@ -159,8 +159,109 @@ class ConveryMailUtility():
 
 
 
-
 	def get_contact_from_filter_function(self, from_studio=False):
+		self.display_success_function("Filtering studio function called")
+		#get value selection
+		contacttype_index_list = (self.selectionlist_contacttype.selected)
+		contacttag_index_list = (self.selectionlist_tags.selected)
+		contactdelta_index_list = (self.selectionlist_delta.selected)
+		#create list
+		contacttype_list = []
+		for index in contacttype_index_list:
+			contacttype_list.append(self.kind_list[index])
+
+		contacttag_list = []
+		for index in contacttag_index_list:
+			contacttag_list.append(self.user_settings["UserTagList"][index])
+
+		contactdelta_list = []
+		for index in contactdelta_index_list:
+			contactdelta_list.append(list(self.user_settings["alertDictionnary"])[index])
+
+
+		studio_list_contacttime = []
+
+		if "JustContacted" in contactdelta_list:
+			studio_list_contacttime.extend(self.no_alert_list)
+		if "RecentContact" in contactdelta_list:
+			studio_list_contacttime.extend(self.short_alert_list)
+		if "LatelyContact" in contactdelta_list:
+			studio_list_contacttime.extend(self.medium_alert_list)
+		if "PastContact" in contactdelta_list:
+			studio_list_contacttime.extend(self.long_alert_list)
+		if "NotContacted" in contactdelta_list:
+			studio_list_contacttime.extend(self.not_contacted_list)
+
+
+		selected_studio_name_list = []
+		if from_studio == True:
+
+			try:
+				#get the list of the studio selected
+				
+				selected_studio_index = self.listview_studiolist.index_list
+				#self.display_message_function(selected_studio_index)
+				for index in selected_studio_index:
+					selected_studio_name_list.append(self.list_studiolist_display[index])
+					#self.display_message_function(self.list_studiolist_display[index])
+			except Exception as e:
+				self.display_error_function("Impossible to get studio selection")
+				self.display_error_function(traceback.format_exc())
+				return
+			else:
+				pass
+			#return
+
+
+		contact_list = {}
+		#self.display_message_function(selected_studio_name_list)
+		for studio_name, studio_data in self.company_dictionnary.items():
+
+			#self.display_message_function("%s : %s"%(from_studio, studio_name not in selected_studio_name_list))
+			if (from_studio==True) and (studio_name not in selected_studio_name_list):
+				continue
+
+			if len(studio_list_contacttime) != 0:
+				if studio_name not in studio_list_contacttime:
+					continue
+			#TAGS CONDITIONS
+			#	-> if the tag list isn't empty -> check for tags
+			#	-> if one of the studio tag is in the tag list
+
+			studio_tags = studio_data["CompanyTags"]
+			if len(contacttag_list) > 0:
+				found=False
+
+				for tag in studio_tags:
+					if tag in contacttag_list:
+						found=True
+						break
+
+
+			if (len(contacttag_list) == 0) or (found==True):
+				for contact_type, contact_data in studio_data["CompanyContact"].items():
+
+					if contact_type in contacttype_list:
+						for c_name, c_data in contact_data.items():
+							if self.letter_verification_function(c_data["mail"])==True:
+								#contact_list.append(c_data["mail"].replace(" ", ""))
+								contact_list["%s; %s"%(studio_name, c_data["mail"])] = {
+									"studioName":studio_name,
+									"contactName":c_name,
+									"contactMail":c_data["mail"]
+								}
+
+
+
+		self.mail_contact_list = contact_list
+		self.optionlist_contact.clear_options()
+		self.optionlist_contact.add_options(list(contact_list.keys()))
+
+
+			
+
+
+	def test_get_contact_from_filter_function(self, from_studio=False):
 		#get value from select fields
 		contacttype_index_list = (self.selectionlist_contacttype.selected)
 		contacttag_index_list = (self.selectionlist_tags.selected)
@@ -181,6 +282,7 @@ class ConveryMailUtility():
 
 
 		delta_studio_list = []
+
 
 		if "RecentContact" in contactdelta_list:
 			delta_studio_list.extend(self.short_alert_list)
@@ -261,6 +363,10 @@ class ConveryMailUtility():
 		self.mail_contact_list = contact_list
 		self.optionlist_contact.clear_options()
 		self.optionlist_contact.add_options(list(contact_list.keys()))
+
+
+
+
 
 
 
@@ -499,7 +605,6 @@ To : %s
 			print(colored("TASK DONE", "cyan"))
 		
 
-		os.system("pause")
 
 
 
