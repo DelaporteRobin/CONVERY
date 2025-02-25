@@ -38,7 +38,7 @@ from email import encoders
 from textual.suggester import SuggestFromList, Suggester
 from textual.app import App, ComposeResult
 from textual.widgets import Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
-from textual.widgets.option_list import Option, Separator
+from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 from textual.validation import Function, Number
 from textual.screen import Screen, ModalScreen
@@ -310,7 +310,7 @@ class ConveryMailUtility():
 
 		#GET THE MAIL KEY
 		try:
-			with open("C:/Program Files/@RCHIVE/DATA/mail_key.dll", "r") as load_key:
+			with open("data/user/mail_key.dll", "r") as load_key:
 				mail_key = load_key.read()
 		except Exception as e:
 			print(colored("Impossible to load key\n%s"%e, "red"))

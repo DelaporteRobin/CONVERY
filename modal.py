@@ -18,7 +18,7 @@ from termcolor import *
 from textual.suggester import SuggestFromList, Suggester
 from textual.app import App, ComposeResult
 from textual.widgets import ContentSwitcher, Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
-from textual.widgets.option_list import Option, Separator
+from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 from textual.validation import Function, Number
 from textual.screen import Screen, ModalScreen
@@ -27,13 +27,15 @@ from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, 
 from textual import on, work
 
 from textual_datepicker import DateSelect, DatePicker
+from textual_timepiece.pickers import DatePicker 
 
 from rich.text import Text 
-
+from whenever import *
 from datetime import datetime
 from pyfiglet import Figlet
 from time import sleep
 
+import pendulum
 import threading
 import json
 import colorama
@@ -262,7 +264,9 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 			yield self.newcompany_contacted_checkbox
 			with Collapsible(title = "Last time company was reached : ", id="modal_collapsible_dateselector"):
 				
-				self.modal_dateselect = DateSelect(placeholder="please select",format=str(pendulum.parse(str(datetime.now()))),picker_mount="#modal_collapsible_dateselector",date=pendulum.parse(str(datetime.now())), id="modal_date")
+				#self.modal_dateselect = DateSelect(placeholder="please select",format=str(pendulum.parse(str(datetime.now()))),picker_mount="#modal_collapsible_dateselector",date=pendulum.parse(str(datetime.now())), id="modal_date")
+				#self.modal_dateselect = DateSelect(placeholder="Pick the last contact date",format="YYYY-MM-DD",picker_mount="#modal_collapsible_dateselector",date=date.today(), id="modal_date")
+				self.modal_dateselect = DatePicker(date=Date.from_py_date(datetime.now()), id="modal_date")
 				yield self.modal_dateselect
 
 
@@ -323,25 +327,27 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 			self.query_one("#modal_collapsible_dateselector").disabled = not self.newcompany_contacted_checkbox.value
 
 
+	
+	def on_date_picker_date_changed(self, event:DatePicker.DateChanged) -> None:
+		#self.app.display_message_function(event.widget.id)
+		if event.widget.id == "modal_date":
+			#check if the date is in the futur
+			#get the date
+			selected_date = self.modal_dateselect.date
+			current_date = Date.today_in_system_tz()
+			if selected_date > current_date:
+				self.app.display_error_function("The selected date is in the futur!")
+				#set the current date in the date picker
+				self.modal_dateselect.date = current_date
+
+	
+
 
 	
 
 
 
 
-
-	def on_date_picker_selected(self, event: DatePicker.Selected) -> None:
-		self.date = event.date
-		
-		if datetime.strptime(self.date.to_date_string(), "%Y-%m-%d") > datetime.now():
-			self.display_error_function("This date is in the futur!")
-			return
-		widget = self.query_one("#modal_collapsible_dateselector").title = "Last time company was reached : %s"%pendulum.parse(str(self.date))
-		#self.display_message_function("UPDATED")
-
-
-		
-			
 
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:

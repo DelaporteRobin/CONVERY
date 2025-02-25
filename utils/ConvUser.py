@@ -25,13 +25,13 @@ from typing import  Iterable
 from datetime import datetime 
 from pyfiglet import Figlet 
 from tabulate import tabulate
-
+from whenever import *
 
 
 from textual.suggester import SuggestFromList, Suggester
 from textual.app import App, ComposeResult
 from textual.widgets import Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
-from textual.widgets.option_list import Option, Separator
+from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 from textual.validation import Function, Number
 from textual.screen import Screen, ModalScreen
@@ -373,11 +373,28 @@ class ConveryUserUtility():
 				self.newcompany_details.insert("-")
 
 			#self.display_message_function(studio_data)
+
+
+			if "CompanyDate" in studio_data:
+				if studio_data["CompanyDate"] != None:
+					self.newcompany_contacted_checkbox.value = True
+					self.query_one("#modal_collapsible_dateselector").disabled=False
+					self.query_one("#modal_collapsible_dateselector").title = studio_data["CompanyDate"]
+
+					#update the value of the date in the date picker
+					converted_date = datetime.strptime(studio_data["CompanyDate"], "%Y-%m-%d")
+					#date object
+					date_object = Date.from_py_date(converted_date)
+					#set the date in the date picker
+					self.modal_dateselect.date = date_object
+
+			"""
 			if "CompanyDate" in studio_data:
 				if studio_data["CompanyDate"] != None:
 					self.newcompany_contacted_checkbox.value = True
 					self.query_one("#modal_collapsible_dateselector").disabled = False
 					self.query_one("#modal_collapsible_dateselector").title = studio_data["CompanyDate"]
+
 
 					if type(studio_data["CompanyDate"]) == str:
 						self.modal_dateselect.date = pendulum.parse(studio_data["CompanyDate"])
@@ -393,6 +410,7 @@ class ConveryUserUtility():
 					
 				self.query_one("#modal_collapsible_dateselector").title = "Last time company was reached :"
 				self.query_one("#modal_collapsible_dateselector").disabled = True
+			"""
 					
 
 

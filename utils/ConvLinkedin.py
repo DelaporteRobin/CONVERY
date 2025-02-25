@@ -40,7 +40,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from textual.suggester import SuggestFromList, Suggester
 from textual.app import App, ComposeResult
 from textual.widgets import Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
-from textual.widgets.option_list import Option, Separator
+from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 from textual.validation import Function, Number
 from textual.screen import Screen, ModalScreen
