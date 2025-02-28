@@ -51,13 +51,16 @@ Button {
 }
 #left_bottom_container {
 	max-height:8;
-	border: solid red;
 }
 
 
 
 
 /* TCSS FOR THE MAIN PAGE */
+#left_horizontal_classoption_bar {
+ 	height:auto;
+ 	margin-top:5;
+}
 #left_horizontal_option_bar {
 	layout: grid;
 	grid-size: 4 1;
@@ -75,6 +78,9 @@ Button {
 }
 
 
+#input_classname {
+	margin-bottom:5;
+}
 #input_tag_lobby {
 	margin-top: 1;
 
@@ -105,7 +111,9 @@ Button {
 	width:50%;
 }
 
-
+#listview_contacttype {
+	max-height: 20%;
+}
 #markdown_lobby {
 	margin-left: 2;
 }

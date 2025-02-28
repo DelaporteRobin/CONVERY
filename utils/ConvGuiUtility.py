@@ -53,18 +53,31 @@ from utils.ConvWidget import MultiListView, MultiListItem
 
 class ConveryGUIUtils(ConveryUserUtility):
 
-	def update_informations_function(self):
-		#LOAD ALL INFORMATIONS CONTAINED IN USER SETTINGS FILES
-		self.listview_studiolist.clear()
-		self.listview_mailpreset.clear()
-		self.textarea_prompt.clear()
 
-		self.load_company_dictionnary_function()
+	def update_contact_class_function(self):
+		self.load_company_class_function()
 		self.load_mail_preset_function()
 		self.load_user_settings_function()
 
+		self.listview_mailpreset.clear()
+		self.textarea_prompt.clear()
+		self.listview_contacttype.clear()
 
 
+
+		project_listitem_list = []
+		for key, value in self.app.company_class_dictionnary.items():
+			project_listitem_list.append(ListItem(Label(key)))
+
+		self.listview_contacttype.extend(project_listitem_list)
+
+		#self.load_company_class_function()
+		#self.load_company_dictionnary_function()
+
+		if ((self.user_settings["UserLinkedinAddress"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinAddress"])):
+			self.input_linkedin_username.value = self.user_settings["UserLinkedinAddress"]
+		if ((self.user_settings["UserLinkedinPassword"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinPassword"])):
+			self.input_linkedin_password.value = self.user_settings["UserLinkedinPassword"]
 
 		self.input_mailkey.value = str(self.user_settings["UserMailKey"])
 		self.input_useraddress.value = str(self.user_settings["UserMailAddress"])
@@ -72,11 +85,32 @@ class ConveryGUIUtils(ConveryUserUtility):
 		self.input_demopassword.value = str(self.user_settings["UserDemoReelPassword"])
 		self.input_resume.value = str(self.user_settings["UserMailAttached"])
 
+		try:
+			if "UserCopilotPrompt" in self.user_settings:
+				self.textarea_prompt.insert(self.user_settings["UserCopilotPrompt"])
 
-		if ((self.user_settings["UserLinkedinAddress"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinAddress"])):
-			self.input_linkedin_username.value = self.user_settings["UserLinkedinAddress"]
-		if ((self.user_settings["UserLinkedinPassword"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinPassword"])):
-			self.input_linkedin_password.value = self.user_settings["UserLinkedinPassword"]
+
+			if "UserMailPreset" in self.user_settings:
+				preset_list = list(self.user_settings["UserMailPreset"].keys())
+
+				for preset in preset_list:
+					self.listview_mailpreset.append(MultiListItem(Label(preset)))
+		except KeyError:
+			self.display_error_function("Impossible to get user mail preset")
+			self.display_message_function("Try to create mail preset in user dictionnary")
+			self.create_mail_preset_function()
+		else:
+			self.display_success_function("Mail preset laoded")
+
+
+
+
+
+	def update_informations_function(self):
+		#LOAD ALL INFORMATIONS CONTAINED IN USER SETTINGS FILES
+		self.listview_studiolist.clear()
+		#self.listview_contacttype.clear()
+		
 
 
 
@@ -113,23 +147,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 
-		try:
-
-			if "UserCopilotPrompt" in self.user_settings:
-				self.textarea_prompt.insert(self.user_settings["UserCopilotPrompt"])
-
-
-			if "UserMailPreset" in self.user_settings:
-				preset_list = list(self.user_settings["UserMailPreset"].keys())
-
-				for preset in preset_list:
-					self.listview_mailpreset.append(MultiListItem(Label(preset)))
-		except KeyError:
-			self.display_error_function("Impossible to get user mail preset")
-			self.display_message_function("Try to create mail preset in user dictionnary")
-			self.create_mail_preset_function()
-		else:
-			self.display_success_function("Mail preset laoded")
+		
 
 
 
@@ -138,7 +156,9 @@ class ConveryGUIUtils(ConveryUserUtility):
 		self.list_studiolist = list(self.company_dictionnary.keys())
 		self.list_studiolist_filtered = []
 
+		#self.display_success_function("display studio list content")
 		for studio in self.list_studiolist:
+			#self.display_message_function(str(studio))
 			self.list_studiolist_filtered.append(unidecode.unidecode(studio.lower()))
 
 		self.list_studiolist_display = []
@@ -341,7 +361,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 			#CHECK FOR COLORS
 			if ("CompanyDate" not in studio_data) or (studio_data["CompanyDate"] == None):
-				self.display_error_function("%s : %s"%(studio,date))
+				#self.display_error_function("%s : %s"%(studio,date))
 				#label.styles.color = self.color_dictionnary[self.color_theme]["notContacted"]
 				label.classes = "label_primary"
 				if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.not_contacted_list):

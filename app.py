@@ -89,7 +89,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 	def __init__(self):
 		super().__init__()
 		#load main argument of the app
-
+		self.current_class_selected = None
+		self.company_class_dictionnary = {}
 		self.company_dictionnary = {}
 		self.contact_list = {}
 
@@ -217,11 +218,26 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 				#with Horizontal(id = "main_left_center_container_horizontal"):
 			with Vertical(id = "main_left_container"):
-				yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
+				
+
+
+				
 				
 				
 				with Horizontal(id="left_horizontal_container"):
 					with Vertical(id="left_vertical_container"):
+						with Horizontal(id = "left_horizontal_classoption_bar"):
+
+							yield Button("Create class",id="button_createclass")
+							yield Button("Rename class", id="button_renameclass")
+							yield Button("Remove class", id="button_removeclass")
+
+						self.input_classname = Input(placeholder = "Class name", id="input_classname")
+						yield self.input_classname
+
+						self.listview_contacttype = ListView(id = "listview_contacttype")
+						yield self.listview_contacttype
+						self.listview_contacttype.border_title = "Contact Category"
 
 						
 						with Grid(id = "left_horizontal_option_bar"):
@@ -256,6 +272,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 				
 					with VerticalScroll(id="main_center_container"):
+						yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
 						with Collapsible(id = "collapsible_studiolist_settings", title="COMPANY LIST SETTINGS"):
 							with ScrollableContainer(id = "scrollable_studiolist_settings"):
 								
@@ -459,8 +476,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		#self.program_log.append("hello world")
 
-		
-		self.update_informations_function()
+		self.update_contact_class_function()
+		#self.update_informations_function()
 		
 
 
@@ -689,6 +706,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
+		if event.button.id == "button_createclass":
+			self.create_company_class_function()
+			
 		if event.button.id == "button_remove_studio_with_tag":
 			self.remove_studio_with_tag_function()
 
@@ -961,6 +981,15 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def on_list_view_selected(self, event: ListView.Selected) -> None:
+		if event.list_view.id == "listview_contacttype":
+			#get the current company dictionnary
+			self.current_class_selected = list(self.company_class_dictionnary.keys())[self.listview_contacttype.index]
+			self.company_dictionnary = self.company_class_dictionnary[list(self.company_class_dictionnary.keys())[self.listview_contacttype.index]]
+			self.display_message_function(str(self.current_class_selected))
+			self.update_informations_function()
+
+
+
 		if event.list_view.id == "listview_studiolist":
 			#check the content in the selection by getting the studio name
 			index = self.listview_studiolist.index

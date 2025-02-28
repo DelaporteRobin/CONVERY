@@ -19,6 +19,7 @@ import json
 import colorama
 import markdown
 import validators
+import traceback
 
 from functools import partial
 from typing import  Iterable
@@ -169,13 +170,46 @@ class ConveryUserUtility():
 ###############################################################################################
 
 
+	def create_company_class_function(self):
+		#get the name in the textfield
+		new_class_name = self.input_classname.value 
+		#check if there is letter in the name
+		if self.letter_verification_function(new_class_name)!=True:
+			self.display_error_function("You must define a valid name for the new contact class!")
+			return
+		else:
+			#check if the class is already in the class list
+			if new_class_name in list(self.company_class_dictionnary.keys()):
+				self.display_error_function("This name is already used by an other contact class!")
+				return
+			else:
+				#create the new dictionnary
+				self.company_class_dictionnary[new_class_name] = {}
+				#save the dictionnary
+				value = self.save_company_dictionnary_function()
+
+				if value == True:
+					#update the list in the lobby
+					self.update_contact_class_function()
+				else:
+					self.display_error_function("Impossible to save the new contat dictionnary in file!")
+
+
 
 	def save_company_dictionnary_function(self):
+		#get the current class selected
+		#replace the dictionnary in it
+		#save the new dictionnary for this class
+		#self.app.current_class_selected = list(self.app.company_class_dictionnary.keys())[self.app.listview_contacttype.index]
+		#update the dictionnary
+
+
+
 		os.makedirs(os.path.join(os.getcwd(), "data/user"), exist_ok=True)
 		try:
 
 			with open(os.path.join(os.getcwd(), "data/user/UserCompanyData.json"), "w") as save_file:
-				json.dump(self.app.company_dictionnary, save_file, indent=4)
+				json.dump(self.app.company_class_dictionnary, save_file, indent=4)
 
 		
 		except Exception as e:
@@ -321,11 +355,18 @@ class ConveryUserUtility():
 			if (self.mode != "edit") and (self.query_one("#modal_newcompanyname").value in self.app.company_dictionnary):
 				self.display_error_function("That company is already registered in the dictionnary")
 			else:
+				#create the new key in the dictionnary
 				self.app.company_dictionnary[self.query_one("#modal_newcompanyname").value] = company_informations
+				#update the class dictionnary and save it
+				#get the current class selected
+				self.app.company_class_dictionnary[self.app.current_class_selected] = self.app.company_dictionnary
+
 				value = self.save_company_dictionnary_function()
 				self.save_user_settings_function()
 				#update the value in interface
 				self.app.update_informations_function()
+
+
 
 
 
@@ -342,6 +383,24 @@ class ConveryUserUtility():
 			self.display_success_function("Studio removed")
 			self.save_company_dictionnary_function()
 			self.update_informations_function()
+
+
+
+
+	def load_company_class_function(self):
+		try:
+			with open("data/user/UserCompanyData.json", "r") as read_file:
+				self.app.company_class_dictionnary = json.load(read_file)
+		except Exception as e:
+			self.display_error_function("Impossible to open contact data file!\n%s"%traceback.format_exc())
+			return
+		else:
+			self.display_success_function("Contact data file opened!")
+
+
+			
+
+
 
 
 
