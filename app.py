@@ -469,61 +469,16 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.selectionlist_contacttype.add_option((self.kind_list[i], i))
 
 
-		#launch log reading thread
-		#self.listen_thread = threading.Thread(target=self.read_log_function, args=(), daemon=True)
-		#self.listen_thread.start()
-		#self.read_log_function()
 
-		#self.program_log.append("hello world")
-
-		self.update_contact_class_function()
+		try:
+			self.update_contact_class_function()
+		except Exception as e:
+			self.display_error_function("Error happened : %s"%e)
+		else:
+			self.display_success_function("success")
 		#self.update_informations_function()
 		
 
-
-
-
-
-	"""
-	def read_log_function(self):
-		while True:
-			#self.program_log.append("hello world")
-			if self.program_log != self.old_log:
-				self.notify("detected changes", timeout=2)
-				try:
-					self.call_from_thread(self.add_logline_function)
-				except Exception as e:
-					pass
-				else:
-
-					#update the old log dictionnary
-					self.old_log = copy.copy(self.program_log)
-			sleep(2)
-
-
-
-	def add_logline_function(self):
-		#get the last item of the log and get the seveity of it
-		#format the message
-		#depending of the severity of the log item change the color
-		try:
-			log_item = self.program_log[-1]
-
-			log_format = "[ %s ] - %s - %s"%(log_item["severity"], log_item["date"], log_item["content"])
-			label = Label(log_format)
-			self.listview_log.append(ListItem(label))
-			self.notify(log_item["severity"], timeout=2)
-			if log_item["severity"] == "SUCCESS":
-				label.styles.color = self.user_settings["colorDictionnary"]["SuccessColor"]
-			elif log_item["severity"] == "ERROR":
-				label.styles.color = self.user_settings["colorDictionnary"]["ErrorColor"]
-			else:
-				label.styles.color = "white"
-
-
-		except Exception as e:
-			self.notify(str(e), timeout=3)
-	"""
 
 
 
@@ -708,7 +663,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 		if event.button.id == "button_createclass":
 			self.create_company_class_function()
-			
+
 		if event.button.id == "button_remove_studio_with_tag":
 			self.remove_studio_with_tag_function()
 

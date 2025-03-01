@@ -149,7 +149,8 @@ class ConveryUserUtility():
 			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "r") as read_file:
 				self.app.user_settings = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to load user settings\n%s"%e)
+			self.display_error_function("Impossible to load user settings!")
+			#self.display_error_function("Impossible to load user settings")
 		else:
 			self.display_success_function("User settings loaded")
 			pass
@@ -229,7 +230,8 @@ class ConveryUserUtility():
 			with open(os.path.join(os.getcwd(), "data/user/UserCompanyData.json"), "r") as read_file:
 				self.app.company_dictionnary = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to load company dictionnary\n%s"%e)
+			pass
+			#self.display_error_function("Impossible to load company dictionnary\n%s"%e)
 		else:
 			self.display_success_function("Company dictionnary loaded")
 			#self.display_message_function(self.app.company_dictionnary)
@@ -392,8 +394,7 @@ class ConveryUserUtility():
 			with open("data/user/UserCompanyData.json", "r") as read_file:
 				self.app.company_class_dictionnary = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to open contact data file!\n%s"%traceback.format_exc())
-			return
+			self.display_error_function("Impossible to load company data!")
 		else:
 			self.display_success_function("Contact data file opened!")
 
