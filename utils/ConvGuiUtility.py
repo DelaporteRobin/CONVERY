@@ -60,7 +60,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 		self.load_user_settings_function()
 
 		self.listview_mailpreset.clear()
-		self.textarea_prompt.clear()
+		#self.textarea_prompt.clear()
 		self.listview_contacttype.clear()
 
 

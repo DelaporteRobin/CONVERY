@@ -326,7 +326,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 								yield Button("Create preset", id="button_createpreset", classes="button_preset")
 								yield Button("Save preset", id="button_savepreset", classes="button_preset")
 								yield Button("Delete preset", id="button_deletepreset", classes="button_preset")
-								yield Button("Use copilot", id="button_usecopilot", classes="primary_button button_preset")
+								#yield Button("Use copilot", id="button_usecopilot", classes="primary_button button_preset")
 
 								yield Rule()
 
@@ -398,6 +398,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 					with TabPane("User Settings"):
 						with Vertical(id = "main_settings_container"):
+							"""
 							with Collapsible(title="Copilot settings", id="right_mailprompt_collapsible"):
 								self.textarea_prompt = TextArea(id="textarea_prompt")
 								yield self.textarea_prompt
@@ -407,6 +408,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 								with Horizontal(id="right_mailtext_horizontal"):
 									yield Button("Save copilot prompt", id="button_saveprompt")
+							"""
 
 							yield Rule()
 
@@ -476,9 +478,10 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.display_error_function("Error happened : %s"%e)
 		else:
 			self.display_success_function("success")
-		#self.update_informations_function()
 		
 
+		#self.update_informations_function()
+		self.update_contact_class_function()
 
 
 

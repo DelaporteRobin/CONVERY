@@ -394,7 +394,7 @@ class ConveryUserUtility():
 			with open("data/user/UserCompanyData.json", "r") as read_file:
 				self.app.company_class_dictionnary = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to load company data!")
+			self.display_error_function("Impossible to load company data!\n%s")
 		else:
 			self.display_success_function("Contact data file opened!")
 
