@@ -69,7 +69,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 		
 		#define chrome options before creating the driver
 		chrome_options = Options()
-		#chrome_options.add_argument("--headless")  # Activer le mode sans tête
+		chrome_options.add_argument("--headless")  # Activer le mode sans tête
 		chrome_options.add_argument("--disable-gpu")  # Désactiver le GPU (utile pour Windows)
 		chrome_options.add_argument("--no-sandbox")  # Option pour environnements Linux
 		chrome_options.add_argument("--disable-dev-shm-usage")  # Résoudre les problèmes mémoire sous Docker/Linux
@@ -128,7 +128,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 
 
-
+	
 
 
 

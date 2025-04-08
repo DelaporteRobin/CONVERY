@@ -79,8 +79,52 @@ class ConveryGUIUtils(ConveryUserUtility):
 		if ((self.user_settings["UserLinkedinPassword"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinPassword"])):
 			self.input_linkedin_password.value = self.user_settings["UserLinkedinPassword"]
 
-		self.input_mailkey.value = str(self.user_settings["UserMailKey"])
-		self.input_useraddress.value = str(self.user_settings["UserMailAddress"])
+		#get all mail addresses
+		#insert the list in listview
+		try:
+			self.user_mail_address_list.clear()
+			self.user_mail_address_list = list(self.user_settings["UserMailData"].keys())
+
+			self.listview_mailaddress.clear()
+			for address in self.user_mail_address_list:
+				self.listview_mailaddress.append(ListItem(Label(address)))
+		except Exception as e:
+			self.display_error_function("Impossible to get user mail addresses")
+			self.display_error_function(traceback.format_exc())
+
+
+		try:
+			self.user_variable_list.clear()
+			self.user_variable_list = list(self.user_settings["UserVarDictionnary"].keys())
+
+			self.listview_variablelist.clear()
+			for var in self.user_variable_list:
+				self.listview_variablelist.append(ListItem(Label(var)))
+		except Exception as e:
+			self.display_error_function("Impossible to get user mail variables")
+			self.display_error_function(traceback.format_exc())
+
+
+
+
+		try:
+			self.selectionlist_attached_files.clear_options()
+			self.attached_files_list.clear()
+
+			#get the list of the keys and create options from key list
+			self.attached_files_list = list(self.user_settings["UserAttachedFiles"].keys())
+			for i in range(len(self.attached_files_list)):
+				self.selectionlist_attached_files.add_option((self.attached_files_list[i], i))
+		except Exception as e:
+			self.display_error_function("Impossible to get attached file list!")
+			self.display_error_function(traceback.format_exc())
+
+
+
+
+
+
+
 		self.input_demolink.value = str(self.user_settings["UserDemoReelLink"])
 		self.input_demopassword.value = str(self.user_settings["UserDemoReelPassword"])
 		self.input_resume.value = str(self.user_settings["UserMailAttached"])

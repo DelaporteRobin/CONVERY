@@ -64,6 +64,158 @@ colorama.init()
 
 class ConveryMailUtility():
 
+
+
+	def save_attached_files_function(self):
+		filename = self.input_attached_filename.value 
+		filepath = self.input_attached_filepath.value 
+
+		if (self.letter_verification_function(filename)==False) or (self.letter_verification_function(filepath)==False):
+			self.display_error_function("You have to enter both filename and filepath!")
+			return
+		else:
+			if os.path.isfile(filepath)==False:
+				self.display_error_function("This filepath isn't valid! File doesn't exists!")
+				return
+			else:
+				try:
+					user_attached_files = self.user_settings["UserAttachedFiles"]
+				except:
+					user_attached_files = {}
+
+				user_attached_files[filename] = filepath
+
+				self.user_settings["UserAttachedFiles"] = user_attached_files
+				self.save_user_settings_function()
+				self.update_contact_class_function()
+
+
+
+	def remove_attached_files_function(self):
+		#get index selection in selection list
+		try:
+			user_attached_files_list = list(self.user_settings["UserAttachedFiles"].keys())
+			user_attached_files_dictionnary = self.user_settings["UserAttachedFiles"]
+			for index in self.selectionlist_attached_files.selected:
+				#get the filename
+				user_attached_files_dictionnary.pop(user_attached_files_list[index])
+			#save back the dictionnary
+			self.user_settings["UserAttachedFiles"] = user_attached_files_dictionnary
+			self.save_user_settings_function()
+			self.update_contact_class_function()
+		except Exception as e:
+			self.display_error_function("Impossible to remove attached file from list")
+			self.display_error_function(traceback.format_exc())
+		else:
+			self.display_success_function("Attached file(s) removed")
+
+
+
+
+
+	def save_mail_address_function(self):
+		#get the mail address and the key
+		#check letter presence
+		#save in dictionnary
+		new_mail_address = self.input_mail_address.value 
+		new_mail_key = self.input_mail_key.value
+
+		if (self.letter_verification_function(new_mail_key)==True) and (self.letter_verification_function(new_mail_address)==True):
+			try:
+				#get mail data dictionnary
+				mail_data = self.user_settings["UserMailData"]
+				mail_data[new_mail_address] = new_mail_key
+
+				self.save_user_settings_function()
+			except Exception as e:
+				self.display_error_function("Impossible to save email address")
+				self.display_error_function(traceback.format_exc())
+			else:
+				self.display_success_function("Email address updated")
+				#update the interface
+				self.update_contact_class_function()
+		else:
+			self.display_error_function("Mail address or mail key is empty!")
+			return
+
+
+
+
+	def remove_mail_address_function(self):
+		#get the selected mail address
+		try:
+			mail_address = self.user_mail_address_list[self.listview_mailaddress.index]
+		except Exception as e:
+			self.display_error_function("Impossible to get selected mail address!")
+			return
+		else:
+			#try to remove the key if present in dictionnary
+			mail_data = self.user_settings["UserMailData"]
+			try:
+				mail_data.pop(mail_address)
+			except:
+				pass 
+
+			#save back
+			self.save_user_settings_function()
+			#update interface
+			self.update_contact_class_function()
+
+
+
+
+
+
+	def save_mail_variable_function(self):
+		#get variable name and variable value
+		var_name = self.input_variablename.value 
+		var_value = self.input_variablevalue.value
+
+		if (self.letter_verification_function(var_name)==False) or (self.letter_verification_function(var_value)==False):
+			self.display_error_function("You have to enter a value for both variable name and variable value!")
+			return
+		else:
+			#get the var dictionnary
+			try:
+				var_dictionnary = self.user_settings["UserVarDictionnary"]
+			except:
+				var_dictionnary = {}
+			#add the variables to the variables dictionnary
+			#update the key if it already exists!
+			var_dictionnary[var_name] = var_value
+			#save the new dictionnary
+			self.user_settings["UserVarDictionnary"] = var_dictionnary
+			self.save_user_settings_function()
+			self.update_contact_class_function()
+			self.display_success_function("Mail variable saved")
+
+
+
+
+
+
+	def remove_mail_variable_function(self):
+		#get selected key
+		key_selected = list(self.user_settings["UserVarDictionnary"].keys())[self.listview_variablelist.index]
+		#get the var dictionnary
+		var_dictionnary = self.user_settings["UserVarDictionnary"]
+		#remove the key
+		var_dictionnary.pop(key_selected)
+		#save the dictionnary
+		self.user_settings["UserVarDictionnary"] = var_dictionnary
+		self.save_user_settings_function()
+		self.update_contact_class_function()
+		self.display_success_function("Mail variable removed")
+
+
+
+
+
+
+
+
+
+
 	def create_mail_preset_function(self):
 		#get the content in the field
 		preset_name = self.input_presetname.value
@@ -198,9 +350,9 @@ class ConveryMailUtility():
 
 			try:
 				#get the list of the studio selected
-				
 				selected_studio_index = self.listview_studiolist.index_list
-				#self.display_message_function(selected_studio_index)
+
+				#self.display_message_function(str(selected_studio_index).replace("[", "").replace("]",""))
 				for index in selected_studio_index:
 					selected_studio_name_list.append(self.list_studiolist_display[index])
 					#self.display_message_function(self.list_studiolist_display[index])
@@ -211,6 +363,8 @@ class ConveryMailUtility():
 			else:
 				pass
 			#return
+
+		self.display_message_function("Finding contacts for the following studios:")
 
 
 		contact_list = {}
@@ -236,7 +390,7 @@ class ConveryMailUtility():
 					if tag in contacttag_list:
 						found=True
 						break
-
+			self.display_message_function("		%s"%studio_name)
 
 			if (len(contacttag_list) == 0) or (found==True):
 				for contact_type, contact_data in studio_data["CompanyContact"].items():
@@ -408,21 +562,12 @@ class ConveryMailUtility():
 
 
 
-
-
 	def send_mail_function(self):
 		os.system("cls")
 		print(colored("\n\n\n%s"%pyfiglet.figlet_format("MAIL PORTAL", font="the_edge"), "cyan"))
 
 		#GET THE MAIL KEY
-		try:
-			with open("data/user/mail_key.dll", "r") as load_key:
-				mail_key = load_key.read()
-		except Exception as e:
-			print(colored("Impossible to load key\n%s"%e, "red"))
-			return
-		else:
-			print(colored("Key loaded", "green"))
+		mail_key = self.user_settings["UserMailKey"]
 
 
 		#SETUP THE SERVER
@@ -549,6 +694,7 @@ To : %s
 				body = mail_body
 				msg.attach(MIMEText(body))
 
+				"""
 				try:
 					with open(attached_file, "rb") as attach:
 						part = MIMEBase("application", "octet-stream")
@@ -565,6 +711,7 @@ To : %s
 
 					msg.attach(part)
 					print(colored("External file attached to mail : %s"%attached_file))
+				"""
 
 				try:
 					server.sendmail(user_address, contact_data["contactMail"], msg.as_string())

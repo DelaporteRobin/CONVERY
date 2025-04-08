@@ -105,6 +105,10 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		self.kind_list = ["MEMBER", "JOB", "GENERAL"]
 		self.tag_list = []
 
+		self.user_mail_address_list = []
+		self.user_variable_list = []
+		self.attached_files_list = []
+
 		self.highlight_tag_list = []
 		self.highlight_studio_list = []
 
@@ -160,6 +164,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				},
 			
 			},
+			"UserVarDictionnary":{},
 			"UserPromptDetails":[],
 			"UserSkillSearched":[],
 			"UserJobSearched":"",
@@ -391,8 +396,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 									yield Button("SEND MAIL", id="button_send_mail", classes="error_button")
 
 
-
-					
+			
 
 
 
@@ -413,15 +417,69 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 							yield Rule()
 
 
-							yield Label("Mail settings")
-							self.input_mailkey = Input(placeholder="Mail key", id="input_mail_key")
-							self.input_useraddress = Input(placeholder="User email address", id = "input_useraddress")
+							with Collapsible(title= "Mail Settings", id = "collapsible_mail_settings"):
+								with Horizontal(id = "horizontal_mail_settings"):
+									with Vertical(id = "vertical_left_column"):
+										self.listview_mailaddress = ListView(id="listview_mailaddress")
+										yield self.listview_mailaddress
+										self.listview_mailaddress.border_title = "Mail address list"
+									with Vertical(id = "vertical_right_column"):
+										self.input_mail_address = Input(placeholder = "Mail address", id="input_mail_address")
+										self.input_mail_key = Input(placeholder = "Mail Api Key", id="input_mail_key")
+
+										yield self.input_mail_address
+										yield self.input_mail_key
+										yield Button("Save address", id ="button_save_mail_address")
+										yield Button("Remove address", id = "button_remove_mail_address")
+
+							with Collapsible(title = "Mail variable Manager", id = "collapsible_variable_manager"):
+								with Horizontal(id = "horizontal_variable_manager"):
+									with Vertical(id = "vertical_variable_manager_left"):
+										self.listview_variablelist = ListView(id = "listview_variablelist")
+										yield self.listview_variablelist
+										self.listview_variablelist.border_title = "Mail variable list"
+									with Vertical(id = "vertical_variable_manager_right"):
+
+										self.input_variablename = Input(placeholder = "Variable name", id="input_variablename")
+										yield self.input_variablename
+
+										self.input_variablevalue = Input(placeholder = "Variable value", id = "input_variablevalue")
+										yield self.input_variablevalue
+
+										yield Rule()
+
+										yield Button("Save variable", id="button_save_variable")
+										yield Button("Remove variable", id="button_remove_variable")
+
+
+							with Collapsible(title = "Mail attached files Manager", id = "collapsible_attached_manager"):
+								with Horizontal(id = "horizontal_attached_manager"):
+									with Vertical(id = "vertical_horizontal_attached_left"):
+										self.selectionlist_attached_files = SelectionList(id = "selectionlist_attached_files")
+										yield self.selectionlist_attached_files
+										self.selectionlist_attached_files.border_title = "Attached files list"
+
+									with Vertical(id = "vertical_horizontal_attached_right"):
+										self.input_attached_filename = Input(placeholder = "Filename",id="input_attached_filename")
+										yield self.input_attached_filename
+
+										self.input_attached_filepath = Input(placeholder = "Filepath", id="input_attached_filepath")
+										yield self.input_attached_filepath
+
+										yield Rule()
+
+										yield Button("Save attached file", id="button_save_attached_files")
+										yield Button("Remove attached file", id="button_remove_attached_files")
+
+
+							#self.input_mailkey = Input(placeholder="Mail key", id="input_mail_key")
+							#self.input_useraddress = Input(placeholder="User email address", id = "input_useraddress")
 							self.input_demolink = Input(placeholder="DemoReel link", id = "input_demolink")
 							self.input_demopassword = Input(placeholder = "DemoReel password", id="input_demopassword")
 							self.input_resume = Input(placeholder="Resume filepath", id="input_resume")
 
-							yield self.input_mailkey
-							yield self.input_useraddress
+							#yield self.input_mailkey
+							#yield self.input_useraddress
 							yield self.input_demolink
 							yield self.input_resume
 
@@ -480,10 +538,16 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.display_success_function("success")
 		
 
-		#self.update_informations_function()
-		self.update_contact_class_function()
 
 
+	@on(SelectionList.SelectionHighlighted)
+	def handle_highlighted(self, event: SelectionList.SelectionHighlighted) -> None:
+		#self.display_message_function(event.selection_index)
+		filename = list(self.user_settings["UserAttachedFiles"].keys())[event.selection_index]
+		filepath = self.user_settings["UserAttachedFiles"][filename]
+
+		self.input_attached_filename.value = filename 
+		self.input_attached_filepath.value = filepath
 
 
 
@@ -664,6 +728,24 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
+		if event.button.id == "button_save_attached_files":
+			self.save_attached_files_function()
+
+		if event.button.id == "button_remove_attached_files":
+			self.remove_attached_files_function()
+
+		if event.button.id == "button_save_variable":
+			self.save_mail_variable_function()
+
+		if event.button.id == "button_remove_variable":
+			self.remove_mail_variable_function()
+
+		if event.button.id == "button_save_mail_address":
+			self.save_mail_address_function()
+
+		if event.button.id == "button_remove_mail_address":
+			self.remove_mail_address_function()
+
 		if event.button.id == "button_createclass":
 			self.create_company_class_function()
 
@@ -939,6 +1021,21 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 	def on_list_view_selected(self, event: ListView.Selected) -> None:
+		if event.list_view.id == "listview_variablelist":
+			#get the key selected
+			var_name = list(self.user_settings["UserVarDictionnary"].keys())[self.listview_variablelist.index]
+			#get the value of the key in settings
+			var_value = self.user_settings["UserVarDictionnary"][var_name]
+			#replace values in textfield
+			self.input_variablename.value = var_name
+			self.input_variablevalue.value = var_value
+
+		if event.list_view.id == "listview_mailaddress":
+			#get the address selected
+			#try to get the key in the user dictionnary
+			self.input_mail_address.value = self.user_mail_address_list[self.listview_mailaddress.index]
+			self.input_mail_key.value = self.user_settings["UserMailData"][self.user_mail_address_list[self.listview_mailaddress.index]]
+
 		if event.list_view.id == "listview_contacttype":
 			#get the current company dictionnary
 			self.current_class_selected = list(self.company_class_dictionnary.keys())[self.listview_contacttype.index]

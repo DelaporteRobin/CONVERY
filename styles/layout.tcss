@@ -183,6 +183,17 @@ Button {
 
 
 
+#collapsible_variable_manager, #collapsible_mail_settings, #collapsible_attached_manager {
+	max-height: 45%;
+}
+#horizontal_variable_manager, #horizontal_mail_settings, #horizontal_attached_manager {
+	border-bottom:10%;
+}
+#selectionlist_attached_files { 
+	height:1fr;
+}
+
+
 
 
 
