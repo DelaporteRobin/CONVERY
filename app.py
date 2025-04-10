@@ -324,6 +324,59 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 					with TabPane("Mail editor"):
+						with Collapsible(title= "Mail Settings", id = "collapsible_mail_settings"):
+								with Horizontal(id = "horizontal_mail_settings"):
+									with Vertical(id = "vertical_left_column"):
+										self.listview_mailaddress = ListView(id="listview_mailaddress")
+										yield self.listview_mailaddress
+										self.listview_mailaddress.border_title = "Mail address list"
+									with Vertical(id = "vertical_right_column"):
+										self.input_mail_address = Input(placeholder = "Mail address", id="input_mail_address")
+										self.input_mail_key = Input(placeholder = "Mail Api Key", id="input_mail_key")
+
+										yield self.input_mail_address
+										yield self.input_mail_key
+										yield Button("Save address", id ="button_save_mail_address")
+										yield Button("Remove address", id = "button_remove_mail_address")
+
+						with Collapsible(title = "Mail variable Manager", id = "collapsible_variable_manager"):
+							with Horizontal(id = "horizontal_variable_manager"):
+								with Vertical(id = "vertical_variable_manager_left"):
+									self.listview_variablelist = ListView(id = "listview_variablelist")
+									yield self.listview_variablelist
+									self.listview_variablelist.border_title = "Mail variable list"
+								with Vertical(id = "vertical_variable_manager_right"):
+
+									self.input_variablename = Input(placeholder = "Variable name", id="input_variablename")
+									yield self.input_variablename
+
+									self.input_variablevalue = Input(placeholder = "Variable value", id = "input_variablevalue")
+									yield self.input_variablevalue
+
+									yield Rule()
+
+									yield Button("Save variable", id="button_save_variable")
+									yield Button("Remove variable", id="button_remove_variable")
+
+
+						with Collapsible(title = "Mail attached files Manager", id = "collapsible_attached_manager"):
+							with Horizontal(id = "horizontal_attached_manager"):
+								with Vertical(id = "vertical_horizontal_attached_left"):
+									self.selectionlist_attached_files = SelectionList(id = "selectionlist_attached_files")
+									yield self.selectionlist_attached_files
+									self.selectionlist_attached_files.border_title = "Attached files list"
+
+								with Vertical(id = "vertical_horizontal_attached_right"):
+									self.input_attached_filename = Input(placeholder = "Filename",id="input_attached_filename")
+									yield self.input_attached_filename
+
+									self.input_attached_filepath = Input(placeholder = "Filepath", id="input_attached_filepath")
+									yield self.input_attached_filepath
+
+									yield Rule()
+
+									yield Button("Save attached file", id="button_save_attached_files")
+									yield Button("Remove attached file", id="button_remove_attached_files")
 						with Horizontal(id="main_righthorizontal_container"):
 							with Vertical(id="right_mailpreset_container"):
 								self.input_presetname = Input(placeholder="Mail preset name", id="input_presetname")
@@ -417,71 +470,21 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 							yield Rule()
 
 
-							with Collapsible(title= "Mail Settings", id = "collapsible_mail_settings"):
-								with Horizontal(id = "horizontal_mail_settings"):
-									with Vertical(id = "vertical_left_column"):
-										self.listview_mailaddress = ListView(id="listview_mailaddress")
-										yield self.listview_mailaddress
-										self.listview_mailaddress.border_title = "Mail address list"
-									with Vertical(id = "vertical_right_column"):
-										self.input_mail_address = Input(placeholder = "Mail address", id="input_mail_address")
-										self.input_mail_key = Input(placeholder = "Mail Api Key", id="input_mail_key")
-
-										yield self.input_mail_address
-										yield self.input_mail_key
-										yield Button("Save address", id ="button_save_mail_address")
-										yield Button("Remove address", id = "button_remove_mail_address")
-
-							with Collapsible(title = "Mail variable Manager", id = "collapsible_variable_manager"):
-								with Horizontal(id = "horizontal_variable_manager"):
-									with Vertical(id = "vertical_variable_manager_left"):
-										self.listview_variablelist = ListView(id = "listview_variablelist")
-										yield self.listview_variablelist
-										self.listview_variablelist.border_title = "Mail variable list"
-									with Vertical(id = "vertical_variable_manager_right"):
-
-										self.input_variablename = Input(placeholder = "Variable name", id="input_variablename")
-										yield self.input_variablename
-
-										self.input_variablevalue = Input(placeholder = "Variable value", id = "input_variablevalue")
-										yield self.input_variablevalue
-
-										yield Rule()
-
-										yield Button("Save variable", id="button_save_variable")
-										yield Button("Remove variable", id="button_remove_variable")
-
-
-							with Collapsible(title = "Mail attached files Manager", id = "collapsible_attached_manager"):
-								with Horizontal(id = "horizontal_attached_manager"):
-									with Vertical(id = "vertical_horizontal_attached_left"):
-										self.selectionlist_attached_files = SelectionList(id = "selectionlist_attached_files")
-										yield self.selectionlist_attached_files
-										self.selectionlist_attached_files.border_title = "Attached files list"
-
-									with Vertical(id = "vertical_horizontal_attached_right"):
-										self.input_attached_filename = Input(placeholder = "Filename",id="input_attached_filename")
-										yield self.input_attached_filename
-
-										self.input_attached_filepath = Input(placeholder = "Filepath", id="input_attached_filepath")
-										yield self.input_attached_filepath
-
-										yield Rule()
-
-										yield Button("Save attached file", id="button_save_attached_files")
-										yield Button("Remove attached file", id="button_remove_attached_files")
+							
 
 
 							#self.input_mailkey = Input(placeholder="Mail key", id="input_mail_key")
 							#self.input_useraddress = Input(placeholder="User email address", id = "input_useraddress")
+
+
 							self.input_demolink = Input(placeholder="DemoReel link", id = "input_demolink")
 							self.input_demopassword = Input(placeholder = "DemoReel password", id="input_demopassword")
 							self.input_resume = Input(placeholder="Resume filepath", id="input_resume")
 
 							#yield self.input_mailkey
 							#yield self.input_useraddress
-							yield self.input_demolink
-							yield self.input_resume
+							#yield self.input_demolink
+							#yield self.input_resume
 
 
 							yield Rule()
@@ -542,12 +545,15 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 	@on(SelectionList.SelectionHighlighted)
 	def handle_highlighted(self, event: SelectionList.SelectionHighlighted) -> None:
-		#self.display_message_function(event.selection_index)
-		filename = list(self.user_settings["UserAttachedFiles"].keys())[event.selection_index]
-		filepath = self.user_settings["UserAttachedFiles"][filename]
+	
 
-		self.input_attached_filename.value = filename 
-		self.input_attached_filepath.value = filepath
+		if event.selection_list.id == "selectionlist_attached_files":
+			filename = list(self.user_settings["UserAttachedFiles"].keys())[event.selection_index]
+			filepath = self.user_settings["UserAttachedFiles"][filename]
+
+			self.input_attached_filename.value = filename 
+			self.input_attached_filepath.value = filepath
+		
 
 
 

@@ -17,6 +17,7 @@ import Levenshtein
 import threading
 import json
 import colorama
+import traceback
 
 from functools import partial
 from typing import  Iterable
@@ -566,14 +567,50 @@ class ConveryMailUtility():
 		os.system("cls")
 		print(colored("\n\n\n%s"%pyfiglet.figlet_format("MAIL PORTAL", font="the_edge"), "cyan"))
 
-		#GET THE MAIL KEY
-		mail_key = self.user_settings["UserMailKey"]
+
+
+
+		print(colored("Mail formatting ...", "magenta"))
+		print("Trying to gather all required informations...")
 
 
 		#SETUP THE SERVER
 		smtp_server = "smtp.gmail.com"
 		port = 587
-		user_address = self.user_settings["UserMailAddress"]
+		#user_address = self.user_settings["UserMailAddress"]
+		#get the mail address selected by the user
+		try:
+			user_address = list(self.user_settings["UserMailData"].keys())[self.listview_mailaddress.index]
+		except TypeError:
+			print(colored("You have to select the mail address you want to use!", "red"))
+			return
+		else:
+			#get the mail key
+			mail_key = self.user_settings["UserMailData"][user_address]
+
+
+
+
+		attached_file_list_index = self.selectionlist_attached_files.selected
+		attached_file_list = []
+
+		print(colored("\n\nAttached file list : ", "cyan"))
+		for index in attached_file_list_index:
+			#get the filename for each index
+			filepath = self.user_settings["UserAttachedFiles"][list(self.user_settings["UserAttachedFiles"].keys())[index]]
+			if os.path.isfile(filepath)==True:
+
+				if filepath in attached_file_list:
+					print(colored("\tSkipped - file already attached : %s"%filepath, "red"))
+				else:
+					attached_file_list.append(filepath)
+					print("\tfile added : %s"%filepath)
+			else:
+				print(colored("\tSkipped - file doesn't exist : %s"%filepath, "red"))
+
+
+
+
 
 		#GET THE MAIL CONTENT 
 		mail_header = self.input_mail_header.value
@@ -590,28 +627,30 @@ class ConveryMailUtility():
 			return
 
 		#GET THE MAIL ATTACHED FILES
+		"""
 		attached_file = self.user_settings["UserMailAttached"]
 		if os.path.isfile(attached_file)==False:
 			print(colored("Attached file doesn't exists!", "red"))
 			return
+		"""
 
 
 
 
-		#DISPLAY FINAL CHOICE TO THE USER BEFORE SENDING THE MAIL
-		print(colored("Mail formatting ...", "cyan"))
-		print(colored("Your address : ", "cyan"), user_address)
+
+		
+		print(colored("Mail address : ", "cyan"), user_address)
+		print(colored("Mail API key : ", "cyan"), mail_key)
 		print(colored("Mail header : ", "cyan"), mail_header)
-		print(colored("Mail body :\n", "cyan"), mail_body)
+		print(colored("\n\nMail body :\n", "cyan"), mail_body)
 
 
-		print(colored("All contact list:\n", "cyan"))
+		print(colored("\n\nAll contact list:\n", "cyan"))
 		for contact_name in self.mail_contact_list:
 			print(contact_name)
-		print("\n\n")
 
 		while True:
-			print(colored("Are you sure you want to launch mail sender function?", "cyan"))
+			print(colored("\nAre you sure you want to launch mail sender function?", "cyan"))
 			user = input(colored("Y / N ", "magenta"))
 
 			if user == "Y":
@@ -627,8 +666,8 @@ class ConveryMailUtility():
 			server = smtplib.SMTP(smtp_server, port)
 			server.starttls()
 
-			print("Server started ... \n%s"%server)
-			print("User address : %s\nUser Key : %s"%(user_address, mail_key))
+			print(colored("Server started ... \n%s"%server, "green"))
+			#print("User address : %s\nUser Key : %s"%(user_address, mail_key))
 
 
 			server.login(user_address, mail_key)
@@ -647,6 +686,9 @@ class ConveryMailUtility():
 			for contact_name, contact_data in self.mail_contact_list.items():
 
 
+
+				print(colored("[%s / %s] Writing mail to : %s"%(i, contact_list_length, contact_name), "cyan"))
+
 				mail_header = header_proxy
 				mail_body = body_proxy
 
@@ -658,6 +700,34 @@ class ConveryMailUtility():
 
 
 				#REPLACE VARIABLES IN EMAIL BODY
+				#try to replace system variable
+				print(colored("\tReplacing system variables..."))
+				try:
+					mail_header = mail_header.replace("[CONTACTNAME]",contact_data["studioName"])
+					mail_body = mail_body.replace("[CONTACTNAME]", contact_data["studioName"])
+				except Exception as e:
+					print(colored("\t-Error happened : %s"%e, "red"))
+				else:
+					print(colored("\t-System variables replaced", "green"))
+
+
+				#try to replace user variables
+				#get user variables in user settings
+				user_variable_dictionnary = self.user_settings["UserVarDictionnary"]
+				print(colored("\tReplacing user variables..."))
+				for user_var_name, user_var_value in user_variable_dictionnary.items():
+					print("\t-checking [%s] - %s"%(user_var_name, user_var_value))
+					try:
+						mail_header = mail_header.replace("[%s]"%user_var_name, user_var_value)
+						mail_body = mail_body.replace("[%s]"%user_var_name, user_var_value)
+					except Exception as e:
+						print(colored("\t-Error happened : %s"%e, "red"))
+					else:
+						pass
+				print(colored("\t-User variables replaced","green"))
+
+
+				"""
 				if ("[STUDIONAME]" in mail_header) or ("[STUDIONAME]" in mail_body):
 					print("Studioname replaced in mail...")
 					if contact_data["studioName"] in list(self.company_dictionnary.keys()):
@@ -676,6 +746,7 @@ class ConveryMailUtility():
 					print("DemoPassword replaced in mail...")
 					mail_header = mail_header.replace("[DEMO_PASSWORD]", str(self.user_settings["UserDemoReelPassword"]))
 					mail_body = mail_body.replace("[DEMO_PASSWORD]", str(self.user_settings["UserDemoReelPassword"]))
+				"""
 
 
 
@@ -685,8 +756,6 @@ class ConveryMailUtility():
 				msg["To"] = contact_data["contactMail"]
 				msg["Subject"] = mail_header 
 
-
-				print(colored("[%s / %s] NEW MAIL CREATED"%(i, contact_list_length), "cyan"))
 				content = """
 To : %s
 """%(contact_data["contactMail"])
@@ -694,32 +763,36 @@ To : %s
 				body = mail_body
 				msg.attach(MIMEText(body))
 
-				"""
+				print("\tAttaching file list...")
+				for attached_file in attached_file_list:
+					try:
+						with open(attached_file, "rb") as attach:
+							part = MIMEBase("application", "octet-stream")
+							part.set_payload(attach.read())
+
+					except Exception as e:
+						print(colored("\t-Impossible to read external file and link it to mail\n%s"%e, "red"))
+					else:
+						encoders.encode_base64(part)
+						part.add_header(
+							"Content-Disposition",
+							f"attachment; filename = {attached_file}",
+						)
+
+						msg.attach(part)
+						print(colored("\t-External file attached to mail : %s"%attached_file, "green"))
+				
+
+				
 				try:
-					with open(attached_file, "rb") as attach:
-						part = MIMEBase("application", "octet-stream")
-						part.set_payload(attach.read())
-
-				except Exception as e:
-					print(colored("Impossible to read external file and link it to mail\n%s"%e, "red"))
-				else:
-					encoders.encode_base64(part)
-					part.add_header(
-						"Content-Disposition",
-						f"attachment; filename = {attached_file}",
-					)
-
-					msg.attach(part)
-					print(colored("External file attached to mail : %s"%attached_file))
-				"""
-
-				try:
+					print("\tExecuting send command ...")
 					server.sendmail(user_address, contact_data["contactMail"], msg.as_string())
+					
 				except Exception as e:
 					print(colored("Impossible to send mail\n%s"%e, "red"))
 				else:
 					
-
+					print(colored("\tMail sent to %s"%(contact_data["contactMail"]), "green"))
 					#get date to update user dictionnary (last time contacted)		
 					if contact_data["studioName"] in list(self.company_dictionnary.keys()):
 						#get today date
@@ -728,18 +801,19 @@ To : %s
 						studio_data = self.company_dictionnary[contact_data["studioName"]]
 						studio_data["CompanyDate"] = str(date_value)
 
-						print("Date refreshed in user data...")
+						print("\tDate refreshed in user data...\n\n")
 
 
 
 
 
-					print(colored("MAIL SENT : %s\n\n"%contact_data["contactMail"], "green"))
+					
 
 
 					#update the value of the date in the studio settings dictionnary
 					#studio_data["CompanyDate"] = (datetime.now(timezone.utc)).isoformat()
 					#self.company_dictionnary[studio_name] = studio_data
+				
 
 				i+=1
 
