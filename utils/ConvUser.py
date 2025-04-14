@@ -442,7 +442,11 @@ class ConveryUserUtility():
 					self.query_one("#modal_collapsible_dateselector").title = studio_data["CompanyDate"]
 
 					#update the value of the date in the date picker
-					converted_date = datetime.strptime(studio_data["CompanyDate"], "%Y-%m-%d")
+					#try to cover the date conversion
+					try:
+						converted_date = datetime.strptime(studio_data["CompanyDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
+					except ValueError:
+						converted_date = datetime.strptime(studio_data["CompanyDate"], "%Y-%m-%d")
 					#date object
 					date_object = Date.from_py_date(converted_date)
 					#set the date in the date picker
@@ -575,76 +579,76 @@ class ConveryUserUtility():
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau des Studios</title>
-    <style>
-        /* Général */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tableau des Studios</title>
+	<style>
+		/* Général */
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f4f4f4;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
 
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            color: #2c3e50;
-        }
+		h1 {
+			text-align: center;
+			margin: 20px 0;
+			color: #2c3e50;
+		}
 
-        /* Tableau */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
+		/* Tableau */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 20px 0;
+		}
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            vertical-align: top;
-        }
+		th, td {
+			padding: 12px;
+			text-align: left;
+			vertical-align: top;
+		}
 
-        th {
-            background-color: #2c3e50;
-            color: #fff;
-            font-size: 1.1em;
-        }
+		th {
+			background-color: #2c3e50;
+			color: #fff;
+			font-size: 1.1em;
+		}
 
-        td {
-            background-color: #fff;
-            border: 1px solid #ddd;
-        }
+		td {
+			background-color: #fff;
+			border: 1px solid #ddd;
+		}
 
-        tr:nth-child(even) td {
-            background-color: #f9f9f9;
-        }
+		tr:nth-child(even) td {
+			background-color: #f9f9f9;
+		}
 
-        tr:hover {
-            background-color: #f1f1f1;
-        }
+		tr:hover {
+			background-color: #f1f1f1;
+		}
 
-        /* Liens */
-        a {
-            color: #2980b9;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+		/* Liens */
+		a {
+			color: #2980b9;
+			text-decoration: none;
+			transition: color 0.3s ease;
+		}
 
-        a:hover {
-            color: #3498db;
-        }
+		a:hover {
+			color: #3498db;
+		}
 
-        /* Texte et préformatage */
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin: 0;
-        }
+		/* Texte et préformatage */
+		pre {
+			white-space: pre-wrap;
+			word-wrap: break-word;
+			margin: 0;
+		}
 
-    </style>
+	</style>
 </head>
 <table border='1'>
 """
@@ -827,7 +831,7 @@ class ConveryUserUtility():
 		output_file = "output.html"
 
 		with open(input_file, "r", encoding="utf-8") as md_file:
-		    markdown_content = md_file.read()
+			markdown_content = md_file.read()
 
 		# Convertir le Markdown en HTML
 		html_content = markdown.markdown(markdown_content, extensions=["extra", "tables", "sane_lists"])
@@ -837,9 +841,9 @@ class ConveryUserUtility():
 		<!DOCTYPE html>
 		<html lang="en">
 		<head>
-		    <meta charset="UTF-8">
-		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		    <title>Markdown to HTML</title>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Markdown to HTML</title>
 		</head>
 		<body>
 		{html_content}
@@ -849,7 +853,7 @@ class ConveryUserUtility():
 
 		# Sauvegarder dans un fichier HTML
 		with open(output_file, "w", encoding="utf-8") as html_file:
-		    html_file.write(html_output)
+			html_file.write(html_output)
 
 		#print(f"Conversion terminée ! Le fichier HTML est sauvegardé sous : {output_file}")
 
