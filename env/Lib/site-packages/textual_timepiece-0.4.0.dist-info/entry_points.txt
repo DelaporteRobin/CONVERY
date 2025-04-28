@@ -1,0 +1,2 @@
+[console_scripts]
+demo = textual_timepiece.__main__:main

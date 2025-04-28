@@ -63,7 +63,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 		#self.textarea_prompt.clear()
 		self.listview_contacttype.clear()
 
-
+		
 
 		project_listitem_list = []
 		for key, value in self.app.company_class_dictionnary.items():

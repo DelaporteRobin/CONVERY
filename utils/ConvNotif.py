@@ -74,11 +74,11 @@ class ConveryNotification:
 	def display_warning_function(self, message, mute=False):
 		#print(colored(log_format, "yellow"))
 		if mute == False:
-			self.notify(str(message), timeout=4)
+			self.notify(str(message).replace("[", "\[").replace("]","\]"), timeout=4)
 
 	def display_error_function(self, message, mute=False):
 		if mute == False:
-			self.notify(str(message), severity="error", timeout=4)
+			self.notify(str(message).replace("[", "\[").replace("]","\]"), severity="error", timeout=4)
 		
 		log_format = self.create_log_format_function(str(message), "ERROR")
 		print(colored(log_format, "red"))
@@ -92,7 +92,7 @@ class ConveryNotification:
 		log_format = {
 			"date":str(datetime.now()),
 			"severity":severity,
-			"content":str(message)
+			"content":str(message.replace("[", "\[").replace("]","\]"))
 		}
 		
 		try:
