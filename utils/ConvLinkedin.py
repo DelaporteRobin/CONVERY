@@ -124,25 +124,6 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 
 
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	def linkedin_get_studiolist_function(self, studio_name):
 		driver = self.linkedin_login_function("https://linkedin.com/login")
 
@@ -235,16 +216,6 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			#os.system("pause")
 			return linkedin_studio_list
 			
-
-			
-
-
-
-
-
-
-
-
 
 	def get_linkedin_user_function(self, studio_name, studio_account):
 		driver = self.linkedin_login_function(studio_account)
@@ -400,3 +371,25 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 		
 		return None
+
+
+	def load_linkedin_post_function(self):
+		#try to get the content of the post file
+		if self.get_linkedin_log_function() == False:
+			self.display_error_function("Impossible to display linkedin scrapping content")
+			return
+		#get the last post loaded
+		self.display_success_function("SHOW CONTENT")
+
+
+
+	def get_linkedin_log_function(self):
+		try:
+			with open(os.path.join(os.getcwd(), "data/LinkedinScrapping.json"), "r") as linkedin_scrapping_file:
+				self.linkedin_scrapping_log = json.load(linkedin_scrapping_file)
+		except Exception as e:
+			self.display_error_function("Impossible to load Linkedin Scrapping content!")
+			return False
+		else:
+			self.display_success_function("Linkedin scrapping log content loaded successfully!")
+			return True

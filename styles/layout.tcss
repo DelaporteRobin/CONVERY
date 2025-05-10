@@ -240,7 +240,6 @@ Button {
 
 
 
-
 /* TCSS CODE FOR THE MODAL SCREEN TO CREATE CONTACT */
 ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalConveryScreenLinkedin {
 	align: center middle;
@@ -302,6 +301,14 @@ ModalConveryScreenUser, ModalContact, ModalConveryScreenContact, ModalConveryScr
 
 
 
+/* TCSS FOR THE LINKEDIN POST DISPLAY */
+#vertical_linkedinpost_container {
+	align:center middle;
+	border: double $primary;
 
-
-
+	height:auto;
+}
+#label_linkedinpost_author, #label_linkedinpost_date {
+	border: hkey white;
+	text-style:bold;
+}

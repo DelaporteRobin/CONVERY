@@ -46,6 +46,7 @@ from utils.ConvGuiUtility import ConveryGUIUtils
 from utils.ConvNotif import ConveryNotification
 from utils.ConvUtility import ConveryUtility
 from utils.ConvMail import ConveryMailUtility
+from utils.ConvLinkedinScrapper import ConveryLinkedinScrapperApplication
 
 
 #import theme file
@@ -82,7 +83,7 @@ from utils.ConvWidget import MultiListView, MultiListItem
 
 
 
-class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
+class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperApplication, ConveryNotification, ConveryMailUtility):
 	CSS_PATH = ["styles/layout.tcss"]
 
 
@@ -448,55 +449,12 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 								with Horizontal(id="mail_action_horizontal_container"):
 									yield Button("SEND MAIL", id="button_send_mail", classes="error_button")
 
+					with TabPane("Linkedin Observer"):
+						with Collapsible(title="Observer settings", id="collapsible_observer_settings"):
+							yield Button("hello world")
 
-			
-
-
-
-					with TabPane("User Settings"):
-						with Vertical(id = "main_settings_container"):
-							"""
-							with Collapsible(title="Copilot settings", id="right_mailprompt_collapsible"):
-								self.textarea_prompt = TextArea(id="textarea_prompt")
-								yield self.textarea_prompt
-								self.textarea_prompt.border_title = "Copilot prompt"
-
-
-
-								with Horizontal(id="right_mailtext_horizontal"):
-									yield Button("Save copilot prompt", id="button_saveprompt")
-							"""
-
-							yield Rule()
-
-
-							
-
-
-							#self.input_mailkey = Input(placeholder="Mail key", id="input_mail_key")
-							#self.input_useraddress = Input(placeholder="User email address", id = "input_useraddress")
-
-
-							self.input_demolink = Input(placeholder="DemoReel link", id = "input_demolink")
-							self.input_demopassword = Input(placeholder = "DemoReel password", id="input_demopassword")
-							self.input_resume = Input(placeholder="Resume filepath", id="input_resume")
-
-							#yield self.input_mailkey
-							#yield self.input_useraddress
-							#yield self.input_demolink
-							#yield self.input_resume
-
-
-							yield Rule()
-
-							yield Label("Linkedin Settings")
-							self.input_linkedin_username = Input(placeholder = "Linkedin Email", id="input_linkedin_username")
-							self.input_linkedin_password = Input(placeholder = "Linkedin Password", id="input_linkedin_password")
-							yield self.input_linkedin_username
-							yield self.input_linkedin_password
-
-
-
+						self.vertical_linkedinpost = VerticalScroll(id="vertical_linkedinpost")
+						yield self.vertical_linkedinpost
 
 					with TabPane("Mail watcher"):
 						self.listview_contactlist = ListView(id = "listview_contactlist")
@@ -539,6 +497,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.display_error_function("Error happened : %s"%e)
 		else:
 			self.display_success_function("success")
+
+
+		self.load_linkedin_post_function()
 		
 
 
