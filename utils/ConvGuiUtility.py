@@ -73,11 +73,12 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 		#self.load_company_class_function()
 		#self.load_company_dictionnary_function()
-
+		"""
 		if ((self.user_settings["UserLinkedinAddress"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinAddress"])):
 			self.input_linkedin_username.value = self.user_settings["UserLinkedinAddress"]
 		if ((self.user_settings["UserLinkedinPassword"])!=None) and (self.letter_verification_function(self.user_settings["UserLinkedinPassword"])):
 			self.input_linkedin_password.value = self.user_settings["UserLinkedinPassword"]
+		"""
 
 		#get all mail addresses
 		#insert the list in listview
@@ -104,8 +105,10 @@ class ConveryGUIUtils(ConveryUserUtility):
 			self.display_error_function("Impossible to get user mail variables")
 			self.display_error_function(traceback.format_exc())
 
-
-
+		"""
+		if "UserDropboxToken" in self.user_settings:
+			self.input_dropbox_token.value = self.user_settings["UserDropboxToken"]
+		"""
 
 		try:
 			self.selectionlist_attached_files.clear_options()
@@ -123,11 +126,12 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 
 
-
+		"""
 
 		self.input_demolink.value = str(self.user_settings["UserDemoReelLink"])
 		self.input_demopassword.value = str(self.user_settings["UserDemoReelPassword"])
 		self.input_resume.value = str(self.user_settings["UserMailAttached"])
+		"""
 
 		try:
 			if "UserCopilotPrompt" in self.user_settings:
@@ -165,14 +169,11 @@ class ConveryGUIUtils(ConveryUserUtility):
 		self.studio_suggest_list = list(self.company_dictionnary.keys())
 		self.input_mailcontact.suggester=SuggestFromList(self.studio_suggest_list, case_sensitive=False)
 
+		"""
 		self.listview_contactlist.clear()
 		for suggest in self.studio_suggest_list:
 			self.listview_contactlist.append(MultiListItem(Label(suggest)))
-
-
-
-
-
+		"""
 		#CREATE THE CONTACT LIST
 		"""
 		for studio_name, studio_data in self.company_dictionnary.items():
@@ -186,15 +187,6 @@ class ConveryGUIUtils(ConveryUserUtility):
 			label = Label("[ %s ] - %s"%(contact_addres, contact_data["studioName"]))
 			self.listview_contactlist.append(ListItem(label)) 
 		"""
-
-
-
-
-
-		
-
-
-
 
 
 		self.list_studiolist = list(self.company_dictionnary.keys())

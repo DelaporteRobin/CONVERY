@@ -66,15 +66,61 @@ class ExtendedTextArea(TextArea):
 
 
 
+class ModalDropboxAuthentification(ModalScreen, ConveryNotification, ConveryUserUtility):
+	def __init__(self):
+		self.auth_flow = None
+		super().__init__()
 
+	def compose(self) -> ComposeResult:
+		with VerticalScroll(id = "modal_dropbox_vertical_main"):
+			yield Label("Enter your dropbox app credentials to launch authentification")
+			self.modal_dropbox_input_appkey = Input(placeholder="Dropbox App Key",id="modal_dropbox_input_appkey")
+			self.modal_dropbox_input_appsecret = Input(placeholder="Dropbox App Secret",id="modal_dropbox_input_appsecret")
+			yield self.modal_dropbox_input_appkey
+			yield self.modal_dropbox_input_appsecret
+
+			yield Button("GET URL FROM CREDENTIALS",id="modal_dropbox_button_geturl")
+
+			self.modal_dropbox_label_url = Label(" ",id="modal_dropbox_label_url")
+			yield self.modal_dropbox_label_url
+
+			self.modal_dropbox_input_appcode = Input(placeholder = "Paste the code from the URL",id="modal_dropbox_input_appcode")
+			yield self.modal_dropbox_input_appcode
+
+			self.modal_dropbox_button_savecode = Button("Get final tokens",id="modal_dropbox_button_savecode")
+			yield self.modal_dropbox_button_savecode
+
+			with Horizontal(id = "modal_dropbox_horizontal_quit"):
+				yield Button("Quit", variant="error", id="modal_dropbox_button_quit",classes="darken_button error_button")
+
+	def on_mount(self)->None:
+		self.modal_dropbox_input_appcode.styles.visibility="hidden"
+		self.modal_dropbox_button_savecode.styles.visibility="hidden"
+
+	def on_button_pressed(self, event:Button.Pressed)-> None:
+		if event.button.id == "modal_dropbox_button_quit":
+			self.app.pop_screen()
+
+		if event.button.id == "modal_dropbox_button_geturl":
+			returned_value = self.dropbox_get_authentification_url_function(self.modal_dropbox_input_appkey.value,self.modal_dropbox_input_appsecret.value)
+			if returned_value != False:
+				#save the key and the secret in user settings
+				self.app.user_settings["UserDropboxKey"] = self.modal_dropbox_input_appkey.value
+				self.app.user_settings["UserDropboxSecret"] = self.modal_dropbox_input_appsecret.value
+				#save user settings file
+				self.app.save_user_settings_function()
+				#show widgets to follow next step
+				self.modal_dropbox_label_url.update("Get your token from this URL\n%s"%returned_value)
+				self.modal_dropbox_input_appcode.styles.visibility = "visible"
+				self.modal_dropbox_button_savecode.styles.visibility = "visible"
+
+		if event.button.id == "modal_dropbox_button_savecode":
+			value=self.dropbox_get_tokens_function(self.modal_dropbox_input_appcode.value)
+			if value==True:
+				self.app.pop_screen()
 
 
 class ModalConveryScreenUser(ModalScreen, ConveryNotification, ConveryUtility, ConveryUserUtility):
-
-
-	CSS_PATH = ["styles/layout.tcss"]
-
-
 	def __init__(self):
 
 
@@ -94,8 +140,6 @@ class ModalConveryScreenUser(ModalScreen, ConveryNotification, ConveryUtility, C
 		
 			self.input_usersettingsskills = Input(placeholder = "What are your skills", id="input_usersettingsskills")
 			yield self.input_usersettingsskills
-
-			
 
 			self.textarea_usersettings = ExtendedTextArea(id="textarea_usersettings")
 			yield self.textarea_usersettings
@@ -152,18 +196,6 @@ class ModalConveryScreenUser(ModalScreen, ConveryNotification, ConveryUtility, C
 			pass
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 class Modal_Contact(Static):
 	
 
@@ -204,19 +236,7 @@ class Modal_Contact(Static):
 			self.modal_newcontacttype.value = self.kind
 
 
-
-
-
-
-
-
-
-
 class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility, ConveryNotification): 
-
-
-
-
 	CSS_PATH = ["Styles/layout.tcss"]
 
 	def __init__(self, mode, studio=None):
@@ -304,10 +324,6 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 		if (self.focused.id == "modal_newcompany_tags") and (event.key == "space"):
 			self.newcompany_tags.value = "%s; "%self.newcompany_tags.value
 		"""
-		
-
-
-	
 
 	def on_mount(self) -> None:
 		#IF IN EDIT MODE LOAD THE DICTIONNARY OF THE SELECTED COMPANY
@@ -339,16 +355,6 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 				self.app.display_error_function("The selected date is in the futur!")
 				#set the current date in the date picker
 				self.modal_dateselect.date = current_date
-
-	
-
-
-	
-
-
-
-
-
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 		#if event.button.id == "test":
@@ -390,16 +396,6 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 				self.newcompany_otheranswer.disabled=False
 			else:
 				self.newcompany_otheranswer.disabled=True
-
-
-
-
-
-
-
-
-
-
 
 
 class SuggestFromList(Suggester):
@@ -446,21 +442,6 @@ class SuggestFromList(Suggester):
 				return self._suggestions[idx]
 		return None
 		"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNotification, ConveryUserUtility):
 	CSS_PATH = ["Styles/layout.tcss"]

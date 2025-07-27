@@ -20,13 +20,17 @@ import colorama
 import markdown
 import validators
 import traceback
+import dropbox
+import requests
 
 from functools import partial
 from typing import  Iterable
-from datetime import datetime 
+from datetime import datetime, timedelta
 from pyfiglet import Figlet 
 from tabulate import tabulate
 from whenever import *
+from dropbox.exceptions import ApiError, AuthError, BadInputError
+from io import BytesIO
 
 
 from textual.suggester import SuggestFromList, Suggester
@@ -156,16 +160,6 @@ class ConveryUserUtility():
 			pass
 
 
-
-
-
-
-
-
-
-
-
-
 ###############################################################################################
 #MANAGER COMPANY DICTIONNARY
 ###############################################################################################
@@ -247,10 +241,6 @@ class ConveryUserUtility():
 			#self.display_message_function("Company dictionnary loaded")
 			pass
 		"""
-
-
-
-
 
 	def add_company_function(self):
 		#self.display_message_function(self.date)
@@ -399,16 +389,6 @@ class ConveryUserUtility():
 			self.display_success_function("Contact data file opened!")
 
 
-			
-
-
-
-
-
-
-
-
-
 	def load_company_data_function(self, Modal_Contact):
 		self.display_message_function(self.studio)
 		try:
@@ -515,15 +495,6 @@ class ConveryUserUtility():
 
 						new_contact = Modal_Contact(contact_type, contact_name, contact_mail, contact_website)
 						self.newcompany_contactlist_container.mount(new_contact)
-
-
-
-
-
-
-
-
-
 
 
 	def save_contact_table_function(self):
@@ -715,27 +686,6 @@ class ConveryUserUtility():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	def save_contact_sheet_function(self):
 		#get data from the company dictionnary
 		#self.display_message_function(list(self.company_dictionnary.keys()))	
@@ -869,6 +819,237 @@ class ConveryUserUtility():
 		else:
 			self.display_error_function(str(convert_result))
 		"""
+
+	#check if contact list is on website
+	#	yes → download contact list and compare
+	#	no → load contact list on website
+	def dropbox_check_function(self):
+		if "UserDropboxToken" not in self.user_settings:
+			self.display_error_function("Token is not saved in user settings!")
+			return
+		else:
+			value=False
+			try:
+				self.dbx = dropbox.Dropbox(self.user_settings["UserDropboxToken"])
+
+				#get the content on dropbox
+				content = self.dbx.files_list_folder(path="")
+				
+				self.dropbox_contactlist_path = "Convery_UserCompanyData.json"
+				for item in content.entries:
+					
+					self.display_message_function("%s;%s : %s"%(item.name,self.dropbox_contactlist_path,item.name==self.dropbox_contactlist_path))
+					if (item.name == self.dropbox_contactlist_path):
+						self.display_success_function("File found...")
+						value=True
+						break
+					"""
+					self.display_message_function("%s : %s"%(item.name, "Convery_UserCompanyData.json"))
+					if item.name == "Convery_UserCompanyData.json"==True:
+						self.display_success_function("File found...")
+						value=True
+						break
+					"""
+		
+
+				if value==True:
+					self.display_success_function("Contact list detected on dropbox")
+					self.dropbox_compare_contact_function()
+				else:
+					self.display_error_function("Contact list not detected on dropbox")
+					self.dropbox_transfer_contact_function()
+
+
+			except AuthError as e:
+				if e.error.is_expired_access_token():
+					self.display_error_function("Invalid token, impossible to connect to dropbox!")
+					return
+				elif e.error.is_missing_scope():
+					self.display_error_function("Missing permissions to perform this action on dropbox!")
+					return
+				else:
+					self.display_error_function("Invalid authentication on dropbox")
+					return
+			else:
+				self.display_success_function("Content retrieved from dropbox")
+
+	def dropbox_transfer_contact_function(self):
+		if os.path.isfile("data/user/UserCompanyData.json")==False:
+			self.display_error_function("Contact list file doesn't exists")
+			return
+		else:
+			source_file = os.path.join(os.getcwd(), "data/user/UserCompanyData.json")
+			destination_file = "/Convery_UserCompanyData.json"
+
+			try:
+				with open(source_file,"rb") as transfer_file:
+					self.dbx.files_upload(transfer_file.read(), destination_file, mode=dropbox.files.WriteMode.overwrite)
+				self.display_success_function("Contact list uploaded on dropbox")
+			except Exception as e:
+				self.display_error_function("Error happened while transfering contact list on dropbox")
+				self.display_error_function(e)
+
+	def dropbox_compare_contact_function(self):
+		try:
+			metadata, response = self.dbx.files_download("/%s"%self.dropbox_contactlist_path)
+			self.dropbox_contactlist = json.load(BytesIO(response.content))
+
+			self.display_success_function("Contact list loaded from dropbox")
+			self.display_success_function(len(list(self.dropbox_contactlist.keys())))
+
+		
+		except Exception as e:
+			self.display_error_function("Failed to load data from contact list")
+			self.display_error_function(e)
+		else:
+			"""
+			CHECK THE CONTENT OF BOTH CONTACT LIST AND COMPARE
+			- go through local dictionnary
+				- check if all cat are present
+				- for each contact check if it is in the other dictionnary
+					if yes --> pass
+					if not --> add it
+			"""
+			self.display_message_function("UPDATE LOCAL CONTACT LIST...")
+			for contact_class, contact_dictionnary in self.dropbox_contactlist.items():
+				self.display_message_function(f"  Checking class {contact_class}")
+				if contact_class not in list(self.company_class_dictionnary.keys()):
+					self.company_class_dictionnary[contact_class] = contact_dictionnary
+					self.display_message_function(f"  Contact class added → {contact_class}")
+				else:
+					#go through each contact of the contact class and check if it is in the 
+					for contact_name, contact_data in contact_dictionnary.items():
+						if contact_name not in list(self.company_class_dictionnary[contact_class].keys()):
+							self.company_class_dictionnary[contact_class][contact_name] = contact_data
+							self.display_message_function(f"    Contact added → {contact_name}")
+				
+			self.display_message_function("UPDATE DROPBOX CONTACT LIST...")
+			for contact_class, contact_dictionnary in self.company_class_dictionnary.items():
+				self.display_message_function(f'  Checking class {contact_class}')
+				if contact_class not in list(self.dropbox_contactlist.keys()):
+					self.dropbox_contactlist[contact_class] = contact_dictionnary
+					self.display_message_function(f"  Contact class added → {contact_class}")
+				else:
+					for contact_name, contact_data in contact_dictionnary.items():
+						if contact_name not in list(self.dropbox_contactlist[contact_class].keys()):
+							self.dropbox_contactlist[contact_class][contact_name] = contact_data
+							self.display_message_function(f'    Contact added → {contact_name}')
+			self.display_success_function("All dictionnary updated...")
+			self.save_company_dictionnary_function()
+			#convert the dropbox dictionnary into a json object
+			dropbox_contactlist_converted = json.dumps(self.dropbox_contactlist, indent=4, ensure_ascii=False)
+			#upload the new file on dropbox
+			try:
+				self.dbx.files_upload(dropbox_contactlist_converted.encode("utf-8"),"/Convery_UserCompanyData.json",mode=dropbox.files.WriteMode.overwrite)
+				self.display_success_function("New contact list uploaded on dropbox")
+			except Exception as e:
+				self.display_error_function(f'Impossible to upload contact list on dropbox\n{traceback.format_exc()}')
+
+
+	def dropbox_get_authentification_url_function(self, appkey=None, appsecret=None):
+		#try to get authentification url from dropbox
+		try:
+			self.auth_flow = dropbox.DropboxOAuth2FlowNoRedirect(appkey,appsecret,token_access_type="offline")
+			authorize_url = self.auth_flow.start()
+			self.app.display_success_function("URL RETRIEVED : %s"%authorize_url)
+			return authorize_url
+		except Exception as e:
+			self.app.display_error_function("Error happened while trying to get authentification URL")
+			self.app.display_error_function(traceback.format_exc())
+			return False
+
+	def dropbox_get_tokens_function(self,auth_code=None):
+		#get tokens from the access code 
+		if self.auth_flow == None:
+			self.app.display_error_function("You need to get url and enter code before trying to get tokens")
+			return
+		else:
+			#try to retrieve tokens
+			try:
+				exchange = self.auth_flow.finish(auth_code)
+				self.app.user_settings["UserDropboxAccessToken"] = exchange.access_token  
+				self.app.user_settings["UserDropboxRefreshToken"] = exchange.refresh_token,
+				self.app.user_settings["UserDropboxTokenExpiration"] = (datetime.now() + timedelta(hours=4)).isoformat()
+				#save user settings
+				self.app.save_user_settings_function()
+			except Exception as e:
+				self.app.display_error_function("Impossible to exchange tokens")
+				self.app.display_error_function(traceback.format_exc())
+			else:
+				#test connections with tokens
+				try:
+					dbx = dropbox.Dropbox(exchange.access_token)
+					account = dbx.users_get_current_account()
+					self.display_success_function("Connected to dropbox service as : %s"%account.name.display_name)
+					return True
+				except Exception as e:
+					self.app.display_error_function("Impossible to connect with access token")
+					self.app.display_error_function(traceback.format_exc())
+					return False
+	def dropbox_connection_function(self):
+		#check if values are saved in dictionnary
+		if ("UserDropboxAccessToken" not in self.user_settings) or ("UserDropboxRefreshToken" not in self.user_settings):
+			self.display_error_function("You have to launch authentification process once, \nbefore being able to connect with Dropbox services")
+			return
+		else:
+			expire = datetime.fromisoformat(self.user_settings["UserDropboxTokenExpiration"])
+			#token needs to be refreshed
+			if (datetime.now() >= (expire-timedelta(minutes=10)))==True:
+
+				#token doesn't need to be updated <=> can login
+				refresh_url = "https://api.dropboxapi.com/oauth2/token"
+				data = {
+					"grant_type":"refresh_token",
+					"refresh_token":self.user_settings["UserDropboxRefreshToken"],
+					"client_id":self.user_settings["UserDropboxKey"],
+					"client_secret":self.user_settings["UserDropboxSecret"]
+				}
+				response=requests.post(refresh_url,data=data)
+				result = response.json()
+				if "access_token" in result:
+					new_access_token=result["access_token"]
+					new_refresh_token=result.get("refresh_token",self.user_settings["UserDropboxRefreshToken"])
+
+					self.user_settings["UserDropboxAccessToken"]=new_access_token
+					self.user_settings["UserDropboxRefreshToken"]=new_refresh_token
+					self.user_settings["UserDropboxTokenExpiration"] = (datetime.now() + timedelta(hours=4)).isoformat()
+					self.save_user_settings_function()
+					#self.display_success_function("Token refreshed successfully")
+					self.display_success_function(f"Token refreshed successfully\nNew access token : {new_access_token}\nNew refresh token : {new_refresh_token}")
+				else:
+					self.display_error_function("Error while trying to refresh tokens")
+					self.display_message_function(result)	
+		
+			#self.display_message_function("Tokens doesn't need to be refreshed")
+			#launch connection with dropbox
+			try:
+				self.dbx = dropbox.Dropbox(self.user_settings["UserDropboxAccessToken"])
+				account = self.dbx.users_get_current_account()
+				self.display_success_function(f"Connected to dropbox : {account.name.display_name}")
+			except Exception as e:
+				self.display_error_function("Impossible to connect to dropbox\n%s"%traceback.format_exc())
+
+			#check if the config file is on dropbox
+			content = self.dbx.files_list_folder(path="")
+			value=False
+			self.dropbox_contactlist_path = "Convery_UserCompanyData.json"
+			for item in content.entries:
+				
+				self.display_message_function("%s;%s : %s"%(item.name,self.dropbox_contactlist_path,item.name==self.dropbox_contactlist_path))
+				if (item.name == self.dropbox_contactlist_path):
+					self.display_success_function("File found...")
+					value=True
+					break
+			#contact list is not on dropbox
+			#need to load it on website
+			if value==False:
+				self.display_message_function("Contact list not detected on dropbox")
+				self.dropbox_transfer_contact_function()
+			else:
+				self.display_message_function("Contact list detected on dropbox")
+				self.dropbox_compare_contact_function()
+
+
 
 
 

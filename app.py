@@ -28,7 +28,7 @@ from time import sleep
 
 from textual.suggester import SuggestFromList, Suggester
 from textual.app import App, ComposeResult
-from textual.widgets import Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
+from textual.widgets import Markdown, MarkdownViewer, DataTable,TextArea, RadioSet, Switch,RadioButton, Input, Log, Rule, Collapsible, Checkbox, SelectionList, LoadingIndicator, DataTable, Sparkline, DirectoryTree, Rule, Label, Button, Static, ListView, ListItem, OptionList, Header, SelectionList, Footer, Markdown, TabbedContent, TabPane, Input, DirectoryTree, Select, Tabs
 from textual.widgets.option_list import Option
 from textual.widgets.selection_list import Selection
 from textual.validation import Function, Number
@@ -46,7 +46,7 @@ from utils.ConvGuiUtility import ConveryGUIUtils
 from utils.ConvNotif import ConveryNotification
 from utils.ConvUtility import ConveryUtility
 from utils.ConvMail import ConveryMailUtility
-from utils.ConvLinkedinScrapper import ConveryLinkedinScrapperApplication
+#from utils.ConvLinkedinScrapper import ConveryLinkedinScrapperApplication
 
 
 #import theme file
@@ -57,9 +57,7 @@ from config import STYLES_PATH, ASCII_FONT, THEME
 
 
 #import modal screens
-from modal import ModalConveryScreenUser
-from modal import ModalConveryScreenContact
-from modal import ModalConveryScreenLinkedin
+from modal import ModalConveryScreenUser,ModalConveryScreenContact,ModalConveryScreenLinkedin,ModalDropboxAuthentification
 
 from utils.ConvWidget import MultiListView, MultiListItem
 
@@ -83,7 +81,7 @@ from utils.ConvWidget import MultiListView, MultiListItem
 
 
 
-class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperApplication, ConveryNotification, ConveryMailUtility):
+class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
 	CSS_PATH = ["styles/layout.tcss"]
 
 
@@ -194,21 +192,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 
 
 
-		print("hello world")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	#MAIN INTERFACE BUILD
 	def compose(self) -> ComposeResult:
 
@@ -219,63 +202,69 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 		with Horizontal(id="main_horizontal_container"):
 			#with Vertical(id = "main_title_container"):
 
-				
-
-
 				#with Horizontal(id = "main_left_center_container_horizontal"):
 			with Vertical(id = "main_left_container"):
 				
-
-
-				
-				
-				
 				with Horizontal(id="left_horizontal_container"):
-					with Vertical(id="left_vertical_container"):
-						with Horizontal(id = "left_horizontal_classoption_bar"):
+					with VerticalScroll(id="left_vertical_container"):
+						with Vertical(id="left_vertical_container_top"):
+							with Collapsible(title= "GENERAL SETTINGS", id = "collapsible_settings"):
+								with VerticalScroll(id = "vertical_settings"):
+									#with ScrollableContainer(id = "scrollable_mail_settings"):
+									yield Label("Mail settings", classes="label_settings_title")
+									self.listview_mailaddress = ListView(id="listview_mailaddress")
+									yield self.listview_mailaddress
+									self.listview_mailaddress.border_title = "Mail address list"
 
-							yield Button("Create class",id="button_createclass")
-							yield Button("Rename class", id="button_renameclass")
-							yield Button("Remove class", id="button_removeclass")
+									self.input_mail_address = Input(placeholder = "Mail address", id="input_mail_address")
+									self.input_mail_key = Input(placeholder = "Mail Api Key", id="input_mail_key")
+									yield self.input_mail_address
+									yield self.input_mail_key
+									with Horizontal(id="horizontal_settings"):
+										
+										yield Button("Save address", id ="button_save_mail_address")
+										yield Button("Remove address", id = "button_remove_mail_address")
 
-						self.input_classname = Input(placeholder = "Class name", id="input_classname")
-						yield self.input_classname
-
-						self.listview_contacttype = ListView(id = "listview_contacttype")
-						yield self.listview_contacttype
-						self.listview_contacttype.border_title = "Contact Category"
-
-						
-						with Grid(id = "left_horizontal_option_bar"):
-			
-							
-							yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
-							yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
-							yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
-							yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
-							
-
-						
-
+									#yield Rule(line_style="heavy")
+									yield Label("Dropbox settings",classes="label_settings_title")
+									yield Button("Launch dropbox identification",id="button_dropbox_identification")
+									yield Button("Trigger connection with dropbox",id="button_dropbox_connection")
 					
 
+							with Horizontal(id = "left_horizontal_classoption_bar"):
 
+								yield Button("Create class",id="button_createclass")
+								yield Button("Rename class", id="button_renameclass")
+								yield Button("Remove class", id="button_removeclass")
 
-						self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
-						yield self.input_studiolist_searchbar
+							self.input_classname = Input(placeholder = "Class name", id="input_classname")
+							yield self.input_classname
 
-						self.listview_studiolist = MultiListView(id="listview_studiolist")
-						self.listview_studiolist.border_title = "Studio list"
-						yield self.listview_studiolist
+							self.listview_contacttype = ListView(id = "listview_contacttype")
+							yield self.listview_contacttype
+							self.listview_contacttype.border_title = "Contact Category"
 
-						with Horizontal(id="left_bottom_container"):
+							
+							with Grid(id = "left_horizontal_option_bar"):
+				
+								
+								yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
+								yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
+								yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
+								yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
+
+							self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
+							yield self.input_studiolist_searchbar
+
+							self.listview_studiolist = MultiListView(id="listview_studiolist")
+							self.listview_studiolist.border_title = "Studio list"
+							yield self.listview_studiolist
+
+						with Horizontal(id="left_horizontal_container_bottom"):
 							yield Button("Get contact from studio", id="button_get_contact_from_studios", classes="button_left_bottom_container")
 							yield Button("Save contact sheet", id="button_save_contact_sheet", classes="button_left_bottom_container")
 					#self.datatable_studiolist = DataTable(id = "datatable_studiolist")
 					#yield self.datatable_studiolist
-
-
-
 				
 					with VerticalScroll(id="main_center_container"):
 						yield Label(pyfiglet.figlet_format("convery",font=self.font_title, width=200), id="label_title")
@@ -325,21 +314,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 
 
 					with TabPane("Mail editor"):
-						with Collapsible(title= "Mail Settings", id = "collapsible_mail_settings"):
-								with Horizontal(id = "horizontal_mail_settings"):
-									with Vertical(id = "vertical_left_column"):
-										self.listview_mailaddress = ListView(id="listview_mailaddress")
-										yield self.listview_mailaddress
-										self.listview_mailaddress.border_title = "Mail address list"
-									with Vertical(id = "vertical_right_column"):
-										self.input_mail_address = Input(placeholder = "Mail address", id="input_mail_address")
-										self.input_mail_key = Input(placeholder = "Mail Api Key", id="input_mail_key")
-
-										yield self.input_mail_address
-										yield self.input_mail_key
-										yield Button("Save address", id ="button_save_mail_address")
-										yield Button("Remove address", id = "button_remove_mail_address")
-
 						with Collapsible(title = "Mail variable Manager", id = "collapsible_variable_manager"):
 							with Horizontal(id = "horizontal_variable_manager"):
 								with Vertical(id = "vertical_variable_manager_left"):
@@ -448,28 +422,18 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 
 								with Horizontal(id="mail_action_horizontal_container"):
 									yield Button("SEND MAIL", id="button_send_mail", classes="error_button")
-
+					"""
 					with TabPane("Linkedin Observer"):
 						with Collapsible(title="Observer settings", id="collapsible_observer_settings"):
 							yield Button("hello world")
 
 						self.vertical_linkedinpost = VerticalScroll(id="vertical_linkedinpost")
 						yield self.vertical_linkedinpost
-
+					
 					with TabPane("Mail watcher"):
 						self.listview_contactlist = ListView(id = "listview_contactlist")
 						yield self.listview_contactlist
-
-
-
-
-
-
-
-
-
-
-
+					"""
 
 
 	def on_mount(self) -> None:
@@ -499,7 +463,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 			self.display_success_function("success")
 
 
-		self.load_linkedin_post_function()
+		#self.load_linkedin_post_function()
+		self.update_informations_function()
 		
 
 
@@ -516,10 +481,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 			self.input_attached_filepath.value = filepath
 		
 
-
-
-
-
 	def on_input_changed(self, event: Input.Changed) -> None:
 		#EVENT FOR THE SEARCHBAR
 		#call the searchbar system function
@@ -527,6 +488,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 			#get the value of the searchbar at that moment
 			#self.display_message_function(self.input_studiolist_searchbar.value)
 			self.searchbar_function(self.input_studiolist_searchbar.value)
+
+	"""
+	def on_collapsible_expanded(self, event:Collapsible.Expanded)-> None:
+		self.query_one(f'#{event.control.id}').styles.border_bottom = ("heavy", self.theme_variables["primary"])
+		self.query_one(f'#{event.control.id}').styles.border_right = ("heavy", self.theme_variables["primary"])
+		self.query_one(f'#{event.control.id}').styles.border_left = ("heavy", self.theme_variables["primary"])
+
+	def on_collapsible_collapsed(self, event:Collapsible.Collapsed) -> None:
+		self.query_one(f'#{event.control.id}').styles.border_top = ("hkey", self.theme_variables["background"])
+		self.query_one(f'#{event.control.id}').styles.border_bottom = "none"
+	"""
 
 
 	def on_input_submitted(self, event: Input.Submitted) -> None:
@@ -560,6 +532,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 			self.company_dictionnary[studio_name] = studio_data 
 			self.save_company_dictionnary_function()
 			self.update_informations_function()
+
+		if event.input.id == "input_dropbox_token":
+			#get the content of the token in the textfield
+			#self.display_message_function("hello world")
+			input_token_value = self.input_dropbox_token.value 
+			if self.letter_verification_function(input_token_value)==True:
+				self.user_settings["UserDropboxToken"] = input_token_value 
+				self.save_user_settings_function()
+				self.display_success_function("Token saved successfully")
+			else:
+				self.display_error_function("You have to enter a token before saving it!")
 
 
 
@@ -692,11 +675,19 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 			self.user_settings["companyDisplayMode"] = index
 			self.save_user_settings_function()
 			self.update_informations_function()
-
-
+			
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 		if event.button.id == "button_save_attached_files":
 			self.save_attached_files_function()
+
+		if event.button.id == "button_dropbox_identification":
+			self.app.push_screen(ModalDropboxAuthentification())
+
+		if event.button.id == "button_dropbox_connection":
+			self.dropbox_connection_function()
+
+		if event.button.id == "button_dropbox_check":
+			self.dropbox_check_function()
 
 		if event.button.id == "button_remove_attached_files":
 			self.remove_attached_files_function()
@@ -922,25 +913,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	def on_markdown_link_clicked(self, event: Markdown.LinkClicked) -> None:
 		link = event.href
 
@@ -1026,7 +998,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 
 			self.markdown_studio.update(markdown)
 
-
 			#load the content of tag list for this studio
 			tag_list = ";".join(company_data["CompanyTags"])
 			self.input_tag_lobby.value = tag_list
@@ -1101,34 +1072,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryLinkedinScrapperAp
 		else:
 			#append to the studiolist the studiolist
 			self.update_informations_function()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

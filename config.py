@@ -11,6 +11,6 @@ GITHUB = "DelaporteRobin"
 PROJECT_ROOT = os.path.dirname(__file__)
 STYLES_PATH = os.path.join(PROJECT_ROOT, "styles")
 ASCII_FONT = "the_edge"
-THEME = "downtown"
+THEME = "clockwork"
 
 print("LOADING DATAS")

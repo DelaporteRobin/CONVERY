@@ -7,17 +7,15 @@ and simplify the process of sending hundreds of emails.
 
 
 ## dev tasklist
-- CHANGE MAIL SETTINGS
-	- custom variable system
-		- [VARIABLE_NAME] : link of the variable (online)
-	- several linked file (list)
-	- company variables
-		[COMPANYNAME]
-		[COMPANYLOCATION]
-- REMOVE THE COPILOT SYSTEM
-- CHANGE THE LOCATION SYSTEM
+- CREATE THE LOCATION SYSTEM WITH TAG AND AUTOCOMPLETION
 - MULTISELECTION TO ADD CONTACT TO MAIL LIST
-- REFORMAT THE CONTACT DICTIONNARY TO HAVE SEVERAL OF THEM SORTED IN CATEGORIES
 
 - CONTINUE THE LINKEDIN CONTACT SYSTEM
-- FOR SOME REASON THE DISPLAY MODE CANNOT BE CHANGED SO FIX THE BUG!!!
+- SHARED LIST WITH DROPBOX?
+	create app on dropbox → https://www.dropbox.com/developers/apps
+
+## dev note
+settings list 
+	- mail settings (api key and mail address)
+	- dropbox api key?
+	- theme name?
