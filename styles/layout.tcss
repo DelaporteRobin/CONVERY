@@ -1,10 +1,31 @@
 /*MAIN WIDGET CODE*/
 ListView {
-	border:$primary;
+	border:$secondary-lighten-3;
+
+	& > ListItem {
+		&.-highlight {
+			text-style:italic;
+			background:$secondary-darken-3;
+		}
+	}
+}
+MarkdownH1 {
+	color:$secondary-lighten-3;
+}
+Link {
+	color:red;
 }
 Collapsible {
 	height:auto;
-	border-top: hkey $background;
+	border:round $primary;
+}
+CollapsibleTitle {
+	width:100%;
+	background:$panel;
+}
+CollapsibleTitle:focus {
+	background:$primary;
+	color:$background;
 }
 VerticalScroll {
 	height:auto;
@@ -27,6 +48,28 @@ Button {
 	width:1fr;
 	margin-right:1;
 	margin-left:1;
+
+	background: $surface;
+	border-top:hkey $surface-lighten-1;
+	border-bottom:hkey $surface-darken-3;
+
+
+	&.-error {
+		background:$error;
+		border-top:hkey $error-lighten-2;
+		border-bottom:hkey $error-darken-3;
+	}
+	&.-success {
+		background:$success;
+		border-top:hkey $success-lighten-2;
+		border-bottom: hkey $success-darken-3;
+	}
+	&.-warning {
+		background:$warning;
+		border-top:hkey $warning-lighten-1;
+		border-bottom: hkey $warning-darken-3;
+	}
+
 }
 
 
@@ -62,22 +105,10 @@ Button {
 		margin-bottom:1;
 	}
 	Grid {
-		grid-size:2 2;
+		grid-size:3 1;
 		height:auto;
 	}
-	CollapsibleTitle {
-		width:100%;
-		background:$panel;
-	}
-	CollapsibleTitle:focus {
-		color:$primary;
-		background:$surface;
-	}
-	CollapsibleTitle:hover {
-		background:$panel;
-	}
 	Collapsible {
-		border: round $primary;
 		background: $panel;
 		height:auto;
 
@@ -104,11 +135,16 @@ Button {
 		margin-bottom:1;
 	}
 	Collapsible {
-		border:round $primary;
 		background:$background;
 		width:100%;
 		margin-right:1;
 		margin-left:1;
+	}
+	CollapsibleTitle {
+		background:$background;
+	}
+	CollapsibleTitle:focus {
+		background:$primary;
 	}
 	RadioSet {
 		background:$panel;

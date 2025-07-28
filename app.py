@@ -234,9 +234,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 							with VerticalScroll(id="left_vertical_contact_column"):
 								with Horizontal(id = "left_horizontal_classoption_bar"):
 
-									yield Button("Create class",id="button_createclass")
-									yield Button("Rename class", id="button_renameclass")
-									yield Button("Remove class", id="button_removeclass")
+									yield Button("Create class",id="button_createclass", variant="success")
+									yield Button("Rename class", id="button_renameclass", variant="warning")
+									yield Button("Remove class", id="button_removeclass", variant="error")
 
 								self.input_classname = Input(placeholder = "Class name", id="input_classname")
 								yield self.input_classname
@@ -249,9 +249,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 								with Grid(id = "left_horizontal_option_bar"):
 					
 									
-									yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
-									yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
-									yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
+									#yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
+									yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar", variant="success")
+									yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar", variant="warning")
 									yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
 
 								self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")

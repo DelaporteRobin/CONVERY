@@ -22,35 +22,19 @@ abyss_theme = Theme(
 	secondary="#48b6bb",
 	)
 
-clockwork_dark = Theme(
-	name="clockwork_dark",
-	primary="#e15408",
-	secondary="#bbaf99",
+clockwork = Theme(
+	name="clockwork",
+	primary="#FF8436",
+	secondary="#8902D6",
 	background="#0f0e0d",
 	surface="#0f0e0d",
 	foreground="#ffffff",
 	panel="#161414",
-	warning="#ff9900",
-	success="#59c337",
-	error="#da4b12",
+	warning="#D95D0F",
+	success="#26C98A",
+	error="#B51948",
 	dark=True,
 	)
-
-clockwork = Theme(
-	name="clockwork",
-	primary="#EB6036",
-	secondary="#99B0BB",
-	background="#222233",
-	surface="#15151C",
-	foreground="#ffffff",
-	panel="#1A1A24",
-	warning="#ff9900",
-	success="#59c337",
-	error="#da4b12",
-	dark=True,
-	)
-
-
 
 
 
