@@ -18,6 +18,7 @@ import threading
 import json
 import colorama
 import traceback
+import importlib
 
 from functools import partial
 from typing import  Iterable
@@ -39,6 +40,7 @@ from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
 from textual.reactive import reactive
 from textual.await_complete import AwaitComplete
+from textual.binding import Binding
 
 
 
@@ -83,7 +85,6 @@ from utils.ConvWidget import MultiListView, MultiListItem
 
 class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
 	CSS_PATH = ["styles/layout.tcss"]
-
 
 	def __init__(self):
 		super().__init__()
@@ -230,35 +231,35 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 									yield Button("Launch dropbox identification",id="button_dropbox_identification")
 									yield Button("Trigger connection with dropbox",id="button_dropbox_connection")
 					
+							with VerticalScroll(id="left_vertical_contact_column"):
+								with Horizontal(id = "left_horizontal_classoption_bar"):
 
-							with Horizontal(id = "left_horizontal_classoption_bar"):
+									yield Button("Create class",id="button_createclass")
+									yield Button("Rename class", id="button_renameclass")
+									yield Button("Remove class", id="button_removeclass")
 
-								yield Button("Create class",id="button_createclass")
-								yield Button("Rename class", id="button_renameclass")
-								yield Button("Remove class", id="button_removeclass")
+								self.input_classname = Input(placeholder = "Class name", id="input_classname")
+								yield self.input_classname
 
-							self.input_classname = Input(placeholder = "Class name", id="input_classname")
-							yield self.input_classname
+								self.listview_contacttype = ListView(id = "listview_contacttype")
+								yield self.listview_contacttype
+								self.listview_contacttype.border_title = "Contact Category"
 
-							self.listview_contacttype = ListView(id = "listview_contacttype")
-							yield self.listview_contacttype
-							self.listview_contacttype.border_title = "Contact Category"
-
-							
-							with Grid(id = "left_horizontal_option_bar"):
-				
 								
-								yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
-								yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
-								yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
-								yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
+								with Grid(id = "left_horizontal_option_bar"):
+					
+									
+									yield Button("USER INFOS", id="button_userinfos", classes="button_bar")
+									yield Button("ADD CONTACT", id="button_addcontact", classes="button_bar")
+									yield Button("EDIT CONTACT", id="button_editcontact", classes="button_bar")
+									yield Button("DELETE CONTACT", id="button_deletecontact", variant="error", classes="error_button button_bar")
 
-							self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
-							yield self.input_studiolist_searchbar
+								self.input_studiolist_searchbar = Input(placeholder = "Studio name...", id = "input_studiolist_searchbar")
+								yield self.input_studiolist_searchbar
 
-							self.listview_studiolist = MultiListView(id="listview_studiolist")
-							self.listview_studiolist.border_title = "Studio list"
-							yield self.listview_studiolist
+								self.listview_studiolist = MultiListView(id="listview_studiolist")
+								self.listview_studiolist.border_title = "Studio list"
+								yield self.listview_studiolist
 
 						with Horizontal(id="left_horizontal_container_bottom"):
 							yield Button("Get contact from studio", id="button_get_contact_from_studios", classes="button_left_bottom_container")
@@ -311,7 +312,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 						yield self.listview_log
 						#self.log_mainpage = Log(id="log_mainpage")
 						#yield self.log_mainpage
-
 
 					with TabPane("Mail editor"):
 						with Collapsible(title = "Mail variable Manager", id = "collapsible_variable_manager"):
@@ -422,18 +422,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 								with Horizontal(id="mail_action_horizontal_container"):
 									yield Button("SEND MAIL", id="button_send_mail", classes="error_button")
-					"""
-					with TabPane("Linkedin Observer"):
-						with Collapsible(title="Observer settings", id="collapsible_observer_settings"):
-							yield Button("hello world")
-
-						self.vertical_linkedinpost = VerticalScroll(id="vertical_linkedinpost")
-						yield self.vertical_linkedinpost
-					
-					with TabPane("Mail watcher"):
-						self.listview_contactlist = ListView(id = "listview_contactlist")
-						yield self.listview_contactlist
-					"""
+	
+		yield Footer()
 
 
 	def on_mount(self) -> None:
@@ -442,9 +432,6 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.register_theme(theme)
 		#apply the theme specified in config file
 		self.theme = THEME
-
-
-
 		self.display_message_function("update")
 		
 		for i in range(len(self.user_settings["alertDictionnary"])):
@@ -465,6 +452,10 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 		#self.load_linkedin_post_function()
 		self.update_informations_function()
+
+		
+
+		
 		
 
 
