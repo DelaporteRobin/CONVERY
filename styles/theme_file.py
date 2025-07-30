@@ -33,6 +33,7 @@ clockwork = Theme(
 	warning="#D95D0F",
 	success="#26C98A",
 	error="#B51948",
+	accent="#E8B94D",
 	dark=True,
 	)
 

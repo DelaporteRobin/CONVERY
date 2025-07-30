@@ -39,65 +39,31 @@ from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, 
 from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
 
+from utils.ConvWidget import MultiListView, MultiListItem
 
 colorama.init()
 
 
 class ConveryNotification:
-	def display_message_function(self, message, mute=False):
-		if mute == False:
-			#self.notify(str(message), timeout=4)
-			pass
-
-		log_format = self.create_log_format_function(str(message))
-		print(log_format)
-		
-		
+	def display_message_function(self, message=" ", severity="message", time=True, mute=True):
+		#format message
+		message=str(message)
+		#display notification first
+		if (mute == False) or (severity in ["error", "warning"]):
+			notify_severity = "information"
+			if (severity == "warning") or (severity=="error"):
+				notify_severity == severity
+			self.notify(message, timeout=4, severity=notify_severity)
+		#create format for main notification
+		notification_format = ("%s|%s → %s"%(str(datetime.now()), severity.upper(), message))
+		#notification_format = notification_format.replace("[", "\[").replace("]", "\]")
+		#create the log line for listview
+		label_format = Label(notification_format)
+		#color label
+		if severity in ["warning", "error", "success"]:
+			label_format.styles.color = self.theme_variables[f'{severity}-lighten-1']
 		try:
-			self.program_log.append(log_format)
+			self.listview_log.append(MultiListItem(label_format))
 		except AttributeError:
-			self.app.program_log.append(log_format)
-
-	def display_success_function(self, message, mute=False):
-		if mute == False:
-			#self.notify(str(message), timeout=4)
-			pass
-
-		log_format = self.create_log_format_function(str(message), "SUCCESS")
+			self.app.listview_log.append(MultiListItem(label_format))
 		
-		print(colored(log_format, "green"))
-		try:
-			self.program_log.append(log_format)
-		except AttributeError:
-			self.app.program_log.append(log_format)
-
-	def display_warning_function(self, message, mute=False):
-		#print(colored(log_format, "yellow"))
-		if mute == False:
-			self.notify(str(message).replace("[", "\[").replace("]","\]"), timeout=4)
-
-	def display_error_function(self, message, mute=False):
-		if mute == False:
-			self.notify(str(message).replace("[", "\[").replace("]","\]"), severity="error", timeout=4)
-		
-		log_format = self.create_log_format_function(str(message), "ERROR")
-		print(colored(log_format, "red"))
-		try:
-			self.program_log.append(log_format)
-		except AttributeError:
-			self.app.program_log.append(log_format)
-
-
-	def create_log_format_function(self, message, severity="MESSAGE"):
-		log_format = {
-			"date":str(datetime.now()),
-			"severity":severity,
-			"content":str(message.replace("[", "\[").replace("]","\]"))
-		}
-		
-		try:
-			self.add_log_line_function(log_format)
-		except AttributeError:
-			self.app.add_log_line_function(log_format)
-		
-		return log_format

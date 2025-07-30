@@ -61,18 +61,9 @@ from config import STYLES_PATH, ASCII_FONT, THEME
 #import modal screens
 from modal import ModalConveryScreenUser,ModalConveryScreenContact,ModalConveryScreenLinkedin,ModalDropboxAuthentification
 
-from utils.ConvWidget import MultiListView, MultiListItem
+from utils.ConvWidget import MultiListView, MultiListItem, MultiWordSuggester
 
 
-
-
-
-
-
-#prerequired element to launch the program (variables)
-#mail api key is modified in the settings by the user
-#copilot need a variable defined with the key
-#linkedin cookies needs to be stored in a file
 
 
 
@@ -103,7 +94,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 
 		self.kind_list = ["MEMBER", "JOB", "GENERAL"]
+		#self.tag_list = ["wonderful", "shitty", "blocked", "luxury"]
 		self.tag_list = []
+
 
 		self.user_mail_address_list = []
 		self.user_variable_list = []
@@ -120,14 +113,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		self.long_alert_list = []
 
 
-
-
-		#self.user_preset = {}
-
 		self.list_studiolist_display = []
-
 		self.font_title = ASCII_FONT
-
 		self.color_theme = THEME
 
 
@@ -283,19 +270,19 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 									self.input_create_tag = Input(placeholder = "Tag name", id="input_create_tag")
 									yield self.input_create_tag 
 
-									yield Button("Create tag", id="button_create_tag", classes="error_button")
+									yield Button("Create tag", id="button_create_tag", classes="error_button", variant="success")
 
 								self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")
 								yield self.selectionlist_tags_settings
 
 								with Horizontal(id = "horizontal_tag_container"):
 									#yield Button("Remove tags", id="button_remove_tag")
-									yield Button("Highlight", id="button_highlight_tag")
-									yield Button("Add to selection", id = "button_add_tag_to_selection")
-									yield Button("REMOVE", id="button_remove_tag", classes="error_button")
+									yield Button("Highlight", id="button_highlight_tag", variant="warning")
+									yield Button("Add to selection", id = "button_add_tag_to_selection", variant="success")
+									yield Button("REMOVE", id="button_remove_tag", classes="error_button", variant="error")
 
-						self.input_tag_lobby = Input(placeholder="TAG LIST", id="input_tag_lobby", suggester=SuggestFromList(self.tag_list, case_sensitive=False))
-						yield self.input_tag_lobby 
+						self.input_tag_test = Input(placeholder="STUDIO TAG LIST", id="input_tag_test")
+						yield self.input_tag_test
 
 						#with Horizontal(id = "right_horizontal_container"):
 						with VerticalScroll(id="right_vertical_container1"):
@@ -315,23 +302,24 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 					with TabPane("Mail editor"):
 						with Collapsible(title = "Mail variable Manager", id = "collapsible_variable_manager"):
-							with Horizontal(id = "horizontal_variable_manager"):
-								with Vertical(id = "vertical_variable_manager_left"):
-									self.listview_variablelist = ListView(id = "listview_variablelist")
-									yield self.listview_variablelist
-									self.listview_variablelist.border_title = "Mail variable list"
-								with Vertical(id = "vertical_variable_manager_right"):
+							with VerticalScroll(id = "vertical_variable_manager_main"):	
+								with Horizontal(id = "horizontal_variable_manager"):
+									with Vertical(id = "vertical_variable_manager_left"):
+										self.listview_variablelist = ListView(id = "listview_variablelist")
+										yield self.listview_variablelist
+										self.listview_variablelist.border_title = "Mail variable list"
+									with Vertical(id = "vertical_variable_manager_right"):
 
-									self.input_variablename = Input(placeholder = "Variable name", id="input_variablename")
-									yield self.input_variablename
+										self.input_variablename = Input(placeholder = "Variable name", id="input_variablename")
+										yield self.input_variablename
 
-									self.input_variablevalue = Input(placeholder = "Variable value", id = "input_variablevalue")
-									yield self.input_variablevalue
+										self.input_variablevalue = Input(placeholder = "Variable value", id = "input_variablevalue")
+										yield self.input_variablevalue
 
-									yield Rule()
+										yield Rule()
 
-									yield Button("Save variable", id="button_save_variable")
-									yield Button("Remove variable", id="button_remove_variable")
+										yield Button("Save variable", id="button_save_variable", variant="success")
+										yield Button("Remove variable", id="button_remove_variable", variant="error")
 
 
 						with Collapsible(title = "Mail attached files Manager", id = "collapsible_attached_manager"):
@@ -350,78 +338,79 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 									yield Rule()
 
-									yield Button("Save attached file", id="button_save_attached_files")
-									yield Button("Remove attached file", id="button_remove_attached_files")
-						with Horizontal(id="main_righthorizontal_container"):
-							with Vertical(id="right_mailpreset_container"):
-								self.input_presetname = Input(placeholder="Mail preset name", id="input_presetname")
-								yield self.input_presetname
-								yield Button("Create preset", id="button_createpreset", classes="button_preset")
-								yield Button("Save preset", id="button_savepreset", classes="button_preset")
-								yield Button("Delete preset", id="button_deletepreset", classes="button_preset")
-								#yield Button("Use copilot", id="button_usecopilot", classes="primary_button button_preset")
+									yield Button("Save attached file", id="button_save_attached_files", variant="success")
+									yield Button("Remove attached file", id="button_remove_attached_files", variant='error')
+						with VerticalScroll(id="main_rightvertical_container"):
+							with Horizontal(id="main_righthorizontal_container"):
+								with Vertical(id="right_mailpreset_container"):
+									self.input_presetname = Input(placeholder="Mail preset name", id="input_presetname")
+									yield self.input_presetname
+									yield Button("Create preset", id="button_createpreset", classes="button_preset", variant="success")
+									yield Button("Save preset", id="button_savepreset", classes="button_preset", variant="warning")
+									yield Button("Delete preset", id="button_deletepreset", classes="button_preset", variant="error")
+									#yield Button("Use copilot", id="button_usecopilot", classes="primary_button button_preset")
 
-								yield Rule()
+									yield Rule()
 
-								yield Button("Copy content", id="button_copycontent", classes="button_preset")
+									#yield Button("Copy content", id="button_copycontent", classes="button_preset")
 
-								self.listview_mailpreset = ListView(id="listview_mailpreset")
-								yield self.listview_mailpreset
-								self.listview_mailpreset.border_title = "Preset list"
-							
-							with Vertical(id="right_mailtext_container"):
+									self.listview_mailpreset = ListView(id="listview_mailpreset")
+									yield self.listview_mailpreset
+									self.listview_mailpreset.border_title = "Preset list"
 								
-								
+								with Vertical(id="right_mailtext_container"):
+									
+									
 
 
-								with Collapsible(title="Contact list", id="collapsible_mail_contact_list"):
-							
-
-
-									with ScrollableContainer(id = "scrollable_mail_contact_list"):
-
-										self.input_mailcontact = Input(placeholder="Mail contact list", id="input_mailcontact", suggester=SuggestFromList(self.studio_suggest_list, case_sensitive=False))
-										yield self.input_mailcontact
-
-										with Horizontal(id = "mail_contact_horizontal_container"):
-											with Vertical(id = "mail_contact_left_column"):
-												self.selectionlist_contacttype = SelectionList(id = "selectionlist_contacttype")
-												self.selectionlist_tags = SelectionList(id = "selectionlist_tags")
-												self.selectionlist_delta = SelectionList(id = "selectionlist_delta")
-
-										
-												yield self.selectionlist_contacttype
-												yield self.selectionlist_delta
-												yield self.selectionlist_tags
-
-										
-
-												yield Button("LOAD CONTACT", id = "button_filter_add_contact")
-												yield Button("Add selected studio", id="button_add_contact_from_studio")
-												yield Button("Remove studio with selected tag", id = "button_remove_studio_with_tag")
-												yield Button("CLEAR CONTACT", id = "button_clear_contact", classes="error_button")
-
-
-											with Vertical(id = "mail_contact_right_column"):
-												self.optionlist_contact = OptionList(id = "optionlist_contact")
-												self.optionlist_contact.border_title = "Mail contact list"
-												yield self.optionlist_contact
-				
-
-
-								yield Rule()
-
+									with Collapsible(title="Contact list", id="collapsible_mail_contact_list"):
 								
 
-								self.input_mail_header = Input(placeholder="Mail header", id="input_mail_header")
-								self.textarea_mail = TextArea(id="textarea_mail")
 
-								yield self.input_mail_header
-								yield self.textarea_mail
-								self.textarea_mail.border_title = "Mail"
+										with ScrollableContainer(id = "scrollable_mail_contact_list"):
 
-								with Horizontal(id="mail_action_horizontal_container"):
-									yield Button("SEND MAIL", id="button_send_mail", classes="error_button")
+											self.input_mailcontact = Input(placeholder="Mail contact list", id="input_mailcontact", suggester=SuggestFromList(self.studio_suggest_list, case_sensitive=False))
+											yield self.input_mailcontact
+
+											with Horizontal(id = "mail_contact_horizontal_container"):
+												with Vertical(id = "mail_contact_left_column"):
+													self.selectionlist_contacttype = SelectionList(id = "selectionlist_contacttype")
+													self.selectionlist_tags = SelectionList(id = "selectionlist_tags")
+													self.selectionlist_delta = SelectionList(id = "selectionlist_delta")
+
+											
+													yield self.selectionlist_contacttype
+													yield self.selectionlist_delta
+													yield self.selectionlist_tags
+
+											
+
+													yield Button("LOAD CONTACT", id = "button_filter_add_contact", variant="success")
+													yield Button("Add selected studio", id="button_add_contact_from_studio")
+													yield Button("Remove studio with selected tag", id = "button_remove_studio_with_tag", variant="warning")
+													yield Button("CLEAR CONTACT", id = "button_clear_contact", classes="error_button", variant="error")
+
+
+												with Vertical(id = "mail_contact_right_column"):
+													self.optionlist_contact = OptionList(id = "optionlist_contact")
+													self.optionlist_contact.border_title = "Mail contact list"
+													yield self.optionlist_contact
+					
+
+
+									yield Rule()
+
+									
+
+									self.input_mail_header = Input(placeholder="Mail header", id="input_mail_header")
+									self.textarea_mail = TextArea(id="textarea_mail")
+
+									yield self.input_mail_header
+									yield self.textarea_mail
+									self.textarea_mail.border_title = "Mail body"
+
+									with Horizontal(id="mail_action_horizontal_container"):
+										yield Button("SEND MAIL", id="button_send_mail", variant="success")
 	
 		yield Footer()
 
@@ -432,7 +421,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.register_theme(theme)
 		#apply the theme specified in config file
 		self.theme = THEME
-		self.display_message_function("update")
+		#self.display_message_function("update")
 		
 		for i in range(len(self.user_settings["alertDictionnary"])):
 			self.selectionlist_delta.add_option(( list(self.user_settings["alertDictionnary"].keys())[i], i))
@@ -440,14 +429,12 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		for i in range(len(self.kind_list)):
 			self.selectionlist_contacttype.add_option((self.kind_list[i], i))
 
-
-
 		try:
 			self.update_contact_class_function()
 		except Exception as e:
-			self.display_error_function("Error happened : %s"%e)
+			self.display_message_function("Error happened : %s"%e, "error")
 		else:
-			self.display_success_function("success")
+			self.display_message_function("Contact class updated", "success")
 
 
 		#self.load_linkedin_post_function()
@@ -505,19 +492,23 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.check_user_informations_function()
 			self.save_user_settings_function()
 
-			self.display_success_function("Informations saved!")
+			self.display_message_function("Informations saved!", "success")
 
 
-		if event.input.id == "input_tag_lobby":
+		if (event.input.id == "input_tag_lobby") or (event.input.id == "input_tag_test"):
 			#get the studio selected
 			#get the list of tags
 
 			#replace the studio tags in dictionnary
 			#call the update function
-			studio_name = list(self.company_dictionnary.keys())[self.listview_studiolist.index]
-			studio_data = self.company_dictionnary[list(self.company_dictionnary.keys())[self.listview_studiolist.index]]
+			try:
+				studio_name = list(self.company_dictionnary.keys())[self.listview_studiolist.index]
+				studio_data = self.company_dictionnary[list(self.company_dictionnary.keys())[self.listview_studiolist.index]]
+			except TypeError:
+				self.display_message_function("No studio selected", "error")
+				return
 
-			tag_list = (self.input_tag_lobby.value).lower().split(";")
+			tag_list = (self.input_tag_test.value).upper().split(" ")
 			studio_data["CompanyTags"] = tag_list
 
 			self.company_dictionnary[studio_name] = studio_data 
@@ -531,9 +522,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			if self.letter_verification_function(input_token_value)==True:
 				self.user_settings["UserDropboxToken"] = input_token_value 
 				self.save_user_settings_function()
-				self.display_success_function("Token saved successfully")
+				self.display_message_function("Token saved successfully", "success")
 			else:
-				self.display_error_function("You have to enter a token before saving it!")
+				self.display_message_function("You have to enter a token before saving it!", "error")
 
 
 
@@ -543,7 +534,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			#check if the name is in the studio list
 			#otherwise check if it is an email addres
 			if self.letter_verification_function(self.input_mailcontact.value)!=True:
-				self.display_error_function("You have to enter a studio name or email addres!")
+				self.display_message_function("You have to enter a studio name or email addres!", "error")
 				return
 			else:
 
@@ -555,7 +546,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				for index in contacttype_index_list:
 					contacttype_list.append(self.kind_list[index])
 
-				self.display_message_function(contacttype_list)
+				#self.display_message_function(contacttype_list)
 				"""
 				if self.input_mailcontact.value not in list(self.company_dictionnary.keys()):
 					if (self.check_addres_function(self.input_mailcontact.value)) != True:
@@ -607,7 +598,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 						"contactMail":self.input_mailcontact.value
 					}
 				else:
-					self.display_error_function("Contact isn't a valid studio name or email addres!")
+					self.display_message_function("Contact isn't a valid studio name or email addres!", "error")
 					return
 
 
@@ -749,15 +740,15 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			index_list = self.selectionlist_tags_settings.selected
 			tag_list = []
 
-			self.display_message_function(index_list)
-			self.display_message_function(self.tag_list)
+			#self.display_message_function(index_list)
+			#self.display_message_function(self.tag_list)
 			for index in index_list:
 				try:
 					#self.display_message_function(self.tag_list[index])
 					#tag_list.append(self.tag_list[index])
 					tag_list.append(self.user_settings["UserTagList"][index])
 				except Exception as e:
-					self.display_error_function(traceback.format_exc())
+					self.display_message_function(traceback.format_exc(), "error")
 					pass
 
 			for studio_name, studio_data in self.company_dictionnary.items():
@@ -827,7 +818,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				preset_dictionnary.pop(preset_list[index])
 				self.user_settings["UserMailPreset"] = preset_dictionnary
 			except Exception as e:
-				self.display_error_function("Impossible to remove from dictionnary!\n%s"%e)
+				self.display_message_function("Impossible to remove from dictionnary!\n%s"%e, "error")
 				return
 			else:
 				pass
@@ -842,7 +833,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				pyperclip.copy(self.textarea_mail.selected_text)
 			else:
 				pyperclip.copy(self.textarea_mail.text)
-			self.display_success_function("Content copied")
+			self.display_message_function("Content copied", "success")
 			
 
 
@@ -898,7 +889,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 
 				self.push_screen(ModalConveryScreenContact("edit", studio))
 			except TypeError:
-				self.display_error_function("No studio selected")
+				self.display_message_function("No studio selected", "error")
 				
 			#self.update_informations_function()
 
@@ -919,7 +910,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			link = link.replace("mailto:", "")
 
 		pyperclip.copy(link)
-		self.display_success_function("Link copied in clipboard\n%s"%link)
+		self.display_message_function("Link copied in clipboard\n%s"%link, "success")
 
 
 		
@@ -970,7 +961,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			#get the current company dictionnary
 			self.current_class_selected = list(self.company_class_dictionnary.keys())[self.listview_contacttype.index]
 			self.company_dictionnary = self.company_class_dictionnary[list(self.company_class_dictionnary.keys())[self.listview_contacttype.index]]
-			self.display_message_function(str(self.current_class_selected))
+			self.display_message_function(str(self.current_class_selected), "message", False, False)
 			self.update_informations_function()
 
 
@@ -990,8 +981,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 			self.markdown_studio.update(markdown)
 
 			#load the content of tag list for this studio
-			tag_list = ";".join(company_data["CompanyTags"])
-			self.input_tag_lobby.value = tag_list
+			tag_list = " ".join(company_data["CompanyTags"])
+			#self.input_tag_lobby.value = tag_list
+			self.input_tag_test.value = tag_list
 
 
 		if event.list_view.id == "listview_mailpreset":
@@ -1012,8 +1004,8 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 				self.textarea_mail.clear()
 				self.textarea_mail.insert(self.user_settings["UserMailPreset"][preset_name]["CONTENT"],(0,0))
 			except Exception as e:
-				self.display_error_function("Impossible to display mail preset content : %s"%e)
-				self.display_error_function(traceback.format_exc())
+				self.display_message_function("Impossible to display mail preset content : %s"%e, "error")
+				self.display_message_function(traceback.format_exc(), "error")
 				pass
 
 

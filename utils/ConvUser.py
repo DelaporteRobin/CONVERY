@@ -64,17 +64,21 @@ class ConveryUserUtility():
 			#check if the tag name already exists
 			if tag_name not in self.user_settings["UserTagList"]:
 				#add the tag to the tag list
-				tag_list = self.user_settings["UserTagList"]
-				tag_list.append(tag_name)
-				self.user_settings["UserTagList"] = tag_list
+				self.tag_list = self.user_settings["UserTagList"]
+				self.tag_list.append(tag_name)
+				self.user_settings["UserTagList"] = self.tag_list
+
+				#update the tag suggester?
+				self.tag_suggester = MultiWordSuggester(self.tag_list, case_sensitive=False)
+
 				self.save_user_settings_function()
-				self.display_success_function("TAG CREATED")
+				self.display_message_function("Tag successfully created", "success")
 				return True
 			else:
-				self.display_error_function("This tag is already existing")
+				self.display_message_function("This tag is already existing", "error")
 				return False
 		else:
-			self.display_error_function("You have to enter a valid tag name")
+			self.display_message_function("You have to enter a valid tag name", "error")
 			return False
 
 
@@ -109,7 +113,7 @@ class ConveryUserUtility():
 			self.company_dictionnary[studio_name] = studio_data
 			self.save_company_dictionnary_function()
 
-			self.display_success_function("Tag saved for studio : %s"%studio_name)
+			self.display_message_function("Tag saved for studio : %s"%studio_name, "success")
 		"""
 		for selected_studio_index in selected_studio_list:
 			studio_data = self.company_dictionnary[studio_name_list[selected_studio_index]]
@@ -140,23 +144,20 @@ class ConveryUserUtility():
 			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "w") as save_file:
 				json.dump(self.app.user_settings, save_file, indent=4)
 		except Exception as e:
-			self.app.display_error_function("Impossible to save user settings\n%s"%e)
+			self.app.display_message_function("Impossible to save user settings\n%s"%e, "error")
 			return
 		else:
-			self.app.display_success_function("User settings saved")
-
-
-
+			self.app.display_message_function("User settings saved", "success")
 
 	def load_user_settings_function(self):
 		try:
 			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "r") as read_file:
 				self.app.user_settings = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to load user settings!")
+			self.display_message_function("Impossible to load user settings!", "error")
 			#self.display_error_function("Impossible to load user settings")
 		else:
-			self.display_success_function("User settings loaded")
+			self.display_message_function("User settings loaded", "success")
 			pass
 
 
@@ -170,12 +171,12 @@ class ConveryUserUtility():
 		new_class_name = self.input_classname.value 
 		#check if there is letter in the name
 		if self.letter_verification_function(new_class_name)!=True:
-			self.display_error_function("You must define a valid name for the new contact class!")
+			self.display_message_function("You must define a valid name for the new contact class!","error")
 			return
 		else:
 			#check if the class is already in the class list
 			if new_class_name in list(self.company_class_dictionnary.keys()):
-				self.display_error_function("This name is already used by an other contact class!")
+				self.display_message_function("This name is already used by an other contact class!","error")
 				return
 			else:
 				#create the new dictionnary
@@ -187,7 +188,7 @@ class ConveryUserUtility():
 					#update the list in the lobby
 					self.update_contact_class_function()
 				else:
-					self.display_error_function("Impossible to save the new contat dictionnary in file!")
+					self.display_message_function("Impossible to save the new contat dictionnary in file!","error")
 
 
 
@@ -208,10 +209,10 @@ class ConveryUserUtility():
 
 		
 		except Exception as e:
-			self.display_error_function("Impossible to save dictionnary\n%s"%e)
+			self.display_message_function("Impossible to save dictionnary\n%s"%e, "error")
 			return False
 		else:
-			self.display_success_function("Dictionnary saved")
+			self.display_message_function("Dictionnary saved", "success")
 			return True
 
 
@@ -227,7 +228,7 @@ class ConveryUserUtility():
 			pass
 			#self.display_error_function("Impossible to load company dictionnary\n%s"%e)
 		else:
-			self.display_success_function("Company dictionnary loaded")
+			self.display_message_function("Company dictionnary loaded", "success")
 			#self.display_message_function(self.app.company_dictionnary)
 			pass
 		"""
@@ -304,7 +305,7 @@ class ConveryUserUtility():
 
 
 		if len(contact_name_list) != len(contact_mail_list):
-			self.display_error_function("Error trying to get contact informations")
+			self.display_message_function("Error trying to get contact informations", "error")
 			return
 		else:
 
@@ -345,7 +346,7 @@ class ConveryUserUtility():
 
 			#replace the value in the company dictionnary and save the new dictionnary
 			if (self.mode != "edit") and (self.query_one("#modal_newcompanyname").value in self.app.company_dictionnary):
-				self.display_error_function("That company is already registered in the dictionnary")
+				self.display_message_function("That company is already registered in the dictionnary", "error")
 			else:
 				#create the new key in the dictionnary
 				self.app.company_dictionnary[self.query_one("#modal_newcompanyname").value] = company_informations
@@ -369,10 +370,10 @@ class ConveryUserUtility():
 		try:
 			del self.company_dictionnary[studio]
 		except:
-			self.display_error_function("Impossible to remove studio")
+			self.display_message_function("Impossible to remove studio", "error")
 			return
 		else:
-			self.display_success_function("Studio removed")
+			self.display_message_function("Studio removed", "success")
 			self.save_company_dictionnary_function()
 			self.update_informations_function()
 
@@ -384,9 +385,9 @@ class ConveryUserUtility():
 			with open("data/user/UserCompanyData.json", "r") as read_file:
 				self.app.company_class_dictionnary = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to load company data!\n%s")
+			self.display_error_function("Impossible to load company data!\n%s", "error")
 		else:
-			self.display_success_function("Contact data file opened!")
+			self.display_message_function("Contact data file opened!", "success")
 
 
 	def load_company_data_function(self, Modal_Contact):
@@ -394,7 +395,7 @@ class ConveryUserUtility():
 		try:
 			studio_data = self.app.company_dictionnary[self.studio]
 		except:
-			self.display_error_function("Impossible to get studio data")
+			self.display_error_function("Impossible to get studio data", "error")
 		else:
 			self.newcompany_name.value = self.studio 
 			self.newcompany_location.value = studio_data["CompanyLocation"]
@@ -532,7 +533,7 @@ class ConveryUserUtility():
 						load = location_dictionnary[studio_data["CompanyLocation"].upper()]
 						load.append([location, studio_name, studio_data["CompanyWebsite"], studio_data["CompanyLinkedin"], contact_str] )
 						location_dictionnary[location] = load 
-		self.display_success_function("location dictionnary created")
+		self.display_message_function("location dictionnary created", "success")
 
 
 		
@@ -631,10 +632,10 @@ class ConveryUserUtility():
 				html_content += self.save_html_row_function(data[i], "td")
 
 		html_content += "</table>\n"
-		self.display_success_function("Table .html created")
+		self.display_message_function("Table .html created", "success")
 
 		table_text = tabulate(data, headers="firstrow", tablefmt="grid")
-		self.display_success_function("Table .txt created")
+		self.display_message_function("Table .txt created", "success")
 
 
 		filename = os.path.join(os.getcwd(), "CompanyData_Export.txt")
@@ -648,7 +649,7 @@ class ConveryUserUtility():
 
 
 
-		self.display_success_function("All files saved : [ %s ] [ %s ]"%(filename, filename_html))
+		self.display_message_function("All files saved : [ %s ] [ %s ]"%(filename, filename_html), "success")
 
 
 
@@ -762,7 +763,7 @@ class ConveryUserUtility():
 						studio_loc_dictionnary.append( (studio_name, studio_markdown) )
 						location_dictionnary[studio_location] = studio_loc_dictionnary
 
-		self.display_success_function("Location dictionnary created")
+		self.display_message_function("Location dictionnary created", "success")
 
 		
 		final_markdown = ""
@@ -807,7 +808,7 @@ class ConveryUserUtility():
 
 		#print(f"Conversion terminée ! Le fichier HTML est sauvegardé sous : {output_file}")
 
-		self.display_success_function("saved")
+		self.display_message_function("Contact sheet saved successfully", "success")
 
 
 
@@ -825,7 +826,7 @@ class ConveryUserUtility():
 	#	no → load contact list on website
 	def dropbox_check_function(self):
 		if "UserDropboxToken" not in self.user_settings:
-			self.display_error_function("Token is not saved in user settings!")
+			self.display_message_function("Token is not saved in user settings!", "error")
 			return
 		else:
 			value=False
@@ -840,7 +841,7 @@ class ConveryUserUtility():
 					
 					self.display_message_function("%s;%s : %s"%(item.name,self.dropbox_contactlist_path,item.name==self.dropbox_contactlist_path))
 					if (item.name == self.dropbox_contactlist_path):
-						self.display_success_function("File found...")
+						self.display_message_function("File found...", "success")
 						value=True
 						break
 					"""
@@ -853,29 +854,29 @@ class ConveryUserUtility():
 		
 
 				if value==True:
-					self.display_success_function("Contact list detected on dropbox")
+					self.display_message_function("Contact list detected on dropbox", "success")
 					self.dropbox_compare_contact_function()
 				else:
-					self.display_error_function("Contact list not detected on dropbox")
+					self.display_message_function("Contact list not detected on dropbox", "error")
 					self.dropbox_transfer_contact_function()
 
 
 			except AuthError as e:
 				if e.error.is_expired_access_token():
-					self.display_error_function("Invalid token, impossible to connect to dropbox!")
+					self.display_message_function("Invalid token, impossible to connect to dropbox!", "error")
 					return
 				elif e.error.is_missing_scope():
-					self.display_error_function("Missing permissions to perform this action on dropbox!")
+					self.display_message_function("Missing permissions to perform this action on dropbox!", "error")
 					return
 				else:
-					self.display_error_function("Invalid authentication on dropbox")
+					self.display_message_function("Invalid authentication on dropbox", "error")
 					return
 			else:
-				self.display_success_function("Content retrieved from dropbox")
+				self.display_message_function("Content retrieved from dropbox", "success")
 
 	def dropbox_transfer_contact_function(self):
 		if os.path.isfile("data/user/UserCompanyData.json")==False:
-			self.display_error_function("Contact list file doesn't exists")
+			self.display_message_function("Contact list file doesn't exists")
 			return
 		else:
 			source_file = os.path.join(os.getcwd(), "data/user/UserCompanyData.json")
@@ -884,23 +885,23 @@ class ConveryUserUtility():
 			try:
 				with open(source_file,"rb") as transfer_file:
 					self.dbx.files_upload(transfer_file.read(), destination_file, mode=dropbox.files.WriteMode.overwrite)
-				self.display_success_function("Contact list uploaded on dropbox")
+				self.display_message_function("Contact list uploaded on dropbox", "success")
 			except Exception as e:
-				self.display_error_function("Error happened while transfering contact list on dropbox")
-				self.display_error_function(e)
+				self.display_message_function("Error happened while transfering contact list on dropbox", "error")
+				self.display_message_function(e)
 
 	def dropbox_compare_contact_function(self):
 		try:
 			metadata, response = self.dbx.files_download("/%s"%self.dropbox_contactlist_path)
 			self.dropbox_contactlist = json.load(BytesIO(response.content))
 
-			self.display_success_function("Contact list loaded from dropbox")
-			self.display_success_function(len(list(self.dropbox_contactlist.keys())))
+			self.display_message_function("Contact list loaded from dropbox", "success")
+			self.display_message_function(len(list(self.dropbox_contactlist.keys())))
 
 		
 		except Exception as e:
-			self.display_error_function("Failed to load data from contact list")
-			self.display_error_function(e)
+			self.display_message_function("Failed to load data from contact list", "error")
+			self.display_message_function(e, "error")
 		else:
 			"""
 			CHECK THE CONTENT OF BOTH CONTACT LIST AND COMPARE
@@ -934,16 +935,16 @@ class ConveryUserUtility():
 						if contact_name not in list(self.dropbox_contactlist[contact_class].keys()):
 							self.dropbox_contactlist[contact_class][contact_name] = contact_data
 							self.display_message_function(f'    Contact added → {contact_name}')
-			self.display_success_function("All dictionnary updated...")
+			self.display_message_function("All dictionnary updated...", "success")
 			self.save_company_dictionnary_function()
 			#convert the dropbox dictionnary into a json object
 			dropbox_contactlist_converted = json.dumps(self.dropbox_contactlist, indent=4, ensure_ascii=False)
 			#upload the new file on dropbox
 			try:
 				self.dbx.files_upload(dropbox_contactlist_converted.encode("utf-8"),"/Convery_UserCompanyData.json",mode=dropbox.files.WriteMode.overwrite)
-				self.display_success_function("New contact list uploaded on dropbox")
+				self.display_message_function("New contact list uploaded on dropbox", "success")
 			except Exception as e:
-				self.display_error_function(f'Impossible to upload contact list on dropbox\n{traceback.format_exc()}')
+				self.display_message_function(f'Impossible to upload contact list on dropbox\n{traceback.format_exc()}', "error")
 
 
 	def dropbox_get_authentification_url_function(self, appkey=None, appsecret=None):
@@ -951,7 +952,7 @@ class ConveryUserUtility():
 		try:
 			self.auth_flow = dropbox.DropboxOAuth2FlowNoRedirect(appkey,appsecret,token_access_type="offline")
 			authorize_url = self.auth_flow.start()
-			self.app.display_success_function("URL RETRIEVED : %s"%authorize_url)
+			self.app.display_message_function("URL RETRIEVED : %s"%authorize_url, "success")
 			return authorize_url
 		except Exception as e:
 			self.app.display_error_function("Error happened while trying to get authentification URL")
@@ -980,7 +981,7 @@ class ConveryUserUtility():
 				try:
 					dbx = dropbox.Dropbox(exchange.access_token)
 					account = dbx.users_get_current_account()
-					self.display_success_function("Connected to dropbox service as : %s"%account.name.display_name)
+					self.display_message_function("Connected to dropbox service as : %s"%account.name.display_name, "success")
 					return True
 				except Exception as e:
 					self.app.display_error_function("Impossible to connect with access token")
@@ -989,7 +990,7 @@ class ConveryUserUtility():
 	def dropbox_connection_function(self):
 		#check if values are saved in dictionnary
 		if ("UserDropboxAccessToken" not in self.user_settings) or ("UserDropboxRefreshToken" not in self.user_settings):
-			self.display_error_function("You have to launch authentification process once, \nbefore being able to connect with Dropbox services")
+			self.display_message_function("You have to launch authentification process once, \nbefore being able to connect with Dropbox services", "error")
 			return
 		else:
 			expire = datetime.fromisoformat(self.user_settings["UserDropboxTokenExpiration"])
@@ -1015,9 +1016,9 @@ class ConveryUserUtility():
 					self.user_settings["UserDropboxTokenExpiration"] = (datetime.now() + timedelta(hours=4)).isoformat()
 					self.save_user_settings_function()
 					#self.display_success_function("Token refreshed successfully")
-					self.display_success_function(f"Token refreshed successfully\nNew access token : {new_access_token}\nNew refresh token : {new_refresh_token}")
+					self.display_message_function(f"Token refreshed successfully\nNew access token : {new_access_token}\nNew refresh token : {new_refresh_token}", "success")
 				else:
-					self.display_error_function("Error while trying to refresh tokens")
+					self.display_message_function("Error while trying to refresh tokens", "error")
 					self.display_message_function(result)	
 		
 			#self.display_message_function("Tokens doesn't need to be refreshed")
@@ -1025,9 +1026,9 @@ class ConveryUserUtility():
 			try:
 				self.dbx = dropbox.Dropbox(self.user_settings["UserDropboxAccessToken"])
 				account = self.dbx.users_get_current_account()
-				self.display_success_function(f"Connected to dropbox : {account.name.display_name}")
+				self.display_message_function(f"Connected to dropbox : {account.name.display_name}", "success")
 			except Exception as e:
-				self.display_error_function("Impossible to connect to dropbox\n%s"%traceback.format_exc())
+				self.display_message_function("Impossible to connect to dropbox\n%s"%traceback.format_exc(), "error")
 
 			#check if the config file is on dropbox
 			content = self.dbx.files_list_folder(path="")
@@ -1037,7 +1038,7 @@ class ConveryUserUtility():
 				
 				self.display_message_function("%s;%s : %s"%(item.name,self.dropbox_contactlist_path,item.name==self.dropbox_contactlist_path))
 				if (item.name == self.dropbox_contactlist_path):
-					self.display_success_function("File found...")
+					self.display_message_function("File found...", "success")
 					value=True
 					break
 			#contact list is not on dropbox

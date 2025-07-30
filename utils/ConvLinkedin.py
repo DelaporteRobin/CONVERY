@@ -99,7 +99,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 					driver.refresh()
 			except Exception as e:
-				self.display_error_function("Impossible to load cookies\n%s"%e)
+				self.display_message_function("Impossible to load cookies\n%s"%e, "error")
 				
 
 				#TRY ORDINARY CONNECTION 
@@ -116,10 +116,10 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 
 		except Exception as e:
-			self.display_error_function("Impossible to login to linkedin page\n%s"%e)
+			self.display_message_function("Impossible to login to linkedin page\n%s"%e, "error)")
 			return False
 		else:
-			self.display_success_function("Logged in!")
+			self.display_message_function("Logged in!", "success")
 			return driver
 
 
@@ -130,12 +130,12 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 
 		if driver == False:
-			self.display_error_function("Impossible to make connection")
+			self.display_message_function("Impossible to make connection", "error")
 			return 
 
 		else:
 			#self.display_message_function("Connected...")
-			self.display_success_function("Driver created")
+			self.display_message_function("Driver created", "success")
 			#driver.fullscreen_window()
 
 		
@@ -149,10 +149,10 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 				input_field.send_keys(str(studio_name))
 				input_field.send_keys(Keys.ENTER)
 			except Exception as e:
-				self.display_error_function("Impossible to search studio")
+				self.display_message_function("Impossible to search studio", "error")
 				#print(colored("Impossible to search\n%s"%e, "red"))
 			else:
-				self.display_success_function("Studio typed in searchbar")
+				self.display_message_function("Studio typed in searchbar", "success")
 				#print(colored("Studio searched", "green"))
 
 
@@ -191,8 +191,8 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 					EC.visibility_of_element_located((By.XPATH, '//ul[parent::div[contains(@class, "pv0") and contains(@class, "ph0") and contains(@class, "mb2") and contains(@class, "artdeco-card")]]'))
 				)
 			except Exception as e:
-				self.display_error_function(e)
-				self.display_error_function("Impossible to get a valid account list on Linkedin\nMaybe the studio name is wrong!")
+				self.display_message_function(traceback.format_exc(), "error", False)
+				self.display_message_function("Impossible to get a valid account list on Linkedin\nMaybe the studio name is wrong!", "error")
 			else:
 				#ul_element = driver.find_element(By.XPATH, '//ul[parent::div[contains(@class, "pv0") and contains(@class, "ph0") and contains(@class, "mb2") and contains(@class, "artdeco-card")]]')
 				#get all list items contained in list link
@@ -224,10 +224,10 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 		#os.system("pause")
 		#return
 		if driver == False:
-			self.display_error_function("Impossible to make connection")
+			self.display_message_function("Impossible to make connection", "error")
 			return 
 		else:
-			self.display_success_function("Driver created")
+			self.display_message_function("Driver created", "success")
 
 
 			driver.maximize_window()
@@ -243,7 +243,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 				member_button = driver.find_elements(By.CLASS_NAME, "org-page-navigation__item-anchor")[-1]
 				member_button.click()
 			except IndexError:
-				self.display_error_function("Impossible to access informations on Linkedin")
+				self.display_message_function("Impossible to access informations on Linkedin", "error")
 				return
 		
 
@@ -287,7 +287,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 							self.display_message_function("Contact found --> %s"%member_container.text)
 							member_name_list.append(member_container)
 				except Exception as e:
-					self.display_error_function("Error while searching for contact")
+					self.display_message_function("Error while searching for contact", "error")
 					#self.display_error_function(e)
 					continue
 
@@ -316,7 +316,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 						"mail":None
 					}
 				except Exception as e:
-					self.display_error_function(e)
+					self.display_message_function(e, "error")
 				else:
 					pass
 			
@@ -328,7 +328,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 				try:
 					driver.get(member_data["link"])
 				except Exception as e:
-					self.display_error_function("Impossible to get data for this user : %s"%member_name)
+					self.display_message_function("Impossible to get data for this user : %s"%member_name, "error")
 				else:
 				
 					#get contact details on profile page
@@ -341,26 +341,26 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 							)
 						
 					except Exception as e:
-						self.display_error_function("Impossible to find section for this contact : %s"%member_name)
+						self.display_message_function("Impossible to find section for this contact : %s"%member_name, "error")
 					else:
-						self.display_success_function("Section found for %s"%member_name)
+						self.display_message_function("Section found for %s"%member_name, "success")
 
 						contact_section_list = driver.find_elements(By.CLASS_NAME, "pv-contact-info__contact-type")
 						for section in contact_section_list:
 							try:
 								contact_section_title = section.find_element(By.CLASS_NAME, "pv-contact-info__header")
 								if contact_section_title.text == "E-mail":
-									self.display_success_function("Email section found!")
+									self.display_message_function("Email section found!", "success")
 									member_data["mail"] = section.find_element(By.TAG_NAME, "a").text
 									member_list[member_name] = member_data
 
-									self.display_success_function("Email address updated for this contact [%s]"%member_name)
+									self.display_message_function("Email address updated for this contact [%s]"%member_name, "success")
 							except Exception as e:
-								self.display_error_function(e)
+								self.display_message_function(e, "error", False)
 
 
 
-			self.display_success_function("TASK DONE - LINKEDIN CONTACT RETRIEVED")
+			self.display_message_function("TASK DONE - LINKEDIN CONTACT RETRIEVED", "success")
 			#os.system("pause")
 			
 			return member_list

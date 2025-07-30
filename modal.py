@@ -25,6 +25,7 @@ from textual.screen import Screen, ModalScreen
 from textual import events
 from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, Container, VerticalScroll
 from textual import on, work
+from textual.suggester import Suggester
 
 from textual_datepicker import DateSelect, DatePicker
 from textual_timepiece.pickers import DatePicker 
@@ -39,11 +40,12 @@ import pendulum
 import threading
 import json
 import colorama
+import traceback
 
 
 
 
-from utils.ConvWidget import MultiListView, MultiListItem
+from utils.ConvWidget import MultiListView, MultiListItem, MultiWordSuggester
 from utils.ConvUser import ConveryUserUtility
 from utils.ConvMail import ConveryMailUtility
 from utils.ConvUtility import ConveryUtility
@@ -79,7 +81,7 @@ class ModalDropboxAuthentification(ModalScreen, ConveryNotification, ConveryUser
 			yield self.modal_dropbox_input_appkey
 			yield self.modal_dropbox_input_appsecret
 
-			yield Button("GET URL FROM CREDENTIALS",id="modal_dropbox_button_geturl")
+			yield Button("GET URL FROM CREDENTIALS",id="modal_dropbox_button_geturl", variant="success")
 
 			self.modal_dropbox_label_url = Label(" ",id="modal_dropbox_label_url")
 			yield self.modal_dropbox_label_url
@@ -209,15 +211,8 @@ class Modal_Contact(Static):
 		self.website = website
 		self.mail = mail 
 
-
-
 		self.kind_list = ["MEMBER", "JOB", "GENERAL"]
-		
-
-		
-
 		#self.app.display_message_function(name)
-
 
 	def compose(self) -> ComposeResult:
 		
@@ -300,8 +295,8 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 
 
 			with Horizontal(id="modal_addcontact_container"):
-				yield Button("Add contact", id="modal_addcontacttolist_button", classes="darken_button primary_button")
-				yield Button("Remove contact", id="modal_removecontactfromlist_button", classes="darken_button error_button")
+				yield Button("Add contact", id="modal_addcontacttolist_button", classes="darken_button primary_button", variant="success")
+				yield Button("Remove contact", id="modal_removecontactfromlist_button", classes="darken_button error_button", variant="error")
 			
 			self.newcompany_contactlist_container = ScrollableContainer(id="modal_newcompany_contactlist")
 			yield self.newcompany_contactlist_container
@@ -312,9 +307,9 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 
 			with Horizontal(id="modal_horizontal_container"):
 				if self.mode == "create":
-					yield Button("Create", variant="primary", id="modal_create_contact_button", classes="darken_button primary_button")
+					yield Button("Create", variant="success", id="modal_create_contact_button", classes="darken_button primary_button")
 				else:
-					yield Button("Save", variant="primary", id="modal_create_contact_button", classes="darken_button primary_button")
+					yield Button("Save", variant="success", id="modal_create_contact_button", classes="darken_button primary_button")
 				yield Button("Quit", variant="error", id="modal_cancel_contact_button", classes="darken_button error_button")
 
 
@@ -326,6 +321,27 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 		"""
 
 	def on_mount(self) -> None:
+		#create the suggester for the location input
+		#gather all location in a list
+		try:
+			self.location_list = []
+			for contact_name, contact_data in self.app.company_dictionnary.items():
+				contact_location = contact_data["CompanyLocation"]
+				if type(contact_location) != list:
+					contact_location = [contact_location]
+				for location in contact_location:
+					if (self.app.letter_verification_function(location)==True) and (location.upper() not in self.location_list):
+						#self.app.display_message_function(f"location added to list : {location}")
+						self.location_list.append(location)
+			#create the suggester from the created list
+			self.location_suggester = MultiWordSuggester(self.location_list,case_sensitive=True)
+			self.newcompany_location.suggester = self.location_suggester
+			self.app.display_message_function("Suggester created for locations", "success")
+			
+		except Exception as e:
+			self.app.display_message_function("Impossible to create location suggester", "error")
+			self.app.display_message_function(traceback.format_exc(), "error")
+
 		#IF IN EDIT MODE LOAD THE DICTIONNARY OF THE SELECTED COMPANY
 		#AND UPDATE THE PAGE
 		if self.mode == "edit":

@@ -44,7 +44,7 @@ from utils.ConvUser import ConveryUserUtility
 from utils.ConvMail import ConveryMailUtility
 from utils.ConvUtility import ConveryUtility
 from utils.ConvNotif import ConveryNotification
-from utils.ConvWidget import MultiListView, MultiListItem
+from utils.ConvWidget import MultiListView, MultiListItem, MultiWordSuggester
 
 
 
@@ -58,10 +58,10 @@ class ConveryGUIUtils(ConveryUserUtility):
 		self.load_company_class_function()
 		self.load_mail_preset_function()
 		self.load_user_settings_function()
+		self.listview_contacttype.clear()
 
 		self.listview_mailpreset.clear()
 		#self.textarea_prompt.clear()
-		self.listview_contacttype.clear()
 
 		
 
@@ -90,8 +90,8 @@ class ConveryGUIUtils(ConveryUserUtility):
 			for address in self.user_mail_address_list:
 				self.listview_mailaddress.append(ListItem(Label(address)))
 		except Exception as e:
-			self.display_error_function("Impossible to get user mail addresses")
-			self.display_error_function(traceback.format_exc())
+			self.display_message_function("Impossible to get user mail addresses", "error")
+			self.display_message_function(traceback.format_exc(), "error")
 
 
 		try:
@@ -102,8 +102,8 @@ class ConveryGUIUtils(ConveryUserUtility):
 			for var in self.user_variable_list:
 				self.listview_variablelist.append(ListItem(Label(var)))
 		except Exception as e:
-			self.display_error_function("Impossible to get user mail variables")
-			self.display_error_function(traceback.format_exc())
+			self.display_message_function("Impossible to get user mail variables", "error")
+			self.display_message_function(traceback.format_exc(), "error")
 
 		"""
 		if "UserDropboxToken" in self.user_settings:
@@ -119,8 +119,8 @@ class ConveryGUIUtils(ConveryUserUtility):
 			for i in range(len(self.attached_files_list)):
 				self.selectionlist_attached_files.add_option((self.attached_files_list[i], i))
 		except Exception as e:
-			self.display_error_function("Impossible to get attached file list!")
-			self.display_error_function(traceback.format_exc())
+			self.display_message_function("Impossible to get attached file list!", "error")
+			self.display_message_function(traceback.format_exc(), "error")
 
 
 
@@ -144,11 +144,11 @@ class ConveryGUIUtils(ConveryUserUtility):
 				for preset in preset_list:
 					self.listview_mailpreset.append(MultiListItem(Label(preset)))
 		except KeyError:
-			self.display_error_function("Impossible to get user mail preset")
+			self.display_message_function("Impossible to get user mail preset", "error")
 			self.display_message_function("Try to create mail preset in user dictionnary")
 			self.create_mail_preset_function()
 		else:
-			self.display_success_function("Mail preset laoded")
+			self.display_message_function("Mail preset loaded", "success")
 
 
 
@@ -158,16 +158,23 @@ class ConveryGUIUtils(ConveryUserUtility):
 		#LOAD ALL INFORMATIONS CONTAINED IN USER SETTINGS FILES
 		self.listview_studiolist.clear()
 		#self.listview_contacttype.clear()
-		
 
-
-
-
-
-		#create the studio suggest list for mail contact
-		self.studio_suggest_list.clear()
-		self.studio_suggest_list = list(self.company_dictionnary.keys())
-		self.input_mailcontact.suggester=SuggestFromList(self.studio_suggest_list, case_sensitive=False)
+		#get tag list
+		try:
+			self.tag_list = self.user_settings["UserTagList"]
+		except KeyError:
+			self.tag_list = []
+		for tag in self.tag_list:
+			self.display_message_function(tag)
+		#try to create the suggester for tag input
+		try:
+			self.tag_suggester = MultiWordSuggester(self.tag_list, case_sensitive=True)
+			self.input_tag_test.suggester = self.tag_suggester
+			#self.input_tag_lobby.suggester = self.tag_suggester
+			self.display_message_function("Suggester created for tag", "success")
+		except Exception as e:
+			self.display_message_function("Impossible to create suggester for tags", "error")
+			self.display_message_function(traceback.format_exc(), "error", False)
 
 		"""
 		self.listview_contactlist.clear()
@@ -188,7 +195,6 @@ class ConveryGUIUtils(ConveryUserUtility):
 			self.listview_contactlist.append(ListItem(label)) 
 		"""
 
-
 		self.list_studiolist = list(self.company_dictionnary.keys())
 		self.list_studiolist_filtered = []
 
@@ -200,13 +206,10 @@ class ConveryGUIUtils(ConveryUserUtility):
 		self.list_studiolist_display = []
 		#self.list_studiolist_filtered = []
 
-
-
-		
 		#NOT BY PRIORITY ORDER
 		if self.user_settings["companyDisplayMode"] != 2:
 			try:
-				self.display_message_function("Display mode selected : NOT PRIORITY ORDER")
+				#self.display_message_function("Display mode selected : NOT PRIORITY ORDER")
 				if self.user_settings["companyDisplayMode"] != 2:
 
 
@@ -218,21 +221,16 @@ class ConveryGUIUtils(ConveryUserUtility):
 			except KeyError:
 				pass
 
-
-
-
-
 		#BY PRIORITY ORDER
 		else:	
-			self.display_message_function("Display mode selected : PRIORITY ORDER")
+			#self.display_message_function("Display mode selected : PRIORITY ORDER")
 
 			self.not_contacted_list.clear()
 			self.no_alert_list.clear()
 			self.short_alert_list.clear()
 			self.medium_alert_list.clear()
 			self.long_alert_list.clear()
-			
-
+		
 			self.highlight_studio_list.clear()
 
 
@@ -240,11 +238,6 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 				#check the highlight list
 				#check tag in studio_data 
-				
-
-
-
-
 				if ("CompanyDate" not in studio_data) or (studio_data["CompanyDate"] == None):
 					self.not_contacted_list.append(studio_name)
 
@@ -275,9 +268,6 @@ class ConveryGUIUtils(ConveryUserUtility):
 					else:
 						no_alert_list.append(studio_name)
 					"""
-
-
-
 					#CREATION OF ALERT LIST
 					#self.display_message_function("udpating alert list")
 					alert_data = self.user_settings["alertDictionnary"]
@@ -300,61 +290,35 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 			#concatenate all list
 			self.list_studiolist_display = self.long_alert_list + self.medium_alert_list + self.short_alert_list + self.no_alert_list + self.not_contacted_list
-
-
-
-
 		self.update_studiolist_view()
 
 
-
-
-
-
-
-
-
-
-
 	def update_studiolist_view(self):
-
-
 		#update the tag list
-		self.tag_list.clear()
 
 		#update all the tag list in the view with the usertaglist
 		#which is supposed to be correctly updated!!
-		user_tag_list = self.user_settings["UserTagList"]
 		self.selectionlist_tags.clear_options()
 		self.selectionlist_tags_settings.clear_options()
 
-		for i in range(len(user_tag_list)):
-			self.selectionlist_tags.add_option((user_tag_list[i], i))
-			self.selectionlist_tags_settings.add_option((user_tag_list[i], i))
-
-
-
+		for i in range(len(self.tag_list)):
+			self.selectionlist_tags.add_option((self.tag_list[i], i))
+			self.selectionlist_tags_settings.add_option((self.tag_list[i], i))
 	
 		#FOR EACH STUDIO IN THE STUDIO LIST ADD IT TO THE LIST WITH THE RIGHT COLOR
 		for studio in self.list_studiolist_display:
-
-
-
 			#UPDATE THE FILTERED STUDIO LIST 
 			#remove unwanted informations from studio
 			#remove capital letters / accents
 			#self.list_studiolist_filtered.append(unidecode.unidecode(studio).lower())
 			#self.display_message_function(self.list_studiolist_filtered[-1])
 
-
-
-
 			#get tag list in company dictionnary
 			try:
 				studio_tags = self.company_dictionnary[studio]["CompanyTags"]
 			except Exception as e:
 				self.display_message_function(studio)
-				self.display_error_function(traceback.format_exc())
+				self.display_message_function(traceback.format_exc(), "erorr")
 				studio_tags = []
 
 			#self.selectionlist_tags.clear_options()
@@ -366,33 +330,22 @@ class ConveryGUIUtils(ConveryUserUtility):
 					if self.letter_verification_function(tag)==True:
 						self.tag_list.append(tag)
 
-
 			"""
 			for i in range(len(self.tag_list)):
 				self.selectionlist_tags.add_option((self.tag_list[i], i))
 				self.selectionlist_tags_settings.add_option((self.tag_list[i], i))
 			"""
-
-
-
-
-
-
 			studio_data = self.company_dictionnary[studio]
 
 			label = Label(studio)
 
 			self.listview_studiolist.append(MultiListItem(label))
 
-
-
-
 			#HIGHLIGHT TAGGED STUDIOS
 			for tag in studio_tags:
 				if tag in self.highlight_tag_list:
-
-
-					label.styles.background = self.user_settings["colorDictionnary"]["HighlightColor"]
+					#label.styles.background = self.user_settings["colorDictionnary"]["HighlightColor"]
+					label.styles.background = self.theme_variables["secondary-darken-2"]
 
 
 			#CHECK FOR COLORS
@@ -420,9 +373,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 
 				#check if alert list are empty
 				#if the display mode is different from 2 then create the alert list
-
 				alert_data = self.user_settings["alertDictionnary"]
-				
 				"""
 				if delta_week < alert_data["JustContacted"]["Delta"]:
 					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.no_alert_list):
@@ -457,77 +408,23 @@ class ConveryGUIUtils(ConveryUserUtility):
 				elif (delta_week >= alert_data["RecentContact"]["Delta"]) and (delta_week < alert_data["LatelyContact"]["Delta"]):
 					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.short_alert_list):
 						self.short_alert_list.append(studio)
-					label.styles.color = self.user_settings["alertDictionnary"]["RecentContact"]["Color"]
+					#label.styles.color = self.user_settings["alertDictionnary"]["RecentContact"]["Color"]
+					label.styles.color = self.theme_variables["accent-lighten-1"]
 
 				elif (delta_week >= alert_data["LatelyContact"]["Delta"]) and (delta_week < alert_data["PastContact"]["Delta"]):
 					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.medium_alert_list):
 						self.medium_alert_list.append(studio)	
-					label.styles.color = self.user_settings["alertDictionnary"]["LatelyContact"]["Color"]
+					#label.styles.color = self.user_settings["alertDictionnary"]["LatelyContact"]["Color"]
+					label.styles.color = self.theme_variables["warning-lighten-1"]
 
 				elif (delta_week >= alert_data["PastContact"]["Delta"]):
 					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.long_alert_list):
 						self.long_alert_list.append(studio)
-					label.styles.color = self.user_settings["alertDictionnary"]["PastContact"]["Color"]
-					
+					#label.styles.color = self.user_settings["alertDictionnary"]["PastContact"]["Color"]
+					label.styles.color = self.theme_variables["error-lighten-1"]
 				
 
-				
-
-		#app.refresh_css()
-		#update the tag list in searchbar
-
-		self.input_tag_lobby.suggester=SuggestFromList(self.tag_list, case_sensitive=False)
-
-		#DISPLAY ALL LIST CONTENT
-		"""
-		self.display_success_function("NO ALERT")
-		for studio in self.no_alert_list:
-			self.display_message_function(studio)
-
-		self.display_success_function("SHORT ALERT")
-		for studio in self.short_alert_list:
-			self.display_message_function(studio)
-
-		self.display_success_function("MEDIUM ALERT")
-		for studio in self.medium_alert_list:
-			self.display_message_function(studio)
-
-		self.display_success_function("LONG ALERT")
-		for studio in self.long_alert_list:
-			self.display_message_function(studio)
-		"""
-
-
-
-
-
-
-
-
-
-	def add_log_line_function(self, log):
-		#self.listview_log.append(ListItem(Label(str(log["content"]))))
-
-		label_format = Label("|%s| %s : %s"%(log["severity"].upper(), log["date"], log["content"]))
-		self.listview_log.append(MultiListItem(label_format))
-		
-		#adapt the color of the label using the severity
-		if log["severity"] != "MESSAGE":
-			label_format.styles.color = self.user_settings["colorDictionnary"][log["severity"]]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			
 
 
 	def generate_markdown_function(self, company_name, company_data):

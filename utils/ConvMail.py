@@ -72,11 +72,11 @@ class ConveryMailUtility():
 		filepath = self.input_attached_filepath.value 
 
 		if (self.letter_verification_function(filename)==False) or (self.letter_verification_function(filepath)==False):
-			self.display_error_function("You have to enter both filename and filepath!")
+			self.display_message_function("You have to enter both filename and filepath!", "error")
 			return
 		else:
 			if os.path.isfile(filepath)==False:
-				self.display_error_function("This filepath isn't valid! File doesn't exists!")
+				self.display_message_function("This filepath isn't valid! File doesn't exists!", "error")
 				return
 			else:
 				try:
@@ -105,10 +105,10 @@ class ConveryMailUtility():
 			self.save_user_settings_function()
 			self.update_contact_class_function()
 		except Exception as e:
-			self.display_error_function("Impossible to remove attached file from list")
-			self.display_error_function(traceback.format_exc())
+			self.display_message_function("Impossible to remove attached file from list", "error")
+			self.display_message_function(traceback.format_exc(), "error", False)
 		else:
-			self.display_success_function("Attached file(s) removed")
+			self.display_message_function("Attached file(s) removed","success")
 
 
 
@@ -129,14 +129,14 @@ class ConveryMailUtility():
 
 				self.save_user_settings_function()
 			except Exception as e:
-				self.display_error_function("Impossible to save email address")
-				self.display_error_function(traceback.format_exc())
+				self.display_message_function("Impossible to save email address","error")
+				self.display_message_function(traceback.format_exc(), "error", False)
 			else:
-				self.display_success_function("Email address updated")
+				self.display_message_function("Email address updated", "success")
 				#update the interface
 				self.update_contact_class_function()
 		else:
-			self.display_error_function("Mail address or mail key is empty!")
+			self.display_message_function("Mail address or mail key is empty!","error")
 			return
 
 
@@ -147,7 +147,7 @@ class ConveryMailUtility():
 		try:
 			mail_address = self.user_mail_address_list[self.listview_mailaddress.index]
 		except Exception as e:
-			self.display_error_function("Impossible to get selected mail address!")
+			self.display_message_function("Impossible to get selected mail address!","error")
 			return
 		else:
 			#try to remove the key if present in dictionnary
@@ -173,7 +173,7 @@ class ConveryMailUtility():
 		var_value = self.input_variablevalue.value
 
 		if (self.letter_verification_function(var_name)==False) or (self.letter_verification_function(var_value)==False):
-			self.display_error_function("You have to enter a value for both variable name and variable value!")
+			self.display_message_function("You have to enter a value for both variable name and variable value!","error")
 			return
 		else:
 			#get the var dictionnary
@@ -188,7 +188,7 @@ class ConveryMailUtility():
 			self.user_settings["UserVarDictionnary"] = var_dictionnary
 			self.save_user_settings_function()
 			self.update_contact_class_function()
-			self.display_success_function("Mail variable saved")
+			self.display_message_function("Mail variable saved","success")
 
 
 
@@ -206,7 +206,7 @@ class ConveryMailUtility():
 		self.user_settings["UserVarDictionnary"] = var_dictionnary
 		self.save_user_settings_function()
 		self.update_contact_class_function()
-		self.display_success_function("Mail variable removed")
+		self.display_message_function("Mail variable removed","success")
 
 
 
@@ -230,7 +230,7 @@ class ConveryMailUtility():
 			return
 
 		if (self.letter_verification_function(preset_name) == False) or (self.letter_verification_function(preset_content)==False) or (self.letter_verification_function(preset_header)==False):
-			self.display_error_function("You have to enter a name, a header, and a valid content for the mail preset")
+			self.display_message_function("You have to enter a name, a header, and a valid content for the mail preset", "error")
 			return
 
 
@@ -249,7 +249,7 @@ class ConveryMailUtility():
 			self.save_mail_preset_function()
 			self.update_informations_function()
 		else:
-			self.display_error_function("A preset with the same name is already registered")
+			self.display_message_function("A preset with the same name is already registered", "error")
 
 
 
@@ -258,8 +258,8 @@ class ConveryMailUtility():
 			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "r") as read_file:
 				self.user_settings = json.load(read_file)
 		except Exception as e:
-			self.display_error_function("Impossible to load mail presets")
-			self.display_error_function(traceback.format_exc())
+			self.display_message_function("Impossible to load mail presets", "error")
+			self.display_message_function(traceback.format_exc(), "error", False)
 		else:
 			#self.display_message_function("Presets loaded")
 			#self.display_message_function(self.user_preset)
@@ -272,7 +272,7 @@ class ConveryMailUtility():
 			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "w") as save_file:
 				json.dump(self.user_settings, save_file, indent=4)
 		except Exception as e:
-			self.display_error_function("Impossible to save preset\n%s"%e)
+			self.display_message_function("Impossible to save preset\n%s"%e, "error")
 		else:
 			self.display_message_function("Preset saved")
 
@@ -314,7 +314,7 @@ class ConveryMailUtility():
 
 
 	def get_contact_from_filter_function(self, from_studio=False):
-		self.display_success_function("Filtering studio function called")
+		self.display_message_function("Filtering studio function called","success")
 		#get value selection
 		contacttype_index_list = (self.selectionlist_contacttype.selected)
 		contacttag_index_list = (self.selectionlist_tags.selected)
@@ -359,8 +359,8 @@ class ConveryMailUtility():
 					selected_studio_name_list.append(self.list_studiolist_display[index])
 					#self.display_message_function(self.list_studiolist_display[index])
 			except Exception as e:
-				self.display_error_function("Impossible to get studio selection")
-				self.display_error_function(traceback.format_exc())
+				self.display_message_function("Impossible to get studio selection", "error")
+				self.display_message_function(traceback.format_exc(), "error",False)
 				return
 			else:
 				pass
@@ -468,8 +468,8 @@ class ConveryMailUtility():
 					selected_studio_name_list.append(self.list_studiolist_display[index])
 					#self.display_message_function(self.list_studiolist_display[index])
 			except Exception as e:
-				self.display_error_function("Impossible to get studio selection")
-				self.display_error_function(traceback.format_exc())
+				self.display_message_function("Impossible to get studio selection","error")
+				self.display_message_function(traceback.format_exc(), "error", False)
 				return
 			else:
 				pass
@@ -845,13 +845,13 @@ To : %s
 		user_resume = self.input_resume.value
 
 		if self.check_address_function(user_address)==False:
-			self.display_error_function("Invalid email address")
+			self.display_message_function("Invalid email address", "error")
 		else:
 			self.user_settings["UserAddress"] = user_address
 			
 
 		if self.letter_verification_function(user_mailkey)==False:
-			self.display_error_function("Mail key is empty!")
+			self.display_message_function("Mail key is empty!")
 			
 		else:
 			self.user_settings["UserMailKey"] = user_mailkey
@@ -860,7 +860,7 @@ To : %s
 		try:
 			response = requests.get(user_demolink, timeout=5)
 		except:
-			self.display_error_function("Invalid DemoReel link!")
+			self.display_message_function("Invalid DemoReel link!", "error")
 		else:
 			self.display_message_function("DemoReel link checked")
 			self.user_settings["UserDemoReelLink"] = user_demolink
@@ -869,7 +869,7 @@ To : %s
 			self.user_settings["UserDemoPassword"] = None
 
 		if os.path.isfile(user_resume)==False:
-			self.display_error_function("Invalid filepath for Resume!")
+			self.display_message_function("Invalid filepath for Resume!", "error")
 			return 
 		else:
 			self.user_settings["UserMailAttached"] = user_resume

@@ -25,6 +25,7 @@ from textual.widgets._tree import TreeNode
 from textual.errors import TextualError
 from textual.widgets._list_item import ListItem
 from textual.widget import AwaitMount, Widget
+from textual.suggester import Suggester
 
 
 
@@ -111,6 +112,41 @@ class MultiListView(ListView):
             return list_item
         else:
             return None
+
+
+class MultiWordSuggester(Suggester):
+    def __init__(self, options: list[str], separators: str = " ", case_sensitive: bool = True):
+        super().__init__()
+        self.case_sensitive = case_sensitive
+        
+        if case_sensitive:
+            self.options = options
+            self.original_options = options
+        else:
+            self.options = [opt.lower() for opt in options]
+            self.original_options = options
+    
+    async def get_suggestion(self, value: str) -> str | None:  # Supprimé le paramètre 'requester'
+        if not value:
+            return None
+        
+        words = value.split()
+        if not words:
+            return None
+        
+        current_word = words[-1]
+        if not self.case_sensitive:
+            current_word = current_word.lower()
+        
+        # Chercher une correspondance
+        for i, option in enumerate(self.options):
+            option_to_check = option if self.case_sensitive else option.lower()
+            if option_to_check.startswith(current_word) and option_to_check != current_word:
+                # Reconstituer avec la casse originale
+                suggested_words = words[:-1] + [self.original_options[i]]
+                return " ".join(suggested_words)
+        
+        return None
 
 
 

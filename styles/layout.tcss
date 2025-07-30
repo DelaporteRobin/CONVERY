@@ -9,8 +9,15 @@ ListView {
 		}
 	}
 }
+SelectionList {
+	background:$panel;
+}
 MarkdownH1 {
-	color:$secondary-lighten-3;
+	color:$accent;
+}
+OptionList {
+	border:round $secondary;
+	background:$surface;
 }
 Link {
 	color:red;
@@ -21,7 +28,7 @@ Collapsible {
 }
 CollapsibleTitle {
 	width:100%;
-	background:$panel;
+	background:$surface;
 }
 CollapsibleTitle:focus {
 	background:$primary;
@@ -43,31 +50,49 @@ ModalScreen {
 		width:50%;
 		background:$panel;
 	}
+	Vertical, VerticalScroll, Horizontal {
+		height:auto;
+	}
+	#modal_createcontact_container {
+		padding-bottom:3;
+		padding-top:2;
+	}
+
+	Input {
+		border:solid $secondary;
+	}
+	TextArea {
+		border: solid $primary;
+	}
+	SelectCurrent {
+		border:$secondary;
+		background:$surface;
+	}
 }
 Button {
 	width:1fr;
 	margin-right:1;
 	margin-left:1;
 
-	background: $surface;
-	border-top:hkey $surface-lighten-1;
-	border-bottom:hkey $surface-darken-3;
+	background: $panel;
+	border-top:hkey $panel-lighten-1;
+	border-bottom:hkey $panel-darken-3;
 
 
 	&.-error {
-		background:$error;
+		background:$error-darken-1;
 		border-top:hkey $error-lighten-2;
 		border-bottom:hkey $error-darken-3;
 	}
 	&.-success {
-		background:$success;
+		background:$success-darken-1;
 		border-top:hkey $success-lighten-2;
 		border-bottom: hkey $success-darken-3;
 	}
 	&.-warning {
-		background:$warning;
-		border-top:hkey $warning-lighten-1;
-		border-bottom: hkey $warning-darken-3;
+		background:$accent-darken-1;
+		border-top:hkey $accent-lighten-1;
+		border-bottom: hkey $accent-darken-3;
 	}
 
 }
@@ -78,7 +103,7 @@ Button {
 	padding-right:2;
 	padding-left:2;
 	height:100%;
-	background:$panel;
+	background:$surface;
 
 	#left_vertical_container_top {
 		height:90%;
@@ -90,17 +115,19 @@ Button {
 		border-top:heavy $primary;
 	}
 	#listview_studiolist {
+		background:$panel;
 		height:1fr;
 		min-height:20;
 	}
 	#listview_contacttype {
+		background:$panel;
 		min-height:20%;
 	}
 	Horizontal {
 		height:auto;
 	}
 	Input {
-		background:$background;
+		background:$panel;
 		margin-top:1;
 		margin-bottom:1;
 	}
@@ -109,7 +136,7 @@ Button {
 		height:auto;
 	}
 	Collapsible {
-		background: $panel;
+		background: $surface;
 		height:auto;
 
 	}
@@ -117,6 +144,7 @@ Button {
 }
 
 #main_center_container {
+	background:$panel;
 	#label_title {
 		color:$primary;
 		width:100%;
@@ -125,6 +153,31 @@ Button {
 	}
 	#input_create_tag {
 		width:50%;
+		background:$surface;
+	}
+	#input_tag_lobby {
+		border:solid $secondary-darken-1;
+	}
+	Button {
+		background:$panel;
+		border-top:hkey $panel-lighten-2;
+		border-bottom:hkey $panel-darken-2;
+
+		&.-error {
+			background:$error-darken-1;
+			border-top:hkey $error-lighten-2;
+			border-bottom:hkey $error-darken-3;
+		}
+		&.-success {
+			background:$success-darken-1;
+			border-top:hkey $success-lighten-2;
+			border-bottom: hkey $success-darken-3;
+		}
+		&.-warning {
+			background:$accent-darken-1;
+			border-top:hkey $accent-lighten-1;
+			border-bottom: hkey $accent-darken-3;
+		}
 	}
 	ScrollableContainer {
 		height:auto;
@@ -135,19 +188,33 @@ Button {
 		margin-bottom:1;
 	}
 	Collapsible {
-		background:$background;
+		background:$panel;
 		width:100%;
 		margin-right:1;
 		margin-left:1;
 	}
 	CollapsibleTitle {
-		background:$background;
+		background:$panel;
 	}
 	CollapsibleTitle:focus {
 		background:$primary;
 	}
 	RadioSet {
-		background:$panel;
+		background:$surface;
+
+		RadioButton {
+			width:100%;
+		}
+		RadioButton:hover {
+			background:$secondary-darken-3;
+
+			&:focus {
+				background:$error;
+			}
+		}
+	}
+	SelectionList {
+		background:$surface;
 	}
 	#right_vertical_container1 {
 		margin-bottom:2;
@@ -161,6 +228,46 @@ Button {
 		}
 	}
 
+}
+#main_right_container {
+	Input {
+		background:$panel;
+	}
+	#input_mail_header {
+	}
+	TextArea {
+		height:1fr;
+		border:solid $secondary-darken-2;
+	}
+	height:1fr;
+
+	Collapsible {
+		height:auto;
+
+		Vertical, Horizontal, ScrollableContainer {
+			height:auto;
+		}
+		#listview_variablelist {
+			height:16;
+		}
+		#optionlist_contact {
+			height:35;
+		}
+		#selectionlist_attached_files {
+			height:18;
+		}
+	}
+	#main_rightvertical_container {
+		height:1fr;
+
+		Horizontal, Vertical {
+			height:auto;
+		}
+
+		#listview_mailpreset {
+			height:1fr;
+		}
+	}
 }
 
 /* SPECIFIC WIDGET CODE */
