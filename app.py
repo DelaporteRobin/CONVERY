@@ -269,7 +269,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 								with Horizontal(id = "horizontal_create_tag_container"):
 									self.input_create_tag = Input(placeholder = "Tag name", id="input_create_tag")
 									yield self.input_create_tag 
-
+									
 									yield Button("Create tag", id="button_create_tag", classes="error_button", variant="success")
 
 								self.selectionlist_tags_settings = SelectionList(id = "selectionlist_tags_settings")

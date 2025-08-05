@@ -57,6 +57,14 @@ ModalScreen {
 		padding-bottom:3;
 		padding-top:2;
 	}
+	#modal_newcontact_container {
+		Select {
+			width:1fr;
+		}
+		Input {
+			width:1fr;
+		}
+	}
 
 	Input {
 		border:solid $secondary;

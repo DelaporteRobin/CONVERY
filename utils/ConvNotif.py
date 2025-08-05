@@ -53,7 +53,10 @@ class ConveryNotification:
 			notify_severity = "information"
 			if (severity == "warning") or (severity=="error"):
 				notify_severity == severity
-			self.notify(message, timeout=4, severity=notify_severity)
+			try:
+				self.notify(message, timeout=4, severity=notify_severity)
+			except Exception as e:
+				self.app.notify(message, timeout=4, severity=notify_severity)
 		#create format for main notification
 		notification_format = ("%s|%s → %s"%(str(datetime.now()), severity.upper(), message))
 		#notification_format = notification_format.replace("[", "\[").replace("]", "\]")
@@ -61,7 +64,10 @@ class ConveryNotification:
 		label_format = Label(notification_format)
 		#color label
 		if severity in ["warning", "error", "success"]:
-			label_format.styles.color = self.theme_variables[f'{severity}-lighten-1']
+			try:
+				label_format.styles.color = self.theme_variables[f'{severity}-lighten-1']
+			except:
+				label_format.styles.color = self.app.theme_variables[f'{severity}-lighten-1']
 		try:
 			self.listview_log.append(MultiListItem(label_format))
 		except AttributeError:

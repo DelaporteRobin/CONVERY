@@ -22,8 +22,8 @@ abyss_theme = Theme(
 	secondary="#48b6bb",
 	)
 
-clockwork = Theme(
-	name="clockwork",
+lighten = Theme(
+	name="lighten",
 	primary="#FF8436",
 	secondary="#8902D6",
 	background="#0f0e0d",
@@ -39,4 +39,4 @@ clockwork = Theme(
 
 
 
-theme_registry = [downtown_theme, abyss_theme, clockwork]
+theme_registry = [downtown_theme, abyss_theme, lighten]
