@@ -368,9 +368,10 @@ class ModalConveryScreenContact(ModalScreen, ConveryUtility, ConveryUserUtility,
 			selected_date = self.modal_dateselect.date
 			current_date = Date.today_in_system_tz()
 			if selected_date > current_date:
-				self.app.display_error_function("The selected date is in the futur!")
+				self.app.display_message_function("The selected date is in the futur!", "error")
 				#set the current date in the date picker
 				self.modal_dateselect.date = current_date
+	
 
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 		#if event.button.id == "test":
@@ -459,7 +460,7 @@ class SuggestFromList(Suggester):
 		return None
 		"""
 
-class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNotification, ConveryUserUtility):
+class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryUtility, ConveryNotification, ConveryUserUtility):
 	CSS_PATH = ["Styles/layout.tcss"]
 
 	def __init__(self):
@@ -515,7 +516,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 		
 		#GET THE LINKEDIN CONTACT
 		if (type(studio_data["CompanyLinkedin"]) == str) and (self.letter_verification_function(studio_data["CompanyLinkedin"]) == True):
-			self.display_success_function("Linkedin account detected")
+			self.display_message_function("Linkedin account detected", "success")
 			self.query_one("#modal_linkedin_content_switcher").current = "modal_get_contact_container"
 
 
@@ -524,7 +525,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 		#GET A LIST OF LINKEDIN ACCOUNT MATCHING WITH THE STUDIO NAME?
 		else:
-			self.display_warning_function("Impossible to detect linkedin account for this studio")
+			self.display_message_function("Impossible to detect linkedin account for this studio", "warning")
 			self.display_message_function("Trying to find linkedin studio accounts")
 			#CREATE A DRIVER
 			self.display_message_function(self.studio_name)
@@ -532,7 +533,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 				self.linkedin_studiolist = self.linkedin_get_studiolist_function(self.studio_name)
 
 			if type(self.linkedin_studiolist) != dict:
-				self.display_error_function("Impossible to find matching studio on linkedin!")
+				self.display_message_function("Impossible to find matching studio on linkedin!", "error")
 				return
 			else:
 				#clean selection list
@@ -595,9 +596,9 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 
 				
 			except Exception as e:
-				self.display_error_function(str(e))
+				self.display_message_function(str(e), "error")
 			else:
-				self.display_success_function("Linkedin account updated in Company Data")
+				self.display_message_function("Linkedin account updated in Company Data", "success")
 
 
 		if event.button.id == "modal_button_add_linkedin_contact":
@@ -635,7 +636,7 @@ class ModalConveryScreenLinkedin(ModalScreen, ConveryLinkedinUtility, ConveryNot
 			self.app.save_company_dictionnary_function()
 			self.app.update_informations_function()
 
-			self.display_success_function("New contact informations updated")
+			self.display_message_function("New contact informations updated", "success")
 
 
 

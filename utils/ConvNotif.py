@@ -39,6 +39,8 @@ from textual.containers import ScrollableContainer, Grid, Horizontal, Vertical, 
 from textual import on, work
 from textual_datepicker import DateSelect, DatePicker
 
+from rich.console import Console
+
 from utils.ConvWidget import MultiListView, MultiListItem
 
 colorama.init()
@@ -46,6 +48,7 @@ colorama.init()
 
 class ConveryNotification:
 	def display_message_function(self, message=" ", severity="message", time=True, mute=True):
+		console = Console()
 		#format message
 		message=str(message)
 		#display notification first
@@ -62,6 +65,7 @@ class ConveryNotification:
 		#notification_format = notification_format.replace("[", "\[").replace("]", "\]")
 		#create the log line for listview
 		label_format = Label(notification_format)
+		print(f"[{severity}] {message}")
 		#color label
 		if severity in ["warning", "error", "success"]:
 			try:

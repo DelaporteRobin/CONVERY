@@ -2,6 +2,7 @@ __pycache__/
 styles/__pycache__/
 utils/__pycache__/
 crashtest/
+env/
 CompanyData_Export.html
 CompanyData_Export.txt
 data/

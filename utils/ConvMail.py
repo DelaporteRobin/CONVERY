@@ -212,11 +212,6 @@ class ConveryMailUtility():
 
 
 
-
-
-
-
-
 	def create_mail_preset_function(self):
 		#get the content in the field
 		preset_name = self.input_presetname.value
@@ -247,7 +242,8 @@ class ConveryMailUtility():
 				}
 			self.user_settings["UserMailPreset"] = preset_list
 			self.save_mail_preset_function()
-			self.update_informations_function()
+			#self.update_informations_function()
+			self.update_contact_class_function()
 		else:
 			self.display_message_function("A preset with the same name is already registered", "error")
 
@@ -319,6 +315,7 @@ class ConveryMailUtility():
 		contacttype_index_list = (self.selectionlist_contacttype.selected)
 		contacttag_index_list = (self.selectionlist_tags.selected)
 		contactdelta_index_list = (self.selectionlist_delta.selected)
+		contactlocation_index_list = (self.selectionlist_location.selected)
 		#create list
 		contacttype_list = []
 		for index in contacttype_index_list:
@@ -329,9 +326,18 @@ class ConveryMailUtility():
 			contacttag_list.append(self.user_settings["UserTagList"][index])
 
 		contactdelta_list = []
+		self.display_message_function(";".join(list(self.user_settings["alertDictionnary"])))
+		for index in contactdelta_index_list:
+			self.display_message_function(f'{str(index)} : {list(self.user_settings["alertDictionnary"])[index]}')
+	
 		for index in contactdelta_index_list:
 			contactdelta_list.append(list(self.user_settings["alertDictionnary"])[index])
 
+		contactlocation_list = []
+		for index in contactlocation_index_list:
+			contactlocation_list.append(self.location_list[index])
+
+		self.display_message_function(str(", ".join(contactlocation_list)))
 
 		studio_list_contacttime = []
 
@@ -384,15 +390,35 @@ class ConveryMailUtility():
 			#	-> if the tag list isn't empty -> check for tags
 			#	-> if one of the studio tag is in the tag list
 
+			#check for the location
+			if len(contactlocation_list) != 0:
+				studio_location_list = studio_data["CompanyLocation"].upper().split(" ")
+				found=False
+				for studio_location in studio_location_list:
+					if studio_location in contactlocation_list:
+						found=True
+						break
+				if found==False:
+					continue
+
+
 			studio_tags = studio_data["CompanyTags"]
 			if len(contacttag_list) > 0:
-				found=False
+				if self.checkbox_exclude_tag.value==False:
+					found=False
+				else:
+					found=True
 
 				for tag in studio_tags:
 					if tag in contacttag_list:
-						found=True
-						break
-			self.display_message_function("		%s"%studio_name)
+						if (self.checkbox_exclude_tag.value)==True:
+							found=False
+							break
+
+						else:
+							found=True
+							break
+			#self.display_message_function("		%s"%studio_name)
 
 			if (len(contacttag_list) == 0) or (found==True):
 				for contact_type, contact_data in studio_data["CompanyContact"].items():

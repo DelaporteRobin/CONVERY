@@ -300,6 +300,17 @@ class ConveryGUIUtils(ConveryUserUtility):
 		#which is supposed to be correctly updated!!
 		self.selectionlist_tags.clear_options()
 		self.selectionlist_tags_settings.clear_options()
+		self.selectionlist_location.clear_options()
+
+		#get all location in dictionnary
+		self.location_list.clear()
+		i = 0
+		for studio_name, studio_data in self.company_dictionnary.items():
+			studio_location_list = studio_data["CompanyLocation"].upper().split(" ")
+			for studio_location in studio_location_list:
+				if (self.letter_verification_function(studio_location)==True) and (studio_location not in self.location_list):
+					self.location_list.append(studio_location)
+					self.selectionlist_location.add_option((studio_location, self.location_list.index(studio_location)))
 
 		for i in range(len(self.tag_list)):
 			self.selectionlist_tags.add_option((self.tag_list[i], i))
@@ -404,6 +415,7 @@ class ConveryGUIUtils(ConveryUserUtility):
 				if delta_week < alert_data["RecentContact"]["Delta"]:
 					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.no_alert_list):
 						self.no_alert_list.append(studio)
+					label.styles.color = self.theme_variables["success-lighten-1"]
 
 				elif (delta_week >= alert_data["RecentContact"]["Delta"]) and (delta_week < alert_data["LatelyContact"]["Delta"]):
 					if (self.user_settings["companyDisplayMode"] != 2) and (studio not in self.short_alert_list):

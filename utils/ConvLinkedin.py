@@ -60,13 +60,47 @@ from utils.ConvNotif import ConveryNotification
 
 
 
-class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
-
-
+class ConveryLinkedinUtility():
+	def get_linkedin_cookies_function(self):
+		#try to get the content in fields
+		linkedin_username = self.input_linkedin_username.value
+		linkedin_password = self.input_linkedin_password.value
+		#try to make the connection on the linkedin login page
+		chrome_options = Options()
+		chrome_options.add_argument("--headless")
+		#chrome_options.add_argument("--disable-gpu")
+		#chrome_options.add_argument("--window-size=1920,1080")
+		driver = webdriver.Chrome(options=chrome_options)
+		driver.get("https://linkedin.com/login")
+		#enter informations
+		username_input = driver.find_element(By.ID, "username")
+		password_input = driver.find_element(By.ID, "password")
+		username_input.send_keys(linkedin_username)
+		password_input.send_keys(linkedin_password)
+		#find login button
+		login_button = driver.find_element(By.CSS_SELECTOR, ".btn__primary--large.from__button--floating")
+		login_button.click()
+		#check for password error
+		try:
+			WebDriverWait(driver,3).until(
+				EC.presence_of_element_located((By.ID, "error-for-password"))
+			)
+			self.display_message_function("Wrong password", "error")
+			self.display_message_function("Impossible to get linkedin cookies from account", "error")
+			#self.console.print("Wrong password", style="error")
+			#self.console.print("Impossible to get linkedin cookies from account", style="error")
+			return False
+		except:
+			#self.console.print("Connected to linkedin account...", style="success")
+			self.display_message_function("Connected to linkedin account...", "notification")
+			#try to get cookies from the linkedin page
+			linkedin_cookies = driver.get_cookies()
+			#display linkedin cookies
+			#save linkedin cookies in user settings dictionnary
+			self.user_settings["UserLinkedinCookies"] = linkedin_cookies
+			self.save_user_settings_function()
 
 	def linkedin_login_function(self, link = None):
-
-		
 		#define chrome options before creating the driver
 		chrome_options = Options()
 		#chrome_options.add_argument("--headless")  # Activer le mode sans tête
@@ -77,27 +111,19 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 		chrome_options.add_argument("--enable-unsafe-swiftshader")
 
 		#chrome_options.add_argument("--headless=new")
-
-		username = self.app.user_settings["UserLinkedinAddress"]
-		password = self.app.user_settings["UserLinkedinPassword"]
-
 		driver = webdriver.Chrome(options=chrome_options)
 
-		
+		if "UserLinkedinCookies" not in self.app.user_settings:
+			self.display_message_function("You must save your linkedin cookies first", "error")
+			return
 		try:
-			driver.get(link)
-
-
-
+			driver.get("https://linkedin.com")
 			#TRY TO LOAD COOKIES FOR LINKEDIN??
 			try:
-				with open(os.path.join(os.getcwd(), "data/user/linkedin_cookies.json"), "r") as read_file:
-					cookies = json.load(read_file)
+				for cookie in self.app.user_settings["UserLinkedinCookies"]:
+					driver.add_cookie(cookie)
 
-					for cookie in cookies:
-						driver.add_cookie(cookie)
-
-					driver.refresh()
+				driver.refresh()
 			except Exception as e:
 				self.display_message_function("Impossible to load cookies\n%s"%e, "error")
 				
@@ -125,10 +151,10 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 
 
 	def linkedin_get_studiolist_function(self, studio_name):
-		driver = self.linkedin_login_function("https://linkedin.com/login")
+		driver = self.linkedin_login_function("https://linkedin.com")
 
 
-
+		return
 		if driver == False:
 			self.display_message_function("Impossible to make connection", "error")
 			return 
@@ -218,7 +244,7 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			
 
 	def get_linkedin_user_function(self, studio_name, studio_account):
-		driver = self.linkedin_login_function(studio_account)
+		driver = self.linkedin_login_function("https://linkedin.com")
 
 
 		#os.system("pause")
@@ -228,15 +254,10 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			return 
 		else:
 			self.display_message_function("Driver created", "success")
-
-
+			return
 			driver.maximize_window()
 			sleep(2)
-
-
 			self.display_message_function("TRYING TO SEARCH FOR CONTACTS!")
-
-			
 
 			#try to click on the "Personnes" button
 			try:
@@ -295,11 +316,6 @@ class ConveryLinkedinUtility(ConveryNotification, ConveryUtility):
 			member_position_div_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__subtitle")
 			member_position_image_list = driver.find_elements(By.CLASS_NAME, "artdeco-entity-lockup__image--type-circle")
 			#member_link_container = driver.find_element(By.CLASS_NAME, "link-without-visited-state")
-
-
-			
-
-
 
 			
 			member_list = {}

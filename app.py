@@ -48,6 +48,7 @@ from utils.ConvGuiUtility import ConveryGUIUtils
 from utils.ConvNotif import ConveryNotification
 from utils.ConvUtility import ConveryUtility
 from utils.ConvMail import ConveryMailUtility
+from utils.ConvLinkedin import ConveryLinkedinUtility
 #from utils.ConvLinkedinScrapper import ConveryLinkedinScrapperApplication
 
 
@@ -74,7 +75,7 @@ from utils.ConvWidget import MultiListView, MultiListItem, MultiWordSuggester
 
 
 
-class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility):
+class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, ConveryMailUtility, ConveryLinkedinUtility):
 	CSS_PATH = ["styles/layout.tcss"]
 
 	def __init__(self):
@@ -96,6 +97,7 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 		self.kind_list = ["MEMBER", "JOB", "GENERAL"]
 		#self.tag_list = ["wonderful", "shitty", "blocked", "luxury"]
 		self.tag_list = []
+		self.location_list = []
 
 
 		self.user_mail_address_list = []
@@ -217,8 +219,15 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 									yield Label("Dropbox settings",classes="label_settings_title")
 									yield Button("Launch dropbox identification",id="button_dropbox_identification")
 									yield Button("Trigger connection with dropbox",id="button_dropbox_connection")
-					
-							with VerticalScroll(id="left_vertical_contact_column"):
+
+									yield Label("Linkedin settings", classes="label_settings_title")
+									self.input_linkedin_username = Input(placeholder = "Linkedin username / email", id="input_linkedin_username")
+									self.input_linkedin_password = Input(placeholder = "Linkedin password", password=True, id="input_linkedin_password")
+									yield self.input_linkedin_username
+									yield self.input_linkedin_password
+									yield Button("Get linkedin cookies", id="button_get_linkedin_cookies")
+
+							with VerticalScroll(id="left_vertical_contact_column"):	
 								with Horizontal(id = "left_horizontal_classoption_bar"):
 
 									yield Button("Create class",id="button_createclass", variant="success")
@@ -375,13 +384,17 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 											with Horizontal(id = "mail_contact_horizontal_container"):
 												with Vertical(id = "mail_contact_left_column"):
 													self.selectionlist_contacttype = SelectionList(id = "selectionlist_contacttype")
+													self.checkbox_exclude_tag = Checkbox("Exclude selected tags", id="checkbox_exclude_tag")
 													self.selectionlist_tags = SelectionList(id = "selectionlist_tags")
 													self.selectionlist_delta = SelectionList(id = "selectionlist_delta")
+													self.selectionlist_location = SelectionList(id = "selectionlist_location")
 
 											
 													yield self.selectionlist_contacttype
 													yield self.selectionlist_delta
+													yield self.checkbox_exclude_tag
 													yield self.selectionlist_tags
+													yield self.selectionlist_location
 
 											
 
@@ -661,6 +674,9 @@ class ConveryApp(App, ConveryGUIUtils, ConveryUtility, ConveryNotification, Conv
 	def on_button_pressed(self, event: Button.Pressed) -> None:
 		if event.button.id == "button_save_attached_files":
 			self.save_attached_files_function()
+
+		if event.button.id == "button_get_linkedin_cookies":
+			self.get_linkedin_cookies_function()
 
 		if event.button.id == "button_dropbox_identification":
 			self.app.push_screen(ModalDropboxAuthentification())
