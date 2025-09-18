@@ -128,6 +128,18 @@ class ConveryMailUtility():
 				mail_data[new_mail_address] = new_mail_key
 
 				self.save_user_settings_function()
+			except KeyError:
+				#create the key in the dictionnary
+				self.user_settings["UserMailData"] = {}
+				self.user_settings["UserMailData"][new_mail_address] = new_mail_key
+
+				try:
+					self.save_user_settings_function()
+				except:
+					self.display_message_function(f"Impossible to save first mail address\n{traceback.format_exc()}", "error")
+					return
+				else:
+					self.display_message_function(f"Email address saved")
 			except Exception as e:
 				self.display_message_function("Impossible to save email address","error")
 				self.display_message_function(traceback.format_exc(), "error", False)
