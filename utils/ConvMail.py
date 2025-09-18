@@ -253,9 +253,13 @@ class ConveryMailUtility():
 		try:
 			with open(os.path.join(os.getcwd(), "data/user/UserSettings.json"), "r") as read_file:
 				self.user_settings = json.load(read_file)
+		except FileNotFoundError:
+			self.display_message_function("User settings file doesn't exists yet", "error")
+			return
 		except Exception as e:
 			self.display_message_function("Impossible to load mail presets", "error")
 			self.display_message_function(traceback.format_exc(), "error", False)
+			return
 		else:
 			#self.display_message_function("Presets loaded")
 			#self.display_message_function(self.user_preset)
